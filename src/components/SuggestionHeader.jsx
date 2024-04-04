@@ -10,7 +10,7 @@ export default function SuggestionHeader() {
               <div>
                 <StyledDesktopText>
                   <img src="/assets/suggestions/icon-suggestions.svg"/>
-                  <p>(6) suggestions</p>
+                  <p>6 suggestions</p> {/* ეს შესააცვლელია */}
                   </StyledDesktopText>
                 <p>Sort By: </p>
                 <span>Most Upvotes</span> {/*sorting  here*/}

@@ -11,6 +11,12 @@ export default function SuggestionCard() {
         <>
         {data.productRequests.map((item) =>{
           return <StyledDiv key={item.id}>
+            <UpvotesDesktop >
+                <img src="/assets/shared/icon-arrow-up.svg"/>
+                <p>{item.upvotes}</p>
+            </UpvotesDesktop>
+
+          <CenterDiv >
             <StyledTexts>
               <h3>{item.title}</h3>
               <p>{item.description}</p>
@@ -20,15 +26,20 @@ export default function SuggestionCard() {
               <Upvotes>
                 <img src="/assets/shared/icon-arrow-up.svg"/>
                 <p>{item.upvotes}</p>
-                </Upvotes>
+              </Upvotes>
                 <Comments>
                 <img src="/assets/shared/icon-comments.svg"/>
                 {/* {item.comments.length} */}
                 </Comments>
             </StyledBottom>
+            </CenterDiv>
+            <CommentsDesktop>
+                <img src="/assets/shared/icon-comments.svg"/>
+                {/* {item.comments.length} */}
+            </CommentsDesktop>
           </StyledDiv>
+          
         })}
-            
         </>
     )
 }
@@ -42,8 +53,24 @@ const StyledDiv = styled.div`
     background-color: #fff;
     padding: 24px;
     border-radius: 10px;
+    @media only screen and (min-width: 768px){
+      width: 50%;
+      margin: 0 auto;
+      margin-top: 24px;
+      height: 0;
+      min-height: 151px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 50%;
+    }
 `
-
+const CenterDiv =styled.div`
+    @media only screen and (min-width: 768px){
+      width: 80%;
+    }
+  
+`
 const StyledTexts = styled.div`
   & > h3{
     color: #3A4374;
@@ -53,6 +80,9 @@ const StyledTexts = styled.div`
     font-weight: 700;
     line-height: normal;
     letter-spacing: -0.181px;
+    @media only screen and (min-width : 768px){
+      font-size: 18px;
+    }
   }
   & > p{
     padding: 9px 0;
@@ -62,7 +92,9 @@ const StyledTexts = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    
+    @media only screen and (min-width : 768px){
+      font-size: 16px;
+    }
   }
 
 `
@@ -90,7 +122,9 @@ const StyledBottom = styled.div`
   align-items: center;
   margin-top: 16px;
   padding-top: 10px;
-
+  @media only screen and (min-width: 768px){
+      display: none;
+  }
 `
 
 const Upvotes = styled.div`
@@ -104,6 +138,7 @@ const Upvotes = styled.div`
   align-items: center;
   gap: 10px;
   padding: 0 14px;
+  
   &:hover{
       background-color: #CFD7FF;
     }
@@ -117,10 +152,47 @@ const Upvotes = styled.div`
     font-weight: 700;
     line-height: normal;
     letter-spacing: -0.181px;
-    
   }
 `
+const UpvotesDesktop = styled.div`
+  width: 40px;
+  min-height: 53px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: #F2F4FE;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  
+  &:hover{
+      background-color: #CFD7FF;
+    }
+    
 
+  & > p{
+    color: #3A4374;
+    text-align: center;
+    font-family: Jost;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.181px;
+  }
+  @media only screen and (max-width: 768px){
+      display: none;
+  }
+`
+const CommentsDesktop = styled.div`
+  display: flex;
+  gap: 4px;
+  @media only screen and (max-width: 768px){
+      display: none;
+  }
+`
 
 const Comments = styled.div`
   display: flex;
