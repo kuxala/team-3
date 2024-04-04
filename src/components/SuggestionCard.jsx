@@ -7,14 +7,14 @@ export default function SuggestionCard() {
   const {data, setData} = useContext(MyContext);
   
     console.log(data.productRequests.map((item) =>{
-      return item.category
+      return item.comment
     }))
   
   
     return (
         <>
         {data.productRequests.map((item) =>{
-          return <StyledDiv>
+          return <StyledDiv key={item.id}>
             <StyledTexts>
               <h3>{item.title}</h3>
               <p>{item.description}</p>
@@ -27,9 +27,7 @@ export default function SuggestionCard() {
                 </Upvotes>
                 <Comments>
                 <img src="/assets/shared/icon-comments.svg"/>
-                {/* {item.comments.map((each) =>{
-                  return each
-                })} */}
+                {/* {item.comments.length} */}
                 </Comments>
             </StyledBottom>
           </StyledDiv>
