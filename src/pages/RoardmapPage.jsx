@@ -18,9 +18,7 @@ export default function RoardmapPage() {
       };
     }, []); 
 
-    console.log(data.productRequests.map((item) => {
-      return item
-    }))
+    
     return (
         <>
           <StyledContainer>
@@ -37,12 +35,84 @@ export default function RoardmapPage() {
             </RodmapHeader>
 
             {screenWidth < 768 
-            ?             
+            ?     
+            <>        
             <SmallHeader>
-              <p style={{ borderBottom: isActive[0] ? '4px solid #AD1FEA' : 'none', opacity: isActive[0] ? "1" : "0.5"}} onClick={() => setIsActive([true, false, false])}>Planned (1)</p>
-              <p style={{ borderBottom: isActive[1] ? '4px solid #AD1FEA' : 'none', opacity: isActive[1] ? "1" : "0.5" }} onClick={() => setIsActive([false, true, false])}>In-Progress (1)</p>
-              <p style={{ borderBottom: isActive[2] ? '4px solid #AD1FEA' : 'none', opacity: isActive[2] ? "1" : "0.5" }} onClick={() => setIsActive([false, false, true])}>Live (1)</p>
+              <div style={{ borderBottom: isActive[0] ? '4px solid #F49F85' : 'none', opacity: isActive[0] ? "1" : "0.5"}} onClick={() => setIsActive([true, false, false])}>
+                Planned (1)
+                
+              </div>
+              <div style={{ borderBottom: isActive[1] ? '4px solid #AD1FEA' : 'none', opacity: isActive[1] ? "1" : "0.5" }} onClick={() => setIsActive([false, true, false])}>In-Progress (1)</div>
+              <div style={{ borderBottom: isActive[2] ? '4px solid #62BCFA' : 'none', opacity: isActive[2] ? "1" : "0.5" }} onClick={() => setIsActive([false, false, true])}>Live (1)</div>
+              
             </SmallHeader>
+            {isActive[0] ? 
+            data.productRequests.map((item) => {
+                if (item.status == "planned"){
+                  return <StyledDiv key={item.id} style={{borderTop: "5px solid #F49F85"}}>
+                  <p>Planned</p>
+                  <h1>{item.title}</h1>
+                  <span>{item.description}</span>
+                  <Feature>{item.category}</Feature>
+                  <StyledBottom>
+                      <Upvotes>
+                        <img src="/assets/shared/icon-arrow-up.svg"/>
+                        <p>{item.upvotes}</p>
+                        
+                      </Upvotes>
+                        <Comments>
+                          <img src="/assets/shared/icon-comments.svg"/>
+                          {item.comments.length}
+                        </Comments>
+                  </StyledBottom>
+                </StyledDiv>
+                }
+              })
+            : 
+            null}
+            {isActive[1] ? data.productRequests.map((item) => {
+                if (item.status == "in-progress"){
+                  return <StyledDiv key={item.id} style={{borderTop: "5px solid #AD1FEA"}}>
+                  <p>Planned</p>
+                  <h1>{item.title}</h1>
+                  <span>{item.description}</span>
+                  <Feature>{item.category}</Feature>
+                  <StyledBottom>
+                      <Upvotes>
+                        <img src="/assets/shared/icon-arrow-up.svg"/>
+                        <p>{item.upvotes}</p>
+                        
+                      </Upvotes>
+                        <Comments>
+                          <img src="/assets/shared/icon-comments.svg"/>
+                          {item?.comments?.length}
+                        </Comments>
+                  </StyledBottom>
+                </StyledDiv>
+                }
+              }):  null}
+            {isActive[2] ? data.productRequests.map((item) => {
+                if (item.status == "planned"){
+                  return <StyledDiv key={item.id} style={{borderTop: "5px solid #62BCFA"}}>
+                  <p>Planned</p>
+                  <h1>{item.title}</h1>
+                  <span>{item.description}</span>
+                  <Feature>{item.category}</Feature>
+                  <StyledBottom>
+                      <Upvotes>
+                        <img src="/assets/shared/icon-arrow-up.svg"/>
+                        <p>{item.upvotes}</p>
+                        
+                      </Upvotes>
+                        <Comments>
+                          <img src="/assets/shared/icon-comments.svg"/>
+                          {item.comments.length}
+                        </Comments>
+                  </StyledBottom>
+                </StyledDiv>
+                }
+              }):  null}
+            </>
              : 
             <DesktopSmallHeader>
               
@@ -142,6 +212,11 @@ const StyledDiv= styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+  @media only screen and (max-width: 768px){
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
   & > p{
     color: #647196;
     font-family: Jost;
@@ -332,7 +407,7 @@ const SmallHeader = styled.div`
   display: flex;
   justify-content: space-around;
   border-bottom: 1px solid rgba(128, 128, 128, 0.5);
-  & >p{
+  & > div{
     padding: 0 16px;
     height: 55px;
     display: flex;
