@@ -6,31 +6,35 @@ export default function SuggestionCard() {
 
   const {data, setData} = useContext(MyContext);
   
+    console.log(data.productRequests.map((item) =>{
+      return item.category
+    }))
   
-  console.log("data in card: ", data)
   
     return (
         <>
-            <StyledDiv>
-                <StyledTexts>
-                  <h3>Add tags for solutions</h3>
-                  <p>Easier to serch for solutions based on a specific stack.</p>
-                </StyledTexts>
-
-                <StyledTag>Enhancment</StyledTag>
-                
-                <StyledBottom>
-                  <Upvotes>
-                    <img src="/assets/shared/icon-arrow-up.svg"/>
-                    <p>count</p>
-                  </Upvotes>
-                  <Comments>
-                    <img src="/assets/shared/icon-comments.svg"/>
-                      {} {/* count comments here */}
-                  </Comments>
-                </StyledBottom>
-
-            </StyledDiv>
+        {data.productRequests.map((item) =>{
+          return <StyledDiv>
+            <StyledTexts>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+            </StyledTexts>
+            <StyledCategory>{item.category}</StyledCategory>
+            <StyledBottom>
+              <Upvotes>
+                <img src="/assets/shared/icon-arrow-up.svg"/>
+                <p>{item.upvotes}</p>
+                </Upvotes>
+                <Comments>
+                <img src="/assets/shared/icon-comments.svg"/>
+                {/* {item.comments.map((each) =>{
+                  return each
+                })} */}
+                </Comments>
+            </StyledBottom>
+          </StyledDiv>
+        })}
+            
         </>
     )
 }
@@ -41,6 +45,9 @@ const StyledDiv = styled.div`
     flex-direction: column;
     min-height: 200px;
     margin: 24px;
+    background-color: #fff;
+    padding: 24px;
+    border-radius: 10px;
 `
 
 const StyledTexts = styled.div`
@@ -64,7 +71,7 @@ const StyledTexts = styled.div`
   }
 
 `
-const StyledTag = styled.div`
+const StyledCategory = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
