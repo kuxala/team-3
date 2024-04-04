@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import React, { useContext } from 'react';
 import {MyContext} from '../App';
+import SuggestionHeader from "./SuggestionHeader";
 
 export default function SuggestionCard() {
 
@@ -13,6 +14,7 @@ export default function SuggestionCard() {
   
     return (
         <>
+        
         {data.productRequests.map((item) =>{
           return <StyledDiv key={item.id}>
             <StyledTexts>
