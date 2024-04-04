@@ -128,6 +128,7 @@ const Comment = styled.textarea`
   border-radius: 5px;
   border-style: none;
   border: none;
+  resize: none;
 `;
 
 const Select = styled.select``;
