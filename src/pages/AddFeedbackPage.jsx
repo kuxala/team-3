@@ -35,7 +35,10 @@ export default function AddFeedbackPage() {
         </Labeltext>
         <Comment type="text" />
 
- 
+        <Buttons>
+        <Button className="purple">Add Feedback</Button>
+        <Button className="blue">Cancel</Button>
+         </Buttons>
 </FeedbackForm>
 </FeedbackContainer>
     )}
