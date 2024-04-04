@@ -3,10 +3,8 @@ import styled from "styled-components";
 import SuggestionHeader from '../components/SuggestionHeader';
 
 
-
 export default function HomePage() {
     
-
     return (
         <>
         <SuggestionHeader/>

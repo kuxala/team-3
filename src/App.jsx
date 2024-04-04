@@ -21,7 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />}/>
           <Route path="/suggestions" element={< SuggestionsPage/>}/>
-          <Route path="/suggestions/:id" element={< Feedback/>}/>
+          <Route path="/suggestions/:userId" element={< Feedback/>}/>
           <Route path="/add-feedback" element={<AddFeedbackPage/>}/>
           <Route path="/edit-feedback" element={<EditFeedbackPage/>}/>
           <Route path="/roadmap" element={<RoadmapPage/>}/>
