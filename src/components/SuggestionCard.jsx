@@ -7,8 +7,6 @@ export default function SuggestionCard() {
   const {data, setData} = useContext(MyContext);
   
    
-  
-  
     return (
         <>
         {data.productRequests.map((item) =>{
@@ -91,6 +89,7 @@ const StyledBottom = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 16px;
+  padding-top: 10px;
 
 `
 

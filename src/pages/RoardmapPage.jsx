@@ -21,9 +21,9 @@ export default function RoardmapPage() {
             </RodmapHeader>
 
             <SmallHeader>
-              <p style={{ borderBottom: isActive[0] ? '4px solid #AD1FEA' : 'none', opacity: isActive[0] ? "1" : "0.7"}} onClick={() => setIsActive([true, false, false])}>Planned (1)</p>
-              <p style={{ borderBottom: isActive[1] ? '4px solid #AD1FEA' : 'none', opacity: isActive[1] ? "1" : "0.7" }} onClick={() => setIsActive([false, true, false])}>In-Progress (1)</p>
-              <p style={{ borderBottom: isActive[2] ? '4px solid #AD1FEA' : 'none', opacity: isActive[2] ? "1" : "0.7" }} onClick={() => setIsActive([false, false, true])}>Live (1)</p>
+              <p style={{ borderBottom: isActive[0] ? '4px solid #AD1FEA' : 'none', opacity: isActive[0] ? "1" : "0.5"}} onClick={() => setIsActive([true, false, false])}>Planned (1)</p>
+              <p style={{ borderBottom: isActive[1] ? '4px solid #AD1FEA' : 'none', opacity: isActive[1] ? "1" : "0.5" }} onClick={() => setIsActive([false, true, false])}>In-Progress (1)</p>
+              <p style={{ borderBottom: isActive[2] ? '4px solid #AD1FEA' : 'none', opacity: isActive[2] ? "1" : "0.5" }} onClick={() => setIsActive([false, false, true])}>Live (1)</p>
             </SmallHeader>
             
 
@@ -82,6 +82,11 @@ const RodmapHeader = styled.div`
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    cursor: pointer;
+    &:hover{
+      opacity: 0.8;
+
+    }
   }
 `
 
