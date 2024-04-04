@@ -6,9 +6,7 @@ export default function SuggestionCard() {
 
   const {data, setData} = useContext(MyContext);
   
-    console.log(data.productRequests.map((item) =>{
-      return item.comment
-    }))
+   
   
   
     return (
