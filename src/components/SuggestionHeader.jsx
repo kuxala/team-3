@@ -9,7 +9,7 @@ export default function SuggestionHeader() {
             <SuggestionHeaderDiv>
               <div>
                 <p>Sort By: </p>
-                <span>Most Upwotes</span> {/*sorting  here*/}
+                <span>Most Upvotes</span> {/*sorting  here*/}
                 <img src="/assets/shared/icon-arrow-down.svg"/>
               </div> 
               <button>+ Add Feedback</button>
@@ -62,6 +62,10 @@ const SuggestionHeaderDiv = styled.div`
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    cursor: pointer;
+    &:hover{
+        background-color: #C75AF6;
+    }
   }
   
 `

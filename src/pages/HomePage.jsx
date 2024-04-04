@@ -24,7 +24,7 @@ export default function HomePage() {
 }
 
 
-const StyledDiv =styled.div`
+const StyledDiv = styled.div`
     margin: 30px 24px;
     margin-top: 100px;
     background-color: #fff;
@@ -71,6 +71,11 @@ const StyledDiv =styled.div`
         font-style: normal;
         font-weight: 700;
         line-height: normal;
+        
+        cursor: pointer;
+        &:hover{
+        background-color: #C75AF6;
+    }
 
     }
 `

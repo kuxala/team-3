@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import React, { useContext } from 'react';
 import {MyContext} from '../App';
-import SuggestionHeader from "./SuggestionHeader";
 
 export default function SuggestionCard() {
 
@@ -68,6 +67,7 @@ const StyledTexts = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    
   }
 
 `
@@ -108,6 +108,10 @@ const Upvotes = styled.div`
   align-items: center;
   gap: 10px;
   padding: 0 14px;
+  &:hover{
+      background-color: #CFD7FF;
+    }
+
   & > p{
     color: #3A4374;
     text-align: center;
@@ -117,6 +121,7 @@ const Upvotes = styled.div`
     font-weight: 700;
     line-height: normal;
     letter-spacing: -0.181px;
+    
   }
 `
 
