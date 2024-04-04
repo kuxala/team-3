@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import styled from "styled-components";
 import {MyContext} from '../App';
-
+import {Link} from "react-router-dom"
 export default function RoardmapPage() {
     const [isActive, setIsActive]  = useState([false,true, false]);
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
@@ -27,7 +27,7 @@ export default function RoardmapPage() {
               <div>
                 <div>
                   <img src="assets/shared/icon-arrow-left.svg"/>
-                  <p>Go Back</p>
+                  <LinkTo to="/">Go Back</LinkTo>
                 </div>
                 <h3>Roadmap</h3>
               </div>
@@ -73,7 +73,7 @@ export default function RoardmapPage() {
             {isActive[1] ? data.productRequests.map((item) => {
                 if (item.status == "in-progress"){
                   return <StyledDiv key={item.id} style={{borderTop: "5px solid #AD1FEA"}}>
-                  <p>Planned</p>
+                  <p>In Progress</p>
                   <h1>{item.title}</h1>
                   <span>{item.description}</span>
                   <Feature>{item.category}</Feature>
@@ -92,9 +92,9 @@ export default function RoardmapPage() {
                 }
               }):  null}
             {isActive[2] ? data.productRequests.map((item) => {
-                if (item.status == "planned"){
+                if (item.status == "live"){
                   return <StyledDiv key={item.id} style={{borderTop: "5px solid #62BCFA"}}>
-                  <p>Planned</p>
+                  <p>Live</p>
                   <h1>{item.title}</h1>
                   <span>{item.description}</span>
                   <Feature>{item.category}</Feature>
@@ -148,7 +148,7 @@ export default function RoardmapPage() {
                 {data.productRequests.map((item) => {
                 if (item.status == "in-progress"){
                   return <StyledDiv key={item.id} style={{borderTop: "5px solid #AD1FEA"}}>
-                  <p>Planned</p>
+                  <p>In Progress</p>
                   <h1>{item.title}</h1>
                   <span>{item.description}</span>
                   <Feature>{item.category}</Feature>
@@ -174,7 +174,7 @@ export default function RoardmapPage() {
                 {data.productRequests.map((item) => {
                 if (item.status == "live"){
                   return <StyledDiv key={item.id} style={{borderTop: "5px solid #62BCFA"}}>
-                  <p>Planned</p>
+                  <p>Live</p>
                   <h1>{item.title}</h1>
                   <span>{item.description}</span>
                   <Feature>{item.category}</Feature>
@@ -205,7 +205,7 @@ export default function RoardmapPage() {
 
 const StyledDiv= styled.div`
   width: 100%;
-  min-height: 272px;
+  min-height: 280px;
   background-color: #fff;
   border-radius: 10px;
   padding: 32px;
@@ -361,15 +361,6 @@ const RodmapHeader = styled.div`
     display: flex;
     align-items: center;
     gap: 10px;
-  
-      & > p{
-      color: #FFF;
-      font-family: Jost;
-      font-size: 13px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-    }
   }
   & > div > h3 {
     padding-top: 4px;
@@ -402,6 +393,16 @@ const RodmapHeader = styled.div`
     }
   }
 `;
+const LinkTo = styled(Link)`
+    color: #FFF;
+    font-family: Jost;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-decoration: none;
+
+`
 
 const SmallHeader = styled.div`
   display: flex;

@@ -2,6 +2,7 @@ import React, {useContext} from 'react'
 import styled from 'styled-components'
 import {useParams, Link } from "react-router-dom"
 import {MyContext} from '../App';
+import CommentSection from '../components/CommentSection';
 
 export default function Id() {
   let { userId } = useParams();
@@ -53,6 +54,7 @@ export default function Id() {
              }
             })}
            </div>
+           <CommentSection/>
         </>
     )
 }
