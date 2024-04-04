@@ -5,7 +5,6 @@ import {MyContext} from '../App';
 export default function SuggestionCard() {
 
   const {data, setData} = useContext(MyContext);
-  
    
     return (
         <>
