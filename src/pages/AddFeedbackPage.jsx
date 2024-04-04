@@ -183,7 +183,9 @@ const Select = styled.select`
   height: 48px;
   border-radius: 5px;
   border-style: none;
- 
+  @media screen and (min-width: 768px) {
+    width: 456px;
+  }
 `;
 const Option = styled.option``;
 
