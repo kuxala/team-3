@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import arrow from "/Users/ani/Desktop/team-3/public/assets/shared/icon-arrow-left.svg";
-import icon from "/Users/ani/Desktop/team-3/public/assets/shared/icon-edit-feedback.svg";
+import Icon from "/Users/ani/Desktop/team-3/public/assets/shared/icon-edit-feedback.svg";
 export default function EditFeedbackPage() {
   return (
     <FeedbackContainer>
@@ -10,7 +10,7 @@ export default function EditFeedbackPage() {
         <span>Go Back</span>
       </Header>
       <FeedbackForm>
-        <img src={icon} className="iconPlus" />
+        <img src={Icon} className="Icon" />
         <Title>Add a dark theme option</Title>
         <Label>Feedback Title</Label>
         <Labeltext>Add a short, descriptive headline</Labeltext>
@@ -89,25 +89,25 @@ const FeedbackForm = styled.div`
   row-gap: 13px;
   border-radius: 15px;
 
-  & .iconPlus {
+  & .Icon {
     position: absolute;
     top: -4%;
     left: 5%;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background: radial-gradient(
       128.88% 128.88% at 103.9% -10.39%,
       #e84d70 0%,
       #a337f6 53.09%,
       #28a7ed 100%
     );
-    padding: 15px;
+    padding: 10px;
     border-radius: 50%;
   }
   @media screen and (min-width: 768px) {
     width: 540px;
 
-    & .iconPlus {
+    & .Icon {
       width: 48px;
       height: 48px;
       left: 6%;
