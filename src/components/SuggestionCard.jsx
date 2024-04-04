@@ -1,9 +1,14 @@
 import styled from "styled-components"
-
-
+import React, { useContext } from 'react';
+import {MyContext} from '../App';
 
 export default function SuggestionCard() {
 
+  const {data, setData} = useContext(MyContext);
+  
+  
+  console.log("data in card: ", data)
+  
     return (
         <>
             <StyledDiv>
