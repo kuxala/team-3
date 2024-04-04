@@ -19,8 +19,8 @@ function App() {
     <MyContext.Provider value={{data, setData}}>
       <Router>
         <Routes>
-          <Route path="/" element={<HomePage />}/>
-          <Route path="/suggestions" element={< SuggestionsPage/>}/>
+          <Route path="/empty" element={<HomePage />}/>
+          <Route path="/" element={< SuggestionsPage/>}/>
           <Route path="/suggestions/:userId" element={< Feedback/>}/>
           <Route path="/add-feedback" element={<AddFeedbackPage/>}/>
           <Route path="/edit-feedback" element={<EditFeedbackPage/>}/>

@@ -18,7 +18,7 @@ export default function SuggestionsPage() {
 
 
 
-const ContainerDiv =styled.div`
+const ContainerDiv = styled.div`
     
 `
 

@@ -5,12 +5,9 @@ import {MyContext} from '../App';
 
 export default function Id() {
   let { userId } = useParams();
-  console.log("UserId : ", userId)
-
+  // console.log("UserId : ", userId)
   const {data, setData} = useContext(MyContext);
-  console.log("Data Id: ", data.productRequests.map((card) =>{
-    return card.id
-  }))
+  
     return (
         <>
            <div>
