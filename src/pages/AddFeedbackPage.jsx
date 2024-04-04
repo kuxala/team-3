@@ -48,6 +48,11 @@ export default function AddFeedbackPage() {
 const FeedbackContainer = styled.div`
   width: 327px;
   margin: auto;
+
+  @media screen and (min-width: 768px) {
+    width: 540px;
+    margin: auto;
+  }
 `;
 
 const Header = styled.div`
@@ -88,6 +93,19 @@ const FeedbackForm = styled.div`
     padding: 15px;
     border-radius: 50%;
   }
+  @media screen and (min-width: 768px) {
+    width: 540px;
+
+    & .iconPlus {
+      width: 48px;
+      height: 48px;
+      left: 6%;
+    }
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const Title = styled.h1`
@@ -96,6 +114,14 @@ const Title = styled.h1`
   line-height: 26.01px;
   letter-spacing: -0.25px;
   color: #3a4374;
+
+  @media screen and (min-width: 768px) {
+    font-size: 24px;
+    line-height: 34.68px;
+    font-weight: 700;
+    padding-top: 10px;
+    width: 456px;
+  }
 `;
 
 const Label = styled.h3`
@@ -105,12 +131,25 @@ const Label = styled.h3`
   letter-spacing: -0.1805555522441864px;
   color: #3a4374;
   padding-top: 10px;
+  width: 456px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 14px;
+    line-height: 20.79px;
+    width: 456px;
+  }
 `;
 const Labeltext = styled.h2`
   font-size: 13px;
   font-weight: 400;
   line-height: 18.79px;
   color: #647196;
+
+  @media screen and (min-width: 768px) {
+    font-size: 14px;
+    line-height: 20px;
+    width: 456px;
+  }
 `;
 
 const Input = styled.input`
@@ -119,6 +158,10 @@ const Input = styled.input`
   height: 48px;
   border-radius: 5px;
   border-style: none;
+
+  @media screen and (min-width: 768px) {
+    width: 456px;
+  }
 `;
 
 const Comment = styled.textarea`
@@ -129,10 +172,23 @@ const Comment = styled.textarea`
   border-style: none;
   border: none;
   resize: none;
+  @media screen and (min-width: 768px) {
+    width: 456px;
+  }
 `;
 
-const Select = styled.select``;
-const Option = styled.option``;
+const Select = styled.select`
+  background-color: #f7f8fd;
+  width: 279px;
+  height: 48px;
+  border-radius: 5px;
+  border-style: none;
+  @media screen and (min-width: 768px) {
+    width: 456px;
+  }
+`;
+const Option = styled.option`
+`;
 
 const Buttons = styled.div`
   display: flex;
@@ -145,6 +201,19 @@ const Buttons = styled.div`
 
   & .blue {
     background-color: #3a4374;
+  }
+  @media screen and (min-width: 768px) {
+    display: flex;
+    width: 456px;
+    column-gap: 15px;
+    flex-direction: row-reverse;
+    & .blue {
+      width: 93px;
+    }
+
+    & .purple {
+      width: 144px;
+    }
   }
 `;
 const Button = styled.button`
