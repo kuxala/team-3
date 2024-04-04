@@ -11,7 +11,6 @@ export default function SuggestionCard() {
   
     return (
         <>
-        
         {data.productRequests.map((item) =>{
           return <StyledDiv key={item.id}>
             <StyledTexts>
