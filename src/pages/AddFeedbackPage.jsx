@@ -225,4 +225,12 @@ const Buttons = styled.div`
     }
   }
 `;
-
+const Button = styled.button`
+  width: 279px;
+  height: 40px;
+  border-style: none;
+  border-radius: 10px;
+  color: #f2f4fe;
+  font-size: 13px;
+  font-weight: 700;
+`;
