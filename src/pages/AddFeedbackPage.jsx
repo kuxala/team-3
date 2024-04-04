@@ -213,6 +213,18 @@ const Buttons = styled.div`
 
     & .purple {
       width: 144px;
+      
+    }
+
+    & .blue:hover{
+        background-color:#656EA3;
+        cursor:pointer;
+    }
+
+    & .purple:hover{
+        background: #C75AF6;
+        cursor:pointer;
+;
     }
   }
 `;
