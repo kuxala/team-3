@@ -32,6 +32,11 @@ const StyledDiv = styled.div`
     align-items: center;
     justify-content: center;
     border-radius: 10px;
+    @media only screen and (min-width: 768px){
+        width: 50%;
+        margin: 0 auto;
+        margin-top: 30px;
+    }
     
     & > h1{
         padding-top: 40px;

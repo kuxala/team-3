@@ -32,7 +32,7 @@ export default function SuggestionCard() {
                 {/* {item.comments.length} */}
                 </Comments>
             </StyledBottom>
-            </CenterDiv>
+          </CenterDiv>
             <CommentsDesktop>
                 <img src="/assets/shared/icon-comments.svg"/>
                 {/* {item.comments.length} */}
@@ -62,7 +62,6 @@ const StyledDiv = styled.div`
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      width: 50%;
     }
 `
 const CenterDiv =styled.div`
