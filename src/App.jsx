@@ -12,9 +12,11 @@ export const MyContext = createContext(null);
 
 function App() {
   const [data, setData] = useState(jsonData);
-  // console.log("data in app: ", data)
-  // console.count("Rendered: ")
   const [upvoteStates, setUpvoteStates] = useState({});
+  const [feedbackTitle, setFeedbackTitle] = useState("");
+  const [category, setCategory] = useState("feature");
+  const [feedbackDetail, setFeedbackDetail] = useState("");
+
   const handleUpdate = (itemId) => {
     const updatedUpvoteStates = { ...upvoteStates };
     updatedUpvoteStates[itemId] = !updatedUpvoteStates[itemId];
@@ -36,7 +38,19 @@ function App() {
   return (
     <>
       <MyContext.Provider
-        value={{ data, setData, upvoteStates, setUpvoteStates, handleUpdate }}
+        value={{
+          data,
+          setData,
+          upvoteStates,
+          setUpvoteStates,
+          handleUpdate,
+          feedbackTitle,
+          setFeedbackTitle,
+          category,
+          setCategory,
+          feedbackDetail,
+          setFeedbackDetail,
+        }}
       >
         <Router>
           <Routes>

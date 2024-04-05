@@ -5,10 +5,16 @@ import iconPlus from "../../public/assets/shared/icon-plus.svg";
 import { Link } from "react-router-dom";
 import { MyContext } from "../App";
 export default function AddFeedbackPage() {
-  const { data, setData } = useContext(MyContext);
-  const [feedbackTitle, setFeedbackTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [feedbackDetail, setFeedbackDetail] = useState("");
+  const {
+    data,
+    setData,
+    feedbackTitle,
+    setFeedbackTitle,
+    category,
+    setCategory,
+    feedbackDetail,
+    setFeedbackDetail,
+  } = useContext(MyContext);
 
   // console.log("title: ", feedbackTitle);
   // console.log("categoty: ", category);
