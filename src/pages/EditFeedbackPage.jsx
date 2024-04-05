@@ -242,6 +242,10 @@ const Buttons = styled.div`
       width: 93px;
       margin-right: auto;
     }
+    & .delete:hover {
+      background-color: #E98888;
+      cursor:pointer;
+    }
   }
 `;
 const Button = styled.button`
