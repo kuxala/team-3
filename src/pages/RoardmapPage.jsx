@@ -327,6 +327,9 @@ const StyledDiv = styled.div`
     line-height: normal;
     letter-spacing: -0.25px;
     padding-bottom: 4px;
+    &:hover {
+      color: #4661e6;
+    }
   }
   & > span {
     color: #647196;

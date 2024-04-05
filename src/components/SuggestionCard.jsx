@@ -88,6 +88,11 @@ const CenterDiv = styled.div`
 `;
 const StyledTexts = styled(Link)`
   text-decoration: none;
+  &:hover {
+    & > h3 {
+      color: #4661e6;
+    }
+  }
   & > h3 {
     color: #3a4374;
     font-family: Jost;
@@ -96,6 +101,7 @@ const StyledTexts = styled(Link)`
     font-weight: 700;
     line-height: normal;
     letter-spacing: -0.181px;
+
     @media only screen and (min-width: 768px) {
       font-size: 18px;
     }
@@ -108,6 +114,7 @@ const StyledTexts = styled(Link)`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+
     @media only screen and (min-width: 768px) {
       font-size: 16px;
     }

@@ -280,7 +280,7 @@ const Buttons = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 10px;
-
+  margin-top: 20px;
   & .purple {
     background-color: #ad1fea;
   }

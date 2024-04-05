@@ -85,6 +85,9 @@ const StyledSort = styled.div`
   display: flex;
   gap: 5px;
   align-items: center;
+  &:hover {
+    opacity: 0.8;
+  }
 
   & > p {
     color: #f2f4fe;
