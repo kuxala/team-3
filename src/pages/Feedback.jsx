@@ -17,7 +17,7 @@ export default function Id() {
             <img src="/assets/shared/icon-arrow-left.svg" />
             <Link to="/">Go Back</Link>
           </div>
-          <button>Edit Feedback</button>
+          <StyledLink to="/edit-feedback">Edit Feedback</StyledLink>
         </StyledHeader>
         {data.productRequests.map((card) => {
           if (userId == card.id) {
@@ -169,6 +169,7 @@ const Comments = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -191,25 +192,29 @@ const StyledHeader = styled.div`
       line-height: normal;
     }
   }
+`;
 
-  & > button {
-    width: 119px;
-    height: 40px;
-    flex-shrink: 0;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    border-radius: 10px;
-    background: #4661e6;
-    color: #f2f4fe;
-    font-family: Jost;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    &:hover {
-      opacity: 0.8;
-    }
+const StyledLink = styled(Link)`
+  width: 119px;
+  height: 40px;
+  flex-shrink: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 10px;
+  background: #4661e6;
+  color: #f2f4fe;
+  font-family: Jost;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  &:hover {
+    opacity: 0.8;
   }
 `;
 const UpvotesDesktop = styled.div`

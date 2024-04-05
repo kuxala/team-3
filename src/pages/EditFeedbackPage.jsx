@@ -1,13 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import arrow from "/Users/ani/Desktop/team-3/public/assets/shared/icon-arrow-left.svg";
-import Icon from "/Users/ani/Desktop/team-3/public/assets/shared/icon-edit-feedback.svg";
+import arrow from "../../public/assets/shared/icon-arrow-left.svg";
+import Icon from "../../public/assets/shared/icon-edit-feedback.svg";
+import { Link } from "react-router-dom";
 export default function EditFeedbackPage() {
+  const handleGoBack = () => {
+    window.history.back();
+  };
+
   return (
     <FeedbackContainer>
       <Header>
         <img src={arrow} />
-        <span>Go Back</span>
+        <StyledLink to="#" onClick={handleGoBack}>
+          Go Back
+        </StyledLink>
       </Header>
       <FeedbackForm>
         <img src={Icon} className="Icon" />
@@ -55,6 +62,16 @@ export default function EditFeedbackPage() {
     </FeedbackContainer>
   );
 }
+const StyledLink = styled(Link)`
+  color: #647196;
+  font-family: Jost;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-decoration-line: underline;
+  padding-left: 10px;
+`;
 
 const FeedbackContainer = styled.div`
   width: 327px;

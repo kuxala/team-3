@@ -1,14 +1,21 @@
 import React from "react";
 import styled from "styled-components";
-import arrow from "/Users/ani/Desktop/team-3/public/assets/shared/icon-arrow-left.svg";
-import iconPlus from "/Users/ani/Desktop/team-3/public/assets/shared/icon-plus.svg";
+import arrow from "../../public/assets/shared/icon-arrow-left.svg";
+import iconPlus from "../../public/assets/shared/icon-plus.svg";
+import { Link } from "react-router-dom";
 
 export default function AddFeedbackPage() {
+  const handleGoBack = () => {
+    window.history.back();
+  };
+
   return (
     <FeedbackContainer>
       <Header>
         <img src={arrow} />
-        <span>Go Back</span>
+        <StyledLink to="#" onClick={handleGoBack}>
+          Go Back
+        </StyledLink>
       </Header>
       <FeedbackForm>
         <img src={iconPlus} className="iconPlus" />
@@ -44,6 +51,16 @@ export default function AddFeedbackPage() {
     </FeedbackContainer>
   );
 }
+const StyledLink = styled(Link)`
+  color: #647196;
+  font-family: Jost;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-decoration-line: underline;
+  padding-left: 10px;
+`;
 
 const FeedbackContainer = styled.div`
   width: 327px;
@@ -190,7 +207,6 @@ const Select = styled.select`
 
 const Option = styled.option``;
 
-
 const Buttons = styled.div`
   display: flex;
   flex-direction: column;
@@ -224,10 +240,7 @@ const Buttons = styled.div`
     & .purple:hover {
       background: #c75af6;
       cursor: pointer;
-
-      
     }
-
   }
 `;
 const Button = styled.button`
