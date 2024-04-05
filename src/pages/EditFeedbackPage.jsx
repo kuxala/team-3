@@ -3,6 +3,7 @@ import styled from "styled-components";
 import arrow from "../../public/assets/shared/icon-arrow-left.svg";
 import Icon from "../../public/assets/shared/icon-edit-feedback.svg";
 import { Link } from "react-router-dom";
+
 export default function EditFeedbackPage() {
   const handleGoBack = () => {
     window.history.back();

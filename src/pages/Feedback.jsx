@@ -184,6 +184,7 @@ const Comments = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 `;
 
 const StyledHeader = styled.div`
@@ -211,7 +212,7 @@ const StyledHeader = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  width: 119px;
+  width: 140px;
   height: 40px;
   flex-shrink: 0;
   border: none;
@@ -267,6 +268,7 @@ const UpvotesDesktop = styled.div`
 const CommentsDesktop = styled.div`
   display: flex;
   gap: 4px;
+  align-items: center;
   @media only screen and (max-width: 768px) {
     display: none;
   }

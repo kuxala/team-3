@@ -58,14 +58,14 @@ const StyledDesktopText = styled.div`
   }
 `;
 const StyledLink = styled(Link)`
-  width: 119px;
+  width: 140px;
   height: 40px;
   flex-shrink: 0;
   border: none;
   outline: none;
   cursor: pointer;
   border-radius: 10px;
-  background: #4661e6;
+  background: #ad1fea;
   color: #f2f4fe;
   font-family: Jost;
   font-size: 13px;

@@ -1,14 +1,55 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import arrow from "../../public/assets/shared/icon-arrow-left.svg";
 import iconPlus from "../../public/assets/shared/icon-plus.svg";
 import { Link } from "react-router-dom";
-
+import { MyContext } from "../App";
 export default function AddFeedbackPage() {
+  const { data, setData } = useContext(MyContext);
+  const [feedbackTitle, setFeedbackTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [feedbackDetail, setFeedbackDetail] = useState("");
+
+  // console.log("title: ", feedbackTitle);
+  // console.log("categoty: ", category);
+  // console.log("detail: ", feedbackDetail);
+
   const handleGoBack = () => {
     window.history.back();
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!feedbackTitle || !category || !feedbackDetail) {
+      // Throw an error or display a message to the user
+      alert("Please fill in all the fields");
+      return; // Prevent form submission if fields are empty
+    }
+    // Create a new feedback object
+    const newFeedback = {
+      id: data.productRequests.length + 1, // Generate a unique ID for the new feedback
+      title: feedbackTitle,
+      category: category,
+      upvotes: 0, // Set initial upvotes for the new feedback
+      status: "suggestion",
+      description: feedbackDetail,
+      comments: [], // Initialize comments array for the new feedback
+    };
+
+    // Update the existing data with the new feedback object
+    const updatedData = {
+      ...data,
+      productRequests: [...data.productRequests, newFeedback],
+    };
+
+    // Update the context with the updated data
+    setData(updatedData);
+
+    // Reset the form fields after submission
+    setFeedbackTitle("");
+    setCategory("");
+    setFeedbackDetail("");
+  };
   return (
     <FeedbackContainer>
       <Header>
@@ -17,35 +58,50 @@ export default function AddFeedbackPage() {
           Go Back
         </StyledLink>
       </Header>
-      <FeedbackForm>
+      <FeedbackForm onSubmit={handleSubmit}>
         <img src={iconPlus} className="iconPlus" />
         <Title>Create New Feedback</Title>
         <Label>Feedback Title</Label>
         <Labeltext>Add a short, descriptive headline</Labeltext>
-        <Input type="text"></Input>
+        <Input
+          type="text"
+          value={feedbackTitle}
+          onChange={(e) => setFeedbackTitle(e.target.value)}
+        ></Input>
 
         <Label>Category</Label>
         <Labeltext>Choose a category for your feedback</Labeltext>
 
-        <Select name="Feature" className="select">
-          <Option disabled selected>
-            Feature{" "}
-          </Option>
+        <Select
+          name="Choose"
+          className="select"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <Option value="feature">Feature</Option>
           <Option value="UI">UI</Option>
           <Option value="UX">UX</Option>
-          <Option value="UX">Enhancement</Option>
-          <Option value="UX">Bug</Option>
+          <Option value="Enhancement">Enhancement</Option>
+          <Option value="Bug">Bug</Option>
         </Select>
 
         <Label>Feedback Detail</Label>
         <Labeltext>
           Include any specific comments on what should be improved, added, etc.
         </Labeltext>
-        <Comment type="text" />
+        <Comment
+          type="text"
+          value={feedbackDetail}
+          onChange={(e) => setFeedbackDetail(e.target.value)}
+        />
 
         <Buttons>
-          <Button className="purple">Add Feedback</Button>
-          <Button className="blue">Cancel</Button>
+          <Button className="purple" type="submit" onClick={handleSubmit}>
+            Add Feedback
+          </Button>
+          <Button className="blue" type="button" onClick={handleGoBack}>
+            Cancel
+          </Button>
         </Buttons>
       </FeedbackForm>
     </FeedbackContainer>
