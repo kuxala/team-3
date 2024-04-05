@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import SortCard from "./SortCard";
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 export default function SuggestionHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownMenuValue, setDropdownMenuValue] = useState("Most Upvotes");
@@ -33,7 +33,7 @@ export default function SuggestionHeader() {
             />
           </StyledSort>
         </div>
-        <button>+ Add Feedback</button>
+        <StyledLink to="/add-feedback">+ Add Feedback</StyledLink>
       </SuggestionHeaderDiv>
     </>
   );
@@ -57,6 +57,30 @@ const StyledDesktopText = styled.div`
     }
   }
 `;
+const StyledLink = styled(Link)`
+  width: 119px;
+  height: 40px;
+  flex-shrink: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 10px;
+  background: #4661e6;
+  color: #f2f4fe;
+  font-family: Jost;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
 const StyledSort = styled.div`
   display: flex;
   gap: 5px;
