@@ -6,7 +6,8 @@ export default function RoardmapPage() {
   const [isActive, setIsActive] = useState([false, true, false]);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
-  const { data, setData } = useContext(MyContext);
+  const { data, setData, upvoteStates, setUpvoteStates, handleUpdate } =
+    useContext(MyContext);
 
   useEffect(() => {
     const handleResize = () => {
@@ -76,7 +77,16 @@ export default function RoardmapPage() {
                         <span>{item.description}</span>
                         <Feature>{item.category}</Feature>
                         <StyledBottom>
-                          <Upvotes>
+                          <Upvotes
+                            style={{
+                              backgroundColor: upvoteStates[item.id]
+                                ? "#bec9fc"
+                                : "#f2f4fe",
+                            }}
+                            onClick={() => {
+                              handleUpdate(item.id);
+                            }}
+                          >
                             <img src="/assets/shared/icon-arrow-up.svg" />
                             <p>{item.upvotes}</p>
                           </Upvotes>
@@ -103,7 +113,16 @@ export default function RoardmapPage() {
                         <span>{item.description}</span>
                         <Feature>{item.category}</Feature>
                         <StyledBottom>
-                          <Upvotes>
+                          <Upvotes
+                            style={{
+                              backgroundColor: upvoteStates[item.id]
+                                ? "#bec9fc"
+                                : "#f2f4fe",
+                            }}
+                            onClick={() => {
+                              handleUpdate(item.id);
+                            }}
+                          >
                             <img src="/assets/shared/icon-arrow-up.svg" />
                             <p>{item.upvotes}</p>
                           </Upvotes>
@@ -130,7 +149,16 @@ export default function RoardmapPage() {
                         <span>{item.description}</span>
                         <Feature>{item.category}</Feature>
                         <StyledBottom>
-                          <Upvotes>
+                          <Upvotes
+                            style={{
+                              backgroundColor: upvoteStates[item.id]
+                                ? "#bec9fc"
+                                : "#f2f4fe",
+                            }}
+                            onClick={() => {
+                              handleUpdate(item.id);
+                            }}
+                          >
                             <img src="/assets/shared/icon-arrow-up.svg" />
                             <p>{item.upvotes}</p>
                           </Upvotes>
@@ -162,7 +190,16 @@ export default function RoardmapPage() {
                       <span>{item.description}</span>
                       <Feature>{item.category}</Feature>
                       <StyledBottom>
-                        <Upvotes>
+                        <Upvotes
+                          style={{
+                            backgroundColor: upvoteStates[item.id]
+                              ? "#bec9fc"
+                              : "#f2f4fe",
+                          }}
+                          onClick={() => {
+                            handleUpdate(item.id);
+                          }}
+                        >
                           <img src="/assets/shared/icon-arrow-up.svg" />
                           <p>{item.upvotes}</p>
                         </Upvotes>
@@ -191,7 +228,16 @@ export default function RoardmapPage() {
                       <span>{item.description}</span>
                       <Feature>{item.category}</Feature>
                       <StyledBottom>
-                        <Upvotes>
+                        <Upvotes
+                          style={{
+                            backgroundColor: upvoteStates[item.id]
+                              ? "#bec9fc"
+                              : "#f2f4fe",
+                          }}
+                          onClick={() => {
+                            handleUpdate(item.id);
+                          }}
+                        >
                           <img src="/assets/shared/icon-arrow-up.svg" />
                           <p>{item.upvotes}</p>
                         </Upvotes>
@@ -220,7 +266,16 @@ export default function RoardmapPage() {
                       <span>{item.description}</span>
                       <Feature>{item.category}</Feature>
                       <StyledBottom>
-                        <Upvotes>
+                        <Upvotes
+                          style={{
+                            backgroundColor: upvoteStates[item.id]
+                              ? "#bec9fc"
+                              : "#f2f4fe",
+                          }}
+                          onClick={() => {
+                            handleUpdate(item.id);
+                          }}
+                        >
                           <img src="/assets/shared/icon-arrow-up.svg" />
                           <p>{item.upvotes}</p>
                         </Upvotes>
