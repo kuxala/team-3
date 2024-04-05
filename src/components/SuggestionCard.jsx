@@ -1,15 +1,19 @@
 import styled from "styled-components"
 import React, { useContext } from 'react';
 import {MyContext} from '../App';
-
+import {Link } from "react-router-dom"
 export default function SuggestionCard() {
 
   const {data, setData} = useContext(MyContext);
-   
+  // to={`/suggestions/${item.id}`}
+
+
     return (
         <>
         {data.productRequests.map((item) =>{
-          return <StyledDiv key={item.id}>
+          return <StyledDiv key={item.id} to={`/suggestions/${item.id}`} >
+            
+            {/* <Link to={`/suggestions/${item.id}`}>here</Link> */}
             <UpvotesDesktop >
                 <img src="/assets/shared/icon-arrow-up.svg"/>
                 <p>{item.upvotes}</p>
@@ -45,7 +49,7 @@ export default function SuggestionCard() {
 }
 
 
-const StyledDiv = styled.div`
+const StyledDiv = styled(Link)`
     display: flex;
     flex-direction: column;
     min-height: 200px;
@@ -53,6 +57,7 @@ const StyledDiv = styled.div`
     background-color: #fff;
     padding: 24px;
     border-radius: 10px;
+    text-decoration: none;
     @media only screen and (min-width: 768px){
       width: 50%;
       margin: 0 auto;
