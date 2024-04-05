@@ -131,7 +131,7 @@ const Label = styled.h3`
   letter-spacing: -0.1805555522441864px;
   color: #3a4374;
   padding-top: 10px;
- 
+  width: 456px;
 
   @media screen and (min-width: 768px) {
     font-size: 14px;
@@ -187,7 +187,9 @@ const Select = styled.select`
     width: 456px;
   }
 `;
+
 const Option = styled.option``;
+
 
 const Buttons = styled.div`
   display: flex;
@@ -222,7 +224,10 @@ const Buttons = styled.div`
     & .purple:hover {
       background: #c75af6;
       cursor: pointer;
+
+      
     }
+
   }
 `;
 const Button = styled.button`
