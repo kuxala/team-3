@@ -6,8 +6,9 @@ import { Link } from "react-router-dom";
 export default function SuggestionCard() {
   const { data, setData } = useContext(MyContext);
   const [upvoteStates, setUpvoteStates] = useState({});
-
+  // console.log(upvoteStates);
   const handleUpdate = (itemId) => {
+    // console.log("Item ID:", itemId);
     const updatedUpvoteStates = { ...upvoteStates };
     updatedUpvoteStates[itemId] = !updatedUpvoteStates[itemId];
     setUpvoteStates(updatedUpvoteStates);
@@ -23,6 +24,7 @@ export default function SuggestionCard() {
       }
       return item;
     });
+    // console.log("Updated Product Requests:", updatedProductRequests);
 
     setData({ ...data, productRequests: updatedProductRequests });
   };
@@ -33,6 +35,9 @@ export default function SuggestionCard() {
         return (
           <StyledDiv key={item.id}>
             <UpvotesDesktop
+              style={{
+                backgroundColor: upvoteStates[item.id] ? "#bec9fc" : "#f2f4fe",
+              }}
               onClick={() => {
                 handleUpdate(item.id);
               }}
@@ -41,16 +46,21 @@ export default function SuggestionCard() {
               <p>{item.upvotes}</p>
             </UpvotesDesktop>
 
-            <CenterDiv to={`/suggestions/${item.id}`}>
-              <StyledTexts>
+            <CenterDiv>
+              <StyledTexts to={`/suggestions/${item.id}`}>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
               </StyledTexts>
               <StyledCategory>{item.category}</StyledCategory>
               <StyledBottom>
                 <Upvotes
+                  style={{
+                    backgroundColor: upvoteStates[item.id]
+                      ? "#a4b2fc"
+                      : "#f2f4fe",
+                  }}
                   onClick={() => {
-                    console.log(item.upvotes);
+                    handleUpdate(item.id);
                   }}
                 >
                   <img src="/assets/shared/icon-arrow-up.svg" />
@@ -93,13 +103,13 @@ const StyledDiv = styled.div`
     justify-content: space-between;
   }
 `;
-const CenterDiv = styled(Link)`
-  text-decoration: none;
+const CenterDiv = styled.div`
   @media only screen and (min-width: 768px) {
     width: 80%;
   }
 `;
-const StyledTexts = styled.div`
+const StyledTexts = styled(Link)`
+  text-decoration: none;
   & > h3 {
     color: #3a4374;
     font-family: Jost;
