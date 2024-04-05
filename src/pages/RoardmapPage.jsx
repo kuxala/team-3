@@ -517,6 +517,9 @@ const LinkTo = styled(Link)`
   font-weight: 700;
   line-height: normal;
   text-decoration: none;
+  &:hover {
+    opacity: 0.9;
+  }
 `;
 
 const SmallHeader = styled.div`

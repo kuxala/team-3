@@ -109,6 +109,11 @@ const CenterDiv = styled.div`
   }
 `;
 const StyledTexts = styled.div`
+  &:hover {
+    & > h3 {
+      color: #4661e6;
+    }
+  }
   & > h3 {
     color: #3a4374;
     font-family: Jost;
