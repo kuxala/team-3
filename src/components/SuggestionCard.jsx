@@ -4,30 +4,8 @@ import { MyContext } from "../App";
 import { Link } from "react-router-dom";
 
 export default function SuggestionCard() {
-  const { data, setData } = useContext(MyContext);
-  const [upvoteStates, setUpvoteStates] = useState({});
-  // console.log(upvoteStates);
-  const handleUpdate = (itemId) => {
-    // console.log("Item ID:", itemId);
-    const updatedUpvoteStates = { ...upvoteStates };
-    updatedUpvoteStates[itemId] = !updatedUpvoteStates[itemId];
-    setUpvoteStates(updatedUpvoteStates);
-
-    const updatedProductRequests = data.productRequests.map((item) => {
-      if (item.id === itemId) {
-        return {
-          ...item,
-          upvotes: updatedUpvoteStates[itemId]
-            ? item.upvotes + 1
-            : item.upvotes - 1,
-        };
-      }
-      return item;
-    });
-    // console.log("Updated Product Requests:", updatedProductRequests);
-
-    setData({ ...data, productRequests: updatedProductRequests });
-  };
+  const { data, setData, upvoteStates, setUpvoteStates, handleUpdate } =
+    useContext(MyContext);
 
   return (
     <>

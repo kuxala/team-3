@@ -7,7 +7,8 @@ import CommentSection from "../components/CommentSection";
 export default function Id() {
   let { userId } = useParams();
   // console.log("UserId : ", userId)
-  const { data, setData } = useContext(MyContext);
+  const { data, setData, upvoteStates, setUpvoteStates, handleUpdate } =
+    useContext(MyContext);
 
   return (
     <>
@@ -19,35 +20,50 @@ export default function Id() {
           </div>
           <StyledLink to="/edit-feedback">Edit Feedback</StyledLink>
         </StyledHeader>
-        {data.productRequests.map((card) => {
-          if (userId == card.id) {
+        {data.productRequests.map((item) => {
+          if (userId == item.id) {
             return (
-              <StyledDiv key={card.id}>
-                <UpvotesDesktop>
+              <StyledDiv key={item.id}>
+                <UpvotesDesktop
+                  style={{
+                    backgroundColor: upvoteStates[item.id]
+                      ? "#bec9fc"
+                      : "#f2f4fe",
+                  }}
+                  onClick={() => {
+                    handleUpdate(item.id);
+                  }}
+                >
                   <img src="/assets/shared/icon-arrow-up.svg" />
-                  <p>{card.upvotes}</p>
+                  <p
+                  // style={{
+                  //   color: upvoteStates[item.id] ? "#fff" : "#3a4374",
+                  // }}
+                  >
+                    {item.upvotes}
+                  </p>
                 </UpvotesDesktop>
 
                 <CenterDiv>
                   <StyledTexts>
-                    <h3>{card.title}</h3>
-                    <p>{card.description}</p>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
                   </StyledTexts>
-                  <StyledCategory>{card.category}</StyledCategory>
+                  <StyledCategory>{item.category}</StyledCategory>
                   <StyledBottom>
                     <Upvotes>
                       <img src="/assets/shared/icon-arrow-up.svg" />
-                      <p>{card.upvotes}</p>
+                      <p>{item.upvotes}</p>
                     </Upvotes>
                     <Comments>
                       <img src="/assets/shared/icon-comments.svg" />
-                      {card?.comments?.length}
+                      {item?.comments?.length}
                     </Comments>
                   </StyledBottom>
                 </CenterDiv>
                 <CommentsDesktop>
                   <img src="/assets/shared/icon-comments.svg" />
-                  {card?.comments?.length}
+                  {item?.comments?.length}
                 </CommentsDesktop>
               </StyledDiv>
             );

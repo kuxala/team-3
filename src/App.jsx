@@ -14,10 +14,30 @@ function App() {
   const [data, setData] = useState(jsonData);
   // console.log("data in app: ", data)
   // console.count("Rendered: ")
+  const [upvoteStates, setUpvoteStates] = useState({});
+  const handleUpdate = (itemId) => {
+    const updatedUpvoteStates = { ...upvoteStates };
+    updatedUpvoteStates[itemId] = !updatedUpvoteStates[itemId];
+    setUpvoteStates(updatedUpvoteStates);
 
+    const updatedProductRequests = data.productRequests.map((item) => {
+      if (item.id === itemId) {
+        return {
+          ...item,
+          upvotes: updatedUpvoteStates[itemId]
+            ? item.upvotes + 1
+            : item.upvotes - 1,
+        };
+      }
+      return item;
+    });
+    setData({ ...data, productRequests: updatedProductRequests });
+  };
   return (
     <>
-      <MyContext.Provider value={{ data, setData }}>
+      <MyContext.Provider
+        value={{ data, setData, upvoteStates, setUpvoteStates, handleUpdate }}
+      >
         <Router>
           <Routes>
             <Route path="/empty" element={<HomePage />} />
