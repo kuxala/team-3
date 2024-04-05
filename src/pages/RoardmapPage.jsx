@@ -1,209 +1,247 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import {MyContext} from '../App';
-import {Link} from "react-router-dom"
+import { MyContext } from "../App";
+import { Link } from "react-router-dom";
 export default function RoardmapPage() {
-    const [isActive, setIsActive]  = useState([false,true, false]);
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-    
-    const {data, setData} = useContext(MyContext);
-    
-    useEffect(() => {
-      const handleResize = () => {
-        setScreenWidth(window.innerWidth);
-      };
-      window.addEventListener('resize', handleResize);
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
-    }, []); 
+  const [isActive, setIsActive] = useState([false, true, false]);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
-    
-    return (
-        <>
-          <StyledContainer>
+  const { data, setData } = useContext(MyContext);
 
-            <RodmapHeader>
-              <div>
-                <div>
-                  <img src="assets/shared/icon-arrow-left.svg"/>
-                  <LinkTo to="/">Go Back</LinkTo>
-                </div>
-                <h3>Roadmap</h3>
-              </div>
-              <button>+ add Feedback</button>
-            </RodmapHeader>
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
-            {screenWidth < 768 
-            ?     
-            <>        
+  return (
+    <>
+      <StyledContainer>
+        <RodmapHeader>
+          <div>
+            <div>
+              <img src="assets/shared/icon-arrow-left.svg" />
+              <LinkTo to="/">Go Back</LinkTo>
+            </div>
+            <h3>Roadmap</h3>
+          </div>
+          <button>+ add Feedback</button>
+        </RodmapHeader>
+
+        {screenWidth < 768 ? (
+          <>
             <SmallHeader>
-              <div style={{ borderBottom: isActive[0] ? '4px solid #F49F85' : 'none', opacity: isActive[0] ? "1" : "0.5"}} onClick={() => setIsActive([true, false, false])}>
+              <div
+                style={{
+                  borderBottom: isActive[0] ? "4px solid #F49F85" : "none",
+                  opacity: isActive[0] ? "1" : "0.5",
+                }}
+                onClick={() => setIsActive([true, false, false])}
+              >
                 Planned (1)
-                
               </div>
-              <div style={{ borderBottom: isActive[1] ? '4px solid #AD1FEA' : 'none', opacity: isActive[1] ? "1" : "0.5" }} onClick={() => setIsActive([false, true, false])}>In-Progress (1)</div>
-              <div style={{ borderBottom: isActive[2] ? '4px solid #62BCFA' : 'none', opacity: isActive[2] ? "1" : "0.5" }} onClick={() => setIsActive([false, false, true])}>Live (1)</div>
-              
+              <div
+                style={{
+                  borderBottom: isActive[1] ? "4px solid #AD1FEA" : "none",
+                  opacity: isActive[1] ? "1" : "0.5",
+                }}
+                onClick={() => setIsActive([false, true, false])}
+              >
+                In-Progress (1)
+              </div>
+              <div
+                style={{
+                  borderBottom: isActive[2] ? "4px solid #62BCFA" : "none",
+                  opacity: isActive[2] ? "1" : "0.5",
+                }}
+                onClick={() => setIsActive([false, false, true])}
+              >
+                Live (1)
+              </div>
             </SmallHeader>
-            {isActive[0] ? 
-            data.productRequests.map((item) => {
-                if (item.status == "planned"){
-                  return <StyledDiv key={item.id} style={{borderTop: "5px solid #F49F85"}}>
-                  <p>Planned</p>
-                  <h1>{item.title}</h1>
-                  <span>{item.description}</span>
-                  <Feature>{item.category}</Feature>
-                  <StyledBottom>
-                      <Upvotes>
-                        <img src="/assets/shared/icon-arrow-up.svg"/>
-                        <p>{item.upvotes}</p>
-                        
-                      </Upvotes>
+            {isActive[0]
+              ? data.productRequests.map((item) => {
+                  if (item.status == "planned") {
+                    return (
+                      <StyledDiv
+                        key={item.id}
+                        style={{ borderTop: "5px solid #F49F85" }}
+                      >
+                        <p>Planned</p>
+                        <h1>{item.title}</h1>
+                        <span>{item.description}</span>
+                        <Feature>{item.category}</Feature>
+                        <StyledBottom>
+                          <Upvotes>
+                            <img src="/assets/shared/icon-arrow-up.svg" />
+                            <p>{item.upvotes}</p>
+                          </Upvotes>
+                          <Comments>
+                            <img src="/assets/shared/icon-comments.svg" />
+                            {item.comments.length}
+                          </Comments>
+                        </StyledBottom>
+                      </StyledDiv>
+                    );
+                  }
+                })
+              : null}
+            {isActive[1]
+              ? data.productRequests.map((item) => {
+                  if (item.status == "in-progress") {
+                    return (
+                      <StyledDiv
+                        key={item.id}
+                        style={{ borderTop: "5px solid #AD1FEA" }}
+                      >
+                        <p>In Progress</p>
+                        <h1>{item.title}</h1>
+                        <span>{item.description}</span>
+                        <Feature>{item.category}</Feature>
+                        <StyledBottom>
+                          <Upvotes>
+                            <img src="/assets/shared/icon-arrow-up.svg" />
+                            <p>{item.upvotes}</p>
+                          </Upvotes>
+                          <Comments>
+                            <img src="/assets/shared/icon-comments.svg" />
+                            {item?.comments?.length}
+                          </Comments>
+                        </StyledBottom>
+                      </StyledDiv>
+                    );
+                  }
+                })
+              : null}
+            {isActive[2]
+              ? data.productRequests.map((item) => {
+                  if (item.status == "live") {
+                    return (
+                      <StyledDiv
+                        key={item.id}
+                        style={{ borderTop: "5px solid #62BCFA" }}
+                      >
+                        <p>Live</p>
+                        <h1>{item.title}</h1>
+                        <span>{item.description}</span>
+                        <Feature>{item.category}</Feature>
+                        <StyledBottom>
+                          <Upvotes>
+                            <img src="/assets/shared/icon-arrow-up.svg" />
+                            <p>{item.upvotes}</p>
+                          </Upvotes>
+                          <Comments>
+                            <img src="/assets/shared/icon-comments.svg" />
+                            {item.comments.length}
+                          </Comments>
+                        </StyledBottom>
+                      </StyledDiv>
+                    );
+                  }
+                })
+              : null}
+          </>
+        ) : (
+          <DesktopSmallHeader>
+            <div>
+              <p>Planned (1)</p>
+              <span>Ideas prioritized for research</span>
+              {data.productRequests.map((item) => {
+                if (item.status == "planned") {
+                  return (
+                    <StyledDiv
+                      key={item.id}
+                      style={{ borderTop: "5px solid #F49F85" }}
+                    >
+                      <p>Planned</p>
+                      <h1>{item.title}</h1>
+                      <span>{item.description}</span>
+                      <Feature>{item.category}</Feature>
+                      <StyledBottom>
+                        <Upvotes>
+                          <img src="/assets/shared/icon-arrow-up.svg" />
+                          <p>{item.upvotes}</p>
+                        </Upvotes>
                         <Comments>
-                          <img src="/assets/shared/icon-comments.svg"/>
+                          <img src="/assets/shared/icon-comments.svg" />
                           {item.comments.length}
                         </Comments>
-                  </StyledBottom>
-                </StyledDiv>
+                      </StyledBottom>
+                    </StyledDiv>
+                  );
                 }
-              })
-            : 
-            null}
-            {isActive[1] ? data.productRequests.map((item) => {
-                if (item.status == "in-progress"){
-                  return <StyledDiv key={item.id} style={{borderTop: "5px solid #AD1FEA"}}>
-                  <p>In Progress</p>
-                  <h1>{item.title}</h1>
-                  <span>{item.description}</span>
-                  <Feature>{item.category}</Feature>
-                  <StyledBottom>
-                      <Upvotes>
-                        <img src="/assets/shared/icon-arrow-up.svg"/>
-                        <p>{item.upvotes}</p>
-                        
-                      </Upvotes>
+              })}
+            </div>
+            <div>
+              <p>In Progress (1)</p>
+              <span>Currently being developed</span>
+              {data.productRequests.map((item) => {
+                if (item.status == "in-progress") {
+                  return (
+                    <StyledDiv
+                      key={item.id}
+                      style={{ borderTop: "5px solid #AD1FEA" }}
+                    >
+                      <p>In Progress</p>
+                      <h1>{item.title}</h1>
+                      <span>{item.description}</span>
+                      <Feature>{item.category}</Feature>
+                      <StyledBottom>
+                        <Upvotes>
+                          <img src="/assets/shared/icon-arrow-up.svg" />
+                          <p>{item.upvotes}</p>
+                        </Upvotes>
                         <Comments>
-                          <img src="/assets/shared/icon-comments.svg"/>
+                          <img src="/assets/shared/icon-comments.svg" />
                           {item?.comments?.length}
                         </Comments>
-                  </StyledBottom>
-                </StyledDiv>
+                      </StyledBottom>
+                    </StyledDiv>
+                  );
                 }
-              }):  null}
-            {isActive[2] ? data.productRequests.map((item) => {
-                if (item.status == "live"){
-                  return <StyledDiv key={item.id} style={{borderTop: "5px solid #62BCFA"}}>
-                  <p>Live</p>
-                  <h1>{item.title}</h1>
-                  <span>{item.description}</span>
-                  <Feature>{item.category}</Feature>
-                  <StyledBottom>
-                      <Upvotes>
-                        <img src="/assets/shared/icon-arrow-up.svg"/>
-                        <p>{item.upvotes}</p>
-                        
-                      </Upvotes>
+              })}
+            </div>
+            <div>
+              <p>Live (1)</p>
+              <span>Released features</span>
+              {data.productRequests.map((item) => {
+                if (item.status == "live") {
+                  return (
+                    <StyledDiv
+                      key={item.id}
+                      style={{ borderTop: "5px solid #62BCFA" }}
+                    >
+                      <p>Live</p>
+                      <h1>{item.title}</h1>
+                      <span>{item.description}</span>
+                      <Feature>{item.category}</Feature>
+                      <StyledBottom>
+                        <Upvotes>
+                          <img src="/assets/shared/icon-arrow-up.svg" />
+                          <p>{item.upvotes}</p>
+                        </Upvotes>
                         <Comments>
-                          <img src="/assets/shared/icon-comments.svg"/>
-                          {item.comments.length}
-                        </Comments>
-                  </StyledBottom>
-                </StyledDiv>
-                }
-              }):  null}
-            </>
-             : 
-            <DesktopSmallHeader>
-              
-              <div>
-                <p>Planned (1)</p>
-                <span>Ideas prioritized for research</span>
-                {data.productRequests.map((item) => {
-                if (item.status == "planned"){
-                  return <StyledDiv key={item.id} style={{borderTop: "5px solid #F49F85"}}>
-                  <p>Planned</p>
-                  <h1>{item.title}</h1>
-                  <span>{item.description}</span>
-                  <Feature>{item.category}</Feature>
-                  <StyledBottom>
-                      <Upvotes>
-                        <img src="/assets/shared/icon-arrow-up.svg"/>
-                        <p>{item.upvotes}</p>
-                        
-                      </Upvotes>
-                        <Comments>
-                          <img src="/assets/shared/icon-comments.svg"/>
-                          {item.comments.length}
-                        </Comments>
-                  </StyledBottom>
-                </StyledDiv>
-                }
-              })
-            }
-              </div>
-              <div>
-                <p>In Progress (1)</p>
-                <span>Currently being developed</span>
-                {data.productRequests.map((item) => {
-                if (item.status == "in-progress"){
-                  return <StyledDiv key={item.id} style={{borderTop: "5px solid #AD1FEA"}}>
-                  <p>In Progress</p>
-                  <h1>{item.title}</h1>
-                  <span>{item.description}</span>
-                  <Feature>{item.category}</Feature>
-                  <StyledBottom>
-                      <Upvotes>
-                        <img src="/assets/shared/icon-arrow-up.svg"/>
-                        <p>{item.upvotes}</p>
-                        
-                      </Upvotes>
-                        <Comments>
-                          <img src="/assets/shared/icon-comments.svg"/>
+                          <img src="/assets/shared/icon-comments.svg" />
                           {item?.comments?.length}
                         </Comments>
-                  </StyledBottom>
-                </StyledDiv>
+                      </StyledBottom>
+                    </StyledDiv>
+                  );
                 }
-              })
-            }
-              </div>
-              <div>
-                <p>Live (1)</p>
-                <span>Released features</span>
-                {data.productRequests.map((item) => {
-                if (item.status == "live"){
-                  return <StyledDiv key={item.id} style={{borderTop: "5px solid #62BCFA"}}>
-                  <p>Live</p>
-                  <h1>{item.title}</h1>
-                  <span>{item.description}</span>
-                  <Feature>{item.category}</Feature>
-                  <StyledBottom>
-                      <Upvotes>
-                        <img src="/assets/shared/icon-arrow-up.svg"/>
-                        <p>{item.upvotes}</p>
-                        
-                      </Upvotes>
-                        <Comments>
-                          <img src="/assets/shared/icon-comments.svg"/>
-                          {item?.comments?.length}
-                        </Comments>
-                  </StyledBottom>
-                </StyledDiv>
-                }
-              })
-            }
-              </div>
-            </DesktopSmallHeader>
-            }
-                  
-        
-          </StyledContainer>
-        </>
-    );
+              })}
+            </div>
+          </DesktopSmallHeader>
+        )}
+      </StyledContainer>
+    </>
+  );
 }
 
-const StyledDiv= styled.div`
+const StyledDiv = styled.div`
   width: 100%;
   min-height: 280px;
   background-color: #fff;
@@ -212,12 +250,12 @@ const StyledDiv= styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  @media only screen and (max-width: 768px){
+  @media only screen and (max-width: 768px) {
     width: 90%;
     margin: 0 auto;
     margin-top: 20px;
   }
-  & > p{
+  & > p {
     color: #647196;
     font-family: Jost;
     font-size: 16px;
@@ -227,7 +265,7 @@ const StyledDiv= styled.div`
     padding-bottom: 8px;
   }
   & > h1 {
-    color: #3A4374;
+    color: #3a4374;
     font-size: 18px;
     font-style: normal;
     font-weight: 700;
@@ -235,7 +273,7 @@ const StyledDiv= styled.div`
     letter-spacing: -0.25px;
     padding-bottom: 4px;
   }
-  & > span{
+  & > span {
     color: #647196;
     font-size: 16px;
     font-style: normal;
@@ -250,45 +288,44 @@ const Feature = styled.div`
   height: 30px;
   flex-shrink: 0;
   border-radius: 10px;
-  background: #F2F4FF;
+  background: #f2f4ff;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #4661E6;
+  color: #4661e6;
   font-family: Jost;
   font-size: 13px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-
-`
+`;
 const DesktopSmallHeader = styled.div`
   display: flex;
   justify-content: space-evenly;
   gap: 16px;
   & > div {
-      width: 33%;
-      margin: 24px 0;
-      display: flex;
-      flex-direction: column;
-      & >p {
-        color: #3A4374;
-        font-family: Jost;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        letter-spacing: -0.25px;
-        padding-bottom: 4px;
-      }
-      & > span{
-        color: #647196;
-        font-family: Jost;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-      }
+    width: 33%;
+    margin: 24px 0;
+    display: flex;
+    flex-direction: column;
+    & > p {
+      color: #3a4374;
+      font-family: Jost;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -0.25px;
+      padding-bottom: 4px;
+    }
+    & > span {
+      color: #647196;
+      font-family: Jost;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
   }
 `;
 
@@ -305,19 +342,19 @@ const Upvotes = styled.div`
   height: 40px;
   flex-shrink: 0;
   border-radius: 10px;
-  background: #F2F4FE;
+  background: #f2f4fe;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
   padding: 0 14px;
-  
-  &:hover{
-      background-color: #CFD7FF;
-    }
 
-  & > p{
-    color: #3A4374;
+  &:hover {
+    background-color: #cfd7ff;
+  }
+
+  & > p {
+    color: #3a4374;
     text-align: center;
     font-family: Jost;
     font-size: 13px;
@@ -336,7 +373,7 @@ const Comments = styled.div`
 `;
 
 const StyledContainer = styled.div`
-    @media only screen and (min-width: 768px){
+  @media only screen and (min-width: 768px) {
     width: 80%;
     margin: 0 auto;
     border-radius: 10px;
@@ -347,24 +384,24 @@ const StyledContainer = styled.div`
 const RodmapHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items:center;
+  align-items: center;
   padding: 26px 24px;
-  background: #373F68;
+  background: #373f68;
 
-  @media only screen and (min-width: 768px){
+  @media only screen and (min-width: 768px) {
     width: 100%;
     margin: 0 auto;
     border-radius: 10px;
     margin-top: 50px;
   }
-  & > div > div{
+  & > div > div {
     display: flex;
     align-items: center;
     gap: 10px;
   }
   & > div > h3 {
     padding-top: 4px;
-    color: #FFF;
+    color: #fff;
     font-family: Jost;
     font-size: 18px;
     font-style: normal;
@@ -375,45 +412,43 @@ const RodmapHeader = styled.div`
   & > button {
     width: 134px;
     height: 40px;
-    
+
     flex-shrink: 0;
     border-radius: 10px;
-    border :none;
+    border: none;
     outline: none;
-    background: #AD1FEA;
-    color: #F2F4FE;
+    background: #ad1fea;
+    color: #f2f4fe;
     font-size: 13px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
     cursor: pointer;
-    &:hover{
+    &:hover {
       opacity: 0.8;
-
     }
   }
 `;
 const LinkTo = styled(Link)`
-    color: #FFF;
-    font-family: Jost;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-decoration: none;
-
-`
+  color: #fff;
+  font-family: Jost;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-decoration: none;
+`;
 
 const SmallHeader = styled.div`
   display: flex;
   justify-content: space-around;
   border-bottom: 1px solid rgba(128, 128, 128, 0.5);
-  & > div{
+  & > div {
     padding: 0 16px;
     height: 55px;
     display: flex;
     align-items: center;
-    color: #3A4374;
+    color: #3a4374;
     text-align: center;
     font-family: Jost;
     font-size: 16px;
@@ -422,5 +457,4 @@ const SmallHeader = styled.div`
     line-height: normal;
     letter-spacing: -0.181px;
   }
-  
 `;
