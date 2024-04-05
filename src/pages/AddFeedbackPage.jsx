@@ -232,6 +232,7 @@ const Labeltext = styled.h2`
 `;
 
 const Input = styled.input`
+  padding: 1rem;
   background-color: #f7f8fd;
   width: 279px;
   height: 48px;
@@ -244,6 +245,7 @@ const Input = styled.input`
 `;
 
 const Comment = styled.textarea`
+  padding: 1rem;
   background-color: #f7f8fd;
   width: 279px;
   height: 120px;
@@ -262,6 +264,7 @@ const Select = styled.select`
   height: 48px;
   border-radius: 5px;
   border-style: none;
+  padding: 0.5rem;
   @media screen and (min-width: 768px) {
     width: 456px;
   }
