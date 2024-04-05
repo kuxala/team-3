@@ -14,6 +14,7 @@ function App() {
   const [data, setData] = useState(jsonData);
   // console.log("data in app: ", data)
   // console.count("Rendered: ")
+
   return (
     <>
       <MyContext.Provider value={{ data, setData }}>

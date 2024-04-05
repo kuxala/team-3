@@ -41,20 +41,20 @@ export default function Id() {
                     </Upvotes>
                     <Comments>
                       <img src="/assets/shared/icon-comments.svg" />
-                      {/* {item.comments.length} */}
+                      {card?.comments?.length}
                     </Comments>
                   </StyledBottom>
                 </CenterDiv>
                 <CommentsDesktop>
                   <img src="/assets/shared/icon-comments.svg" />
-                  {/* {item.comments.length} */}
+                  {card?.comments?.length}
                 </CommentsDesktop>
               </StyledDiv>
             );
           }
         })}
       </div>
-      {/* <CommentSection/> */}
+      <CommentSection />
     </>
   );
 }

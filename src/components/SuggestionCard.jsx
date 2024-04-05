@@ -1,42 +1,70 @@
 import styled from "styled-components";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { MyContext } from "../App";
 import { Link } from "react-router-dom";
+
 export default function SuggestionCard() {
   const { data, setData } = useContext(MyContext);
-  // to={`/suggestions/${item.id}`}
+  const [upvoteStates, setUpvoteStates] = useState({});
+
+  const handleUpdate = (itemId) => {
+    const updatedUpvoteStates = { ...upvoteStates };
+    updatedUpvoteStates[itemId] = !updatedUpvoteStates[itemId];
+    setUpvoteStates(updatedUpvoteStates);
+
+    const updatedProductRequests = data.productRequests.map((item) => {
+      if (item.id === itemId) {
+        return {
+          ...item,
+          upvotes: updatedUpvoteStates[itemId]
+            ? item.upvotes + 1
+            : item.upvotes - 1,
+        };
+      }
+      return item;
+    });
+
+    setData({ ...data, productRequests: updatedProductRequests });
+  };
 
   return (
     <>
       {data.productRequests.map((item) => {
         return (
-          <StyledDiv key={item.id} to={`/suggestions/${item.id}`}>
-            {/* <Link to={`/suggestions/${item.id}`}>here</Link> */}
-            <UpvotesDesktop>
+          <StyledDiv key={item.id}>
+            <UpvotesDesktop
+              onClick={() => {
+                handleUpdate(item.id);
+              }}
+            >
               <img src="/assets/shared/icon-arrow-up.svg" />
               <p>{item.upvotes}</p>
             </UpvotesDesktop>
 
-            <CenterDiv>
+            <CenterDiv to={`/suggestions/${item.id}`}>
               <StyledTexts>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
               </StyledTexts>
               <StyledCategory>{item.category}</StyledCategory>
               <StyledBottom>
-                <Upvotes>
+                <Upvotes
+                  onClick={() => {
+                    console.log(item.upvotes);
+                  }}
+                >
                   <img src="/assets/shared/icon-arrow-up.svg" />
                   <p>{item.upvotes}</p>
                 </Upvotes>
                 <Comments>
                   <img src="/assets/shared/icon-comments.svg" />
-                  {/* {item.comments.length} */}
+                  {item?.comments?.length}
                 </Comments>
               </StyledBottom>
             </CenterDiv>
             <CommentsDesktop>
               <img src="/assets/shared/icon-comments.svg" />
-              {/* {item.comments.length} */}
+              {item?.comments?.length}
             </CommentsDesktop>
           </StyledDiv>
         );
@@ -45,7 +73,7 @@ export default function SuggestionCard() {
   );
 }
 
-const StyledDiv = styled(Link)`
+const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 200px;
@@ -65,7 +93,8 @@ const StyledDiv = styled(Link)`
     justify-content: space-between;
   }
 `;
-const CenterDiv = styled.div`
+const CenterDiv = styled(Link)`
+  text-decoration: none;
   @media only screen and (min-width: 768px) {
     width: 80%;
   }
@@ -184,7 +213,7 @@ const UpvotesDesktop = styled.div`
 `;
 const CommentsDesktop = styled.div`
   display: flex;
-  gap: 4px;
+  gap: 8px;
   @media only screen and (max-width: 768px) {
     display: none;
   }
@@ -194,4 +223,5 @@ const Comments = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 `;

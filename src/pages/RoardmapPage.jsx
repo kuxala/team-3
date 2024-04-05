@@ -29,7 +29,7 @@ export default function RoardmapPage() {
             </div>
             <h3>Roadmap</h3>
           </div>
-          <button>+ add Feedback</button>
+          <StyledLink to="/add-feedback">+ add Feedback</StyledLink>
         </RodmapHeader>
 
         {screenWidth < 768 ? (
@@ -374,7 +374,7 @@ const Comments = styled.div`
 
 const StyledContainer = styled.div`
   @media only screen and (min-width: 768px) {
-    width: 80%;
+    width: 60%;
     margin: 0 auto;
     border-radius: 10px;
     margin-top: 50px;
@@ -410,16 +410,15 @@ const RodmapHeader = styled.div`
     letter-spacing: -0.25px;
   }
   & > button {
-    width: 134px;
+    width: 140px;
     height: 40px;
-
     flex-shrink: 0;
     border-radius: 10px;
     border: none;
     outline: none;
     background: #ad1fea;
     color: #f2f4fe;
-    font-size: 13px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -427,6 +426,29 @@ const RodmapHeader = styled.div`
     &:hover {
       opacity: 0.8;
     }
+  }
+`;
+const StyledLink = styled(Link)`
+  width: 140px;
+  height: 40px;
+  flex-shrink: 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 10px;
+  background: #ad1fea;
+  color: #f2f4fe;
+  font-family: Jost;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  &:hover {
+    opacity: 0.8;
   }
 `;
 const LinkTo = styled(Link)`
