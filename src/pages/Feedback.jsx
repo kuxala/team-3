@@ -16,7 +16,7 @@ export default function Id() {
         <StyledHeader>
           <div>
             <img src="/assets/shared/icon-arrow-left.svg" />
-            <Link to="/">Go Back</Link>
+            <StyledGoBack to="/">Go Back</StyledGoBack>
           </div>
           <StyledLink to="/edit-feedback">Edit Feedback</StyledLink>
         </StyledHeader>
@@ -74,6 +74,15 @@ export default function Id() {
     </>
   );
 }
+const StyledGoBack = styled(Link)`
+  text-decoration: none;
+  color: #647196;
+  font-family: Jost;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
 
 const StyledDiv = styled.div`
   display: flex;

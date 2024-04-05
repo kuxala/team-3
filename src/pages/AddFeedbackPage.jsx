@@ -4,6 +4,7 @@ import arrow from "../../public/assets/shared/icon-arrow-left.svg";
 import iconPlus from "../../public/assets/shared/icon-plus.svg";
 import { Link } from "react-router-dom";
 import { MyContext } from "../App";
+
 export default function AddFeedbackPage() {
   const {
     data,
@@ -26,34 +27,29 @@ export default function AddFeedbackPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!feedbackTitle || !category || !feedbackDetail) {
-      // Throw an error or display a message to the user
+    if (!feedbackTitle || !feedbackDetail) {
       alert("Please fill in all the fields");
-      return; // Prevent form submission if fields are empty
+      return;
     }
-    // Create a new feedback object
+
     const newFeedback = {
-      id: data.productRequests.length + 1, // Generate a unique ID for the new feedback
+      id: data.productRequests.length + 1,
       title: feedbackTitle,
       category: category,
-      upvotes: 0, // Set initial upvotes for the new feedback
+      upvotes: 0,
       status: "suggestion",
       description: feedbackDetail,
-      comments: [], // Initialize comments array for the new feedback
+      comments: [],
     };
 
-    // Update the existing data with the new feedback object
     const updatedData = {
       ...data,
       productRequests: [...data.productRequests, newFeedback],
     };
 
-    // Update the context with the updated data
     setData(updatedData);
-
-    // Reset the form fields after submission
     setFeedbackTitle("");
-    setCategory("");
+    // setCategory("");
     setFeedbackDetail("");
   };
   return (
@@ -79,7 +75,6 @@ export default function AddFeedbackPage() {
         <Labeltext>Choose a category for your feedback</Labeltext>
 
         <Select
-          name="Choose"
           className="select"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
@@ -102,9 +97,14 @@ export default function AddFeedbackPage() {
         />
 
         <Buttons>
-          <Button className="purple" type="submit" onClick={handleSubmit}>
+          <ButtonLink
+            className="purple"
+            type="submit"
+            onClick={handleSubmit}
+            to="/"
+          >
             Add Feedback
-          </Button>
+          </ButtonLink>
           <Button className="blue" type="button" onClick={handleGoBack}>
             Cancel
           </Button>
@@ -114,13 +114,13 @@ export default function AddFeedbackPage() {
   );
 }
 const StyledLink = styled(Link)`
+  text-decoration: none;
   color: #647196;
   font-family: Jost;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  text-decoration-line: underline;
   padding-left: 10px;
 `;
 
@@ -309,6 +309,19 @@ const Buttons = styled.div`
   }
 `;
 const Button = styled.button`
+  width: 279px;
+  height: 40px;
+  border-style: none;
+  border-radius: 10px;
+  color: #f2f4fe;
+  font-size: 13px;
+  font-weight: 700;
+`;
+const ButtonLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
   width: 279px;
   height: 40px;
   border-style: none;

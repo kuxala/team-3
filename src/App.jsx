@@ -16,7 +16,6 @@ function App() {
   const [feedbackTitle, setFeedbackTitle] = useState("");
   const [category, setCategory] = useState("feature");
   const [feedbackDetail, setFeedbackDetail] = useState("");
-  console.log(data.productRequests);
 
   useEffect(() => {
     const serializedData = JSON.stringify(data.productRequests);
@@ -27,7 +26,7 @@ function App() {
     const storedData = window.localStorage.getItem("data");
     if (storedData) {
       const parsedData = JSON.parse(storedData);
-      console.log(parsedData);
+
       setData((prevData) => ({ ...prevData, productRequests: parsedData }));
     }
   }, []);

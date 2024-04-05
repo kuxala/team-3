@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import arrow from "../../public/assets/shared/icon-arrow-left.svg";
 import Icon from "../../public/assets/shared/icon-edit-feedback.svg";
-import { Link } from "react-router-dom";
-
+import { Link, useParams } from "react-router-dom";
+import { MyContext } from "../App";
 export default function EditFeedbackPage() {
+  const { data, setData, upvoteStates, setUpvoteStates, handleUpdate } =
+    useContext(MyContext);
+  let { userId } = useParams();
+
   const handleGoBack = () => {
     window.history.back();
   };
@@ -70,7 +74,7 @@ const StyledLink = styled(Link)`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  text-decoration-line: underline;
+  text-decoration: none;
   padding-left: 10px;
 `;
 
