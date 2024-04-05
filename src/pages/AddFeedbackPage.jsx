@@ -26,10 +26,14 @@ export default function AddFeedbackPage() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!feedbackTitle || !feedbackDetail) {
+    // e.preventDefault();
+    const titleValue = feedbackTitle.trim();
+    const detailValue = feedbackDetail.trim();
+
+    // Check if inputs are empty
+    if (!titleValue || !detailValue) {
       alert("Please fill in all the fields");
-      return;
+      return; // Exit the function if inputs are empty
     }
 
     const newFeedback = {
