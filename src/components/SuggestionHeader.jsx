@@ -1,20 +1,35 @@
 import React from 'react'
 import styled from "styled-components"
-
+import SortCard from './SortCard'
+import {useState } from "react"
 
 export default function SuggestionHeader() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [dropdownMenuValue, setDropdownMenuValue] = useState("Most Upvotes")
+  // console.log(dropdownMenuValue)
 
-    return (
+
+  return (
         <>
             <SuggestionHeaderDiv>
+              
               <div>
                 <StyledDesktopText>
                   <img src="/assets/suggestions/icon-suggestions.svg"/>
                   <p>6 suggestions</p> {/* ეს შესააცვლელია */}
                   </StyledDesktopText>
-                <p>Sort By: </p>
-                <span>Most Upvotes</span> {/*sorting  here*/}
-                <img src="/assets/shared/icon-arrow-down.svg"/>
+                  <SortCard isOpen={isOpen} dropdownMenuValue={dropdownMenuValue} setDropdownMenuValue={setDropdownMenuValue} />
+                  
+                <StyledSort>
+
+                
+
+                  <p>Sort By: </p>
+                  <span>{dropdownMenuValue.replace("-", " ")}</span> {/*sorting  here*/}
+                  <img src="/assets/shared/icon-arrow-down.svg" onClick={() => setIsOpen(!isOpen)}/>
+                  
+                </StyledSort >
+                
               </div> 
               <button>+ Add Feedback</button>
             </SuggestionHeaderDiv>
@@ -40,14 +55,35 @@ const StyledDesktopText = styled.div`
     }
   }   
 `
-
+const StyledSort = styled.div`
+    display: flex; 
+    gap: 5px;
+    align-items: center;
+    
+    & > p{
+      color: #F2F4FE;
+      text-align: right;
+      font-family: Jost;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+    & > span{
+      color: #F2F4FE;
+      font-family: Jost;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+`
 const SuggestionHeaderDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 18px 24px;
   background: #373F68;
- 
   @media only screen and (min-width: 768px){
     width: 50%;
     border-radius: 10px;

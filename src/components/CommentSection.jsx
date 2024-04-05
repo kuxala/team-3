@@ -1,28 +1,38 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import styled from "styled-components";
+import {MyContext} from '../App';
+import {useParams, Link } from "react-router-dom"
 
 export default function CommentSection() {
-    
+  const {data, setData} = useContext(MyContext);
+  let { userId } = useParams();
+  
 
+  // console.log(data.productRequests.map((each) => {
+  //   if( each.id == userId) {
+  //     return each
+  //   }
+  // }))
     return (
         <>
-        <StyledContainer>
-            <h3>0 Comments</h3>
-            <div >
-                <img src="/assets/user-images/image-anne.jpg"/>
+            <StyledContainer>
+                <h3>0 Comments</h3>
                 <div >
-                    <div>
-                        <p>Name</p>
-                        <span>UserName</span>
+                    <img src="/assets/user-images/image-anne.jpg"/>
+                    <div >
+                        <div>
+                            <p>Name</p>
+                            <span>UserName</span>
+                        </div>
+                        <a>Reply</a>
                     </div>
-                    <a>Reply</a>
                 </div>
-            </div>
-            <Description style={{borderBottom: "1px solid rgba(128, 128, 128, 0.5)", paddingBottom:"24px"}}>
-            Also, please allow styles to be applied based on system preferences. I would love to be 
-            able to browse Frontend Mentor in the evening after my device’s dark mode turns on without the bright background it currently has.
-            </Description>
-        </StyledContainer>         
+                <Description style={{borderBottom: "1px solid rgba(128, 128, 128, 0.5)", paddingBottom:"24px"}}>
+                Also, please allow styles to be applied based on system preferences. I would love to be 
+                able to browse Frontend Mentor in the evening after my device’s dark mode turns on without the bright background it currently has.
+                </Description>
+            </StyledContainer>    
+
         </>
     )
 }
