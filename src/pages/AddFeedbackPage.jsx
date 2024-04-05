@@ -187,8 +187,9 @@ const Select = styled.select`
     width: 456px;
   }
 `;
-const Option = styled.option`
-`;
+
+const Option = styled.option``;
+
 
 const Buttons = styled.div`
   display: flex;
@@ -213,19 +214,20 @@ const Buttons = styled.div`
 
     & .purple {
       width: 144px;
+    }
+
+    & .blue:hover {
+      background-color: #656ea3;
+      cursor: pointer;
+    }
+
+    & .purple:hover {
+      background: #c75af6;
+      cursor: pointer;
+
       
     }
 
-    & .blue:hover{
-        background-color:#656EA3;
-        cursor:pointer;
-    }
-
-    & .purple:hover{
-        background: #C75AF6;
-        cursor:pointer;
-;
-    }
   }
 `;
 const Button = styled.button`
