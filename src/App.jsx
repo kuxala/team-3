@@ -26,6 +26,14 @@ function App() {
   const updateSortCriteria = (criteria) => {
     setSortCriteria(criteria);
   };
+  const counts = {
+    planned: data.productRequests.filter((item) => item.status === "planned")
+      .length,
+    "in-progress": data.productRequests.filter(
+      (item) => item.status === "in-progress"
+    ).length,
+    live: data.productRequests.filter((item) => item.status === "live").length,
+  };
   // useEffect(() => {
   //   const serializedData = JSON.stringify(data.productRequests);
   //   window.localStorage.setItem("data", serializedData);
@@ -79,6 +87,7 @@ function App() {
           setDropdownMenuValue,
           selectedCategory,
           setSelectedCategory,
+          counts,
         }}
       >
         <Router>

@@ -4,7 +4,7 @@ import closeIcon from "../../public/assets/shared/mobile/icon-hamburger.svg";
 import { Link } from "react-router-dom";
 import { MyContext } from "../App";
 export default function HeaderComponent() {
-  const { data, setData, selectedCategory, setSelectedCategory } =
+  const { data, setData, selectedCategory, setSelectedCategory, counts } =
     useContext(MyContext);
   const labels = ["All", "UX", "UI", "Enhancement", "Bug", "Feature"];
   const [activeIndex, setActiveIndex] = useState(0);
@@ -55,15 +55,15 @@ export default function HeaderComponent() {
           <div>
             <div className="bottom-row">
               <p>Planned</p>
-              <span>0</span>
+              <span>{counts["planned"]}</span>
             </div>
             <div className="bottom-row">
               <p>In Progress</p>
-              <span>0</span>
+              <span>{counts["in-progress"]}</span>
             </div>
             <div className="bottom-row">
               <p>Live</p>
-              <span>0</span>
+              <span>{counts["live"]}</span>
             </div>
           </div>
         </BottomSection>
