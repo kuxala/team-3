@@ -7,7 +7,8 @@ import CommentSection from "../components/CommentSection";
 export default function Id() {
   let { userId } = useParams();
   // console.log("UserId : ", userId)
-  const { data, setData } = useContext(MyContext);
+  const { data, setData, upvoteStates, setUpvoteStates, handleUpdate } =
+    useContext(MyContext);
 
   return (
     <>
@@ -15,49 +16,82 @@ export default function Id() {
         <StyledHeader>
           <div>
             <img src="/assets/shared/icon-arrow-left.svg" />
-            <Link to="/">Go Back</Link>
+            <StyledGoBack to="/">Go Back</StyledGoBack>
           </div>
           <StyledLink to="/edit-feedback">Edit Feedback</StyledLink>
         </StyledHeader>
-        {data.productRequests.map((card) => {
-          if (userId == card.id) {
+        {data.productRequests.map((item) => {
+          if (userId == item.id) {
             return (
-              <StyledDiv key={card.id}>
-                <UpvotesDesktop>
+              <StyledDiv key={item.id}>
+                <UpvotesDesktop
+                  style={{
+                    backgroundColor: upvoteStates[item.id]
+                      ? "#bec9fc"
+                      : "#f2f4fe",
+                  }}
+                  onClick={() => {
+                    handleUpdate(item.id);
+                  }}
+                >
                   <img src="/assets/shared/icon-arrow-up.svg" />
-                  <p>{card.upvotes}</p>
+                  <p
+                  // style={{
+                  //   color: upvoteStates[item.id] ? "#fff" : "#3a4374",
+                  // }}
+                  >
+                    {item.upvotes}
+                  </p>
                 </UpvotesDesktop>
 
                 <CenterDiv>
                   <StyledTexts>
-                    <h3>{card.title}</h3>
-                    <p>{card.description}</p>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
                   </StyledTexts>
-                  <StyledCategory>{card.category}</StyledCategory>
+                  <StyledCategory>{item.category}</StyledCategory>
                   <StyledBottom>
-                    <Upvotes>
+                    <Upvotes
+                      style={{
+                        backgroundColor: upvoteStates[item.id]
+                          ? "#bec9fc"
+                          : "#f2f4fe",
+                      }}
+                      onClick={() => {
+                        handleUpdate(item.id);
+                      }}
+                    >
                       <img src="/assets/shared/icon-arrow-up.svg" />
-                      <p>{card.upvotes}</p>
+                      <p>{item.upvotes}</p>
                     </Upvotes>
                     <Comments>
                       <img src="/assets/shared/icon-comments.svg" />
-                      {/* {item.comments.length} */}
+                      {item?.comments?.length}
                     </Comments>
                   </StyledBottom>
                 </CenterDiv>
                 <CommentsDesktop>
                   <img src="/assets/shared/icon-comments.svg" />
-                  {/* {item.comments.length} */}
+                  {item?.comments?.length}
                 </CommentsDesktop>
               </StyledDiv>
             );
           }
         })}
       </div>
-      {/* <CommentSection/> */}
+      {/* <CommentSection /> */}
     </>
   );
 }
+const StyledGoBack = styled(Link)`
+  text-decoration: none;
+  color: #647196;
+  font-family: Jost;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+`;
 
 const StyledDiv = styled.div`
   display: flex;
@@ -68,7 +102,7 @@ const StyledDiv = styled.div`
   padding: 24px;
   border-radius: 10px;
   @media only screen and (min-width: 768px) {
-    width: 50%;
+    max-width: 825px;
     margin: 0 auto;
     margin-top: 24px;
     height: 0;
@@ -84,6 +118,11 @@ const CenterDiv = styled.div`
   }
 `;
 const StyledTexts = styled.div`
+  &:hover {
+    & > h3 {
+      color: #4661e6;
+    }
+  }
   & > h3 {
     color: #3a4374;
     font-family: Jost;
@@ -162,12 +201,23 @@ const Upvotes = styled.div`
     line-height: normal;
     letter-spacing: -0.181px;
   }
+  & > p {
+    color: #3a4374;
+    text-align: center;
+    font-family: Jost;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.181px;
+  }
 `;
 
 const Comments = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 `;
 
 const StyledHeader = styled.div`
@@ -175,7 +225,7 @@ const StyledHeader = styled.div`
   justify-content: space-between;
   padding: 24px;
   @media only screen and (min-width: 768px) {
-    width: 50%;
+    max-width: 825px;
     margin: 0 auto;
     margin-top: 50px;
   }
@@ -195,7 +245,7 @@ const StyledHeader = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  width: 119px;
+  width: 140px;
   height: 40px;
   flex-shrink: 0;
   border: none;
@@ -251,6 +301,7 @@ const UpvotesDesktop = styled.div`
 const CommentsDesktop = styled.div`
   display: flex;
   gap: 4px;
+  align-items: center;
   @media only screen and (max-width: 768px) {
     display: none;
   }

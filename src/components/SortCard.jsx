@@ -1,11 +1,10 @@
 import styled from "styled-components";
+import { MyContext } from "../App";
+import { useContext } from "react";
 
-export default function SortCard({
-  isOpen,
-  setIsOpen,
-  dropdownMenuValue,
-  setDropdownMenuValue,
-}) {
+export default function SortCard({ isOpen, setIsOpen }) {
+  const { dropdownMenuValue, setDropdownMenuValue } = useContext(MyContext);
+
   return (
     <>
       {isOpen ? (

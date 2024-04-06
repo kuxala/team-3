@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import SuggestionHeader from "../components/SuggestionHeader";
-
+import { Link } from "react-router-dom";
 export default function HomePage() {
   return (
     <>
@@ -13,7 +13,7 @@ export default function HomePage() {
           Got a suggestion? Found a bug that needs to be squashed? We love
           hearing about new ideas to improve our app.
         </p>
-        <button>+ Add Feedback</button>
+        <StyledLink to="/add-feedback">+ Add Feedback</StyledLink>
       </StyledDiv>
     </>
   );
@@ -57,24 +57,31 @@ const StyledDiv = styled.div`
     line-height: normal;
   }
   & > button {
-    margin-top: 24px;
-    width: 134px;
-    height: 40px;
-    flex-shrink: 0;
-    outline: none;
-    border: none;
-    border-radius: 10px;
-    background: #ad1fea;
-    color: #f2f4fe;
-    font-family: Jost;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+  }
+`;
 
-    cursor: pointer;
-    &:hover {
-      background-color: #c75af6;
-    }
+const StyledLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  margin-top: 24px;
+  width: 134px;
+  height: 40px;
+  flex-shrink: 0;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  background: #ad1fea;
+  color: #f2f4fe;
+  font-family: Jost;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  cursor: pointer;
+  &:hover {
+    background-color: #c75af6;
   }
 `;

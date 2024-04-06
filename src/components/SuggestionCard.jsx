@@ -1,42 +1,89 @@
 import styled from "styled-components";
-import React, { useContext } from "react";
+import React, { useContext, useState, useMemo } from "react";
 import { MyContext } from "../App";
 import { Link } from "react-router-dom";
+
 export default function SuggestionCard() {
-  const { data, setData } = useContext(MyContext);
-  // to={`/suggestions/${item.id}`}
+  const {
+    data,
+    upvoteStates,
+    handleUpdate,
+    updateSortCriteria,
+    sortCriteria,
+    dropdownMenuValue,
+  } = useContext(MyContext);
+
+  const sortedData = useMemo(() => {
+    const items = [...data.productRequests];
+    switch (dropdownMenuValue) {
+      case "Most-Upvotes":
+        items.sort((a, b) => b.upvotes - a.upvotes);
+        break;
+      case "Least-Upvotes":
+        items.sort((a, b) => a.upvotes - b.upvotes);
+        break;
+      case "Most-Comments":
+        items.sort(
+          (a, b) => (b.comments?.length || 0) - (a.comments?.length || 0)
+        );
+        break;
+      case "Least-Comments":
+        items.sort(
+          (a, b) => (a.comments?.length || 0) - (b.comments?.length || 0)
+        );
+        break;
+      default:
+        break;
+    }
+    return items;
+  }, [data.productRequests, dropdownMenuValue]);
 
   return (
     <>
-      {data.productRequests.map((item) => {
+      {sortedData.map((item) => {
         return (
-          <StyledDiv key={item.id} to={`/suggestions/${item.id}`}>
-            {/* <Link to={`/suggestions/${item.id}`}>here</Link> */}
-            <UpvotesDesktop>
+          <StyledDiv key={item.id}>
+            <UpvotesDesktop
+              style={{
+                backgroundColor: upvoteStates[item.id] ? "#bec9fc" : "#f2f4fe",
+              }}
+              onClick={() => {
+                handleUpdate(item.id);
+              }}
+            >
               <img src="/assets/shared/icon-arrow-up.svg" />
               <p>{item.upvotes}</p>
             </UpvotesDesktop>
 
             <CenterDiv>
-              <StyledTexts>
+              <StyledTexts to={`/suggestions/${item.id}`}>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
               </StyledTexts>
               <StyledCategory>{item.category}</StyledCategory>
               <StyledBottom>
-                <Upvotes>
+                <Upvotes
+                  style={{
+                    backgroundColor: upvoteStates[item.id]
+                      ? "#a4b2fc"
+                      : "#f2f4fe",
+                  }}
+                  onClick={() => {
+                    handleUpdate(item.id);
+                  }}
+                >
                   <img src="/assets/shared/icon-arrow-up.svg" />
                   <p>{item.upvotes}</p>
                 </Upvotes>
                 <Comments>
                   <img src="/assets/shared/icon-comments.svg" />
-                  {/* {item.comments.length} */}
+                  {item?.comments?.length}
                 </Comments>
               </StyledBottom>
             </CenterDiv>
             <CommentsDesktop>
               <img src="/assets/shared/icon-comments.svg" />
-              {/* {item.comments.length} */}
+              {item?.comments?.length}
             </CommentsDesktop>
           </StyledDiv>
         );
@@ -45,7 +92,7 @@ export default function SuggestionCard() {
   );
 }
 
-const StyledDiv = styled(Link)`
+const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 200px;
@@ -55,7 +102,7 @@ const StyledDiv = styled(Link)`
   border-radius: 10px;
   text-decoration: none;
   @media only screen and (min-width: 768px) {
-    width: 50%;
+    max-width: 825px;
     margin: 0 auto;
     margin-top: 24px;
     height: 0;
@@ -70,7 +117,13 @@ const CenterDiv = styled.div`
     width: 80%;
   }
 `;
-const StyledTexts = styled.div`
+const StyledTexts = styled(Link)`
+  text-decoration: none;
+  &:hover {
+    & > h3 {
+      color: #4661e6;
+    }
+  }
   & > h3 {
     color: #3a4374;
     font-family: Jost;
@@ -79,6 +132,7 @@ const StyledTexts = styled.div`
     font-weight: 700;
     line-height: normal;
     letter-spacing: -0.181px;
+
     @media only screen and (min-width: 768px) {
       font-size: 18px;
     }
@@ -91,6 +145,7 @@ const StyledTexts = styled.div`
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+
     @media only screen and (min-width: 768px) {
       font-size: 16px;
     }
@@ -184,7 +239,8 @@ const UpvotesDesktop = styled.div`
 `;
 const CommentsDesktop = styled.div`
   display: flex;
-  gap: 4px;
+  align-items: center;
+  gap: 8px;
   @media only screen and (max-width: 768px) {
     display: none;
   }
@@ -194,4 +250,5 @@ const Comments = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
 `;

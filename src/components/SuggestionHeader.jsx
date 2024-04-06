@@ -1,36 +1,30 @@
 import React from "react";
 import styled from "styled-components";
 import SortCard from "./SortCard";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { MyContext } from "../App";
+
 export default function SuggestionHeader() {
   const [isOpen, setIsOpen] = useState(false);
-  const [dropdownMenuValue, setDropdownMenuValue] = useState("Most Upvotes");
-  // console.log(dropdownMenuValue)
 
+  const { dropdownMenuValue, setDropdownMenuValue, data } =
+    useContext(MyContext);
   return (
     <>
       <SuggestionHeaderDiv>
         <div>
           <StyledDesktopText>
             <img src="/assets/suggestions/icon-suggestions.svg" />
-            <p>6 suggestions</p> {/* ეს შესააცვლელია */}
+            <p>{data.productRequests.length} suggestions</p>
           </StyledDesktopText>
-          <SortCard
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            dropdownMenuValue={dropdownMenuValue}
-            setDropdownMenuValue={setDropdownMenuValue}
-          />
+          <SortCard isOpen={isOpen} setIsOpen={setIsOpen} />
 
-          <StyledSort>
+          <StyledSort onClick={() => setIsOpen(!isOpen)}>
             <p>Sort By: </p>
             <span>{dropdownMenuValue.replace("-", " ")}</span>{" "}
             {/*sorting  here*/}
-            <img
-              src="/assets/shared/icon-arrow-down.svg"
-              onClick={() => setIsOpen(!isOpen)}
-            />
+            <img src="/assets/shared/icon-arrow-down.svg" />
           </StyledSort>
         </div>
         <StyledLink to="/add-feedback">+ Add Feedback</StyledLink>
@@ -58,14 +52,14 @@ const StyledDesktopText = styled.div`
   }
 `;
 const StyledLink = styled(Link)`
-  width: 119px;
+  width: 140px;
   height: 40px;
   flex-shrink: 0;
   border: none;
   outline: none;
   cursor: pointer;
   border-radius: 10px;
-  background: #4661e6;
+  background: #ad1fea;
   color: #f2f4fe;
   font-family: Jost;
   font-size: 13px;
@@ -85,6 +79,10 @@ const StyledSort = styled.div`
   display: flex;
   gap: 5px;
   align-items: center;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 
   & > p {
     color: #f2f4fe;
@@ -111,7 +109,7 @@ const SuggestionHeaderDiv = styled.div`
   padding: 18px 24px;
   background: #373f68;
   @media only screen and (min-width: 768px) {
-    width: 50%;
+    max-width: 825px;
     border-radius: 10px;
     margin: 0 auto;
     margin-top: 100px;

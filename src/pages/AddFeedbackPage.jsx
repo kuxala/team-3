@@ -1,14 +1,61 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import arrow from "../../public/assets/shared/icon-arrow-left.svg";
 import iconPlus from "../../public/assets/shared/icon-plus.svg";
 import { Link } from "react-router-dom";
+import { MyContext } from "../App";
 
 export default function AddFeedbackPage() {
+  const {
+    data,
+    setData,
+    feedbackTitle,
+    setFeedbackTitle,
+    category,
+    setCategory,
+    feedbackDetail,
+    setFeedbackDetail,
+  } = useContext(MyContext);
+
+  // console.log("title: ", feedbackTitle);
+  // console.log("categoty: ", category);
+  // console.log("detail: ", feedbackDetail);
+
   const handleGoBack = () => {
     window.history.back();
   };
 
+  const handleSubmit = (e) => {
+    // e.preventDefault();
+    const titleValue = feedbackTitle.trim();
+    const detailValue = feedbackDetail.trim();
+
+    // Check if inputs are empty
+    if (!titleValue || !detailValue) {
+      alert("Please fill in all the fields");
+      return; // Exit the function if inputs are empty
+    }
+
+    const newFeedback = {
+      id: data.productRequests.length + 1,
+      title: feedbackTitle,
+      category: category,
+      upvotes: 0,
+      status: "suggestion",
+      description: feedbackDetail,
+      comments: [],
+    };
+
+    const updatedData = {
+      ...data,
+      productRequests: [...data.productRequests, newFeedback],
+    };
+
+    setData(updatedData);
+    setFeedbackTitle("");
+    // setCategory("");
+    setFeedbackDetail("");
+  };
   return (
     <FeedbackContainer>
       <Header>
@@ -17,48 +64,67 @@ export default function AddFeedbackPage() {
           Go Back
         </StyledLink>
       </Header>
-      <FeedbackForm>
+      <FeedbackForm onSubmit={handleSubmit}>
         <img src={iconPlus} className="iconPlus" />
         <Title>Create New Feedback</Title>
         <Label>Feedback Title</Label>
         <Labeltext>Add a short, descriptive headline</Labeltext>
-        <Input type="text"></Input>
+        <Input
+          type="text"
+          value={feedbackTitle}
+          onChange={(e) => setFeedbackTitle(e.target.value)}
+        ></Input>
 
         <Label>Category</Label>
         <Labeltext>Choose a category for your feedback</Labeltext>
 
-        <Select name="Feature" className="select">
-          <Option disabled selected>
-            Feature{" "}
-          </Option>
+        <Select
+          className="select"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <Option value="feature">Feature</Option>
           <Option value="UI">UI</Option>
           <Option value="UX">UX</Option>
-          <Option value="UX">Enhancement</Option>
-          <Option value="UX">Bug</Option>
+          <Option value="Enhancement">Enhancement</Option>
+          <Option value="Bug">Bug</Option>
         </Select>
 
         <Label>Feedback Detail</Label>
         <Labeltext>
           Include any specific comments on what should be improved, added, etc.
         </Labeltext>
-        <Comment type="text" />
+        <Comment
+          type="text"
+          value={feedbackDetail}
+          onChange={(e) => setFeedbackDetail(e.target.value)}
+        />
 
         <Buttons>
-          <Button className="purple">Add Feedback</Button>
-          <Button className="blue">Cancel</Button>
+          <ButtonLink
+            className="purple"
+            type="submit"
+            onClick={handleSubmit}
+            to="/"
+          >
+            Add Feedback
+          </ButtonLink>
+          <Button className="blue" type="button" onClick={handleGoBack}>
+            Cancel
+          </Button>
         </Buttons>
       </FeedbackForm>
     </FeedbackContainer>
   );
 }
 const StyledLink = styled(Link)`
+  text-decoration: none;
   color: #647196;
   font-family: Jost;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  text-decoration-line: underline;
   padding-left: 10px;
 `;
 
@@ -170,6 +236,7 @@ const Labeltext = styled.h2`
 `;
 
 const Input = styled.input`
+  padding: 1rem;
   background-color: #f7f8fd;
   width: 279px;
   height: 48px;
@@ -182,6 +249,7 @@ const Input = styled.input`
 `;
 
 const Comment = styled.textarea`
+  padding: 1rem;
   background-color: #f7f8fd;
   width: 279px;
   height: 120px;
@@ -196,22 +264,33 @@ const Comment = styled.textarea`
 
 const Select = styled.select`
   background-color: #f7f8fd;
+
   width: 279px;
   height: 48px;
   border-radius: 5px;
   border-style: none;
+  padding: 0.5rem;
   @media screen and (min-width: 768px) {
     width: 456px;
   }
 `;
 
-const Option = styled.option``;
+const Option = styled.option`
+  box-shadow: 0px 10px 40px -7px rgba(55, 63, 104, 0.35);
+  padding: 1rem;
+  color: #647196;
+  font-family: Jost;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
 
 const Buttons = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 10px;
-
+  margin-top: 20px;
   & .purple {
     background-color: #ad1fea;
   }
@@ -244,6 +323,19 @@ const Buttons = styled.div`
   }
 `;
 const Button = styled.button`
+  width: 279px;
+  height: 40px;
+  border-style: none;
+  border-radius: 10px;
+  color: #f2f4fe;
+  font-size: 13px;
+  font-weight: 700;
+`;
+const ButtonLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
   width: 279px;
   height: 40px;
   border-style: none;

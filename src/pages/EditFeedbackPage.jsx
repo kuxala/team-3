@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import arrow from "../../public/assets/shared/icon-arrow-left.svg";
 import Icon from "../../public/assets/shared/icon-edit-feedback.svg";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { MyContext } from "../App";
 export default function EditFeedbackPage() {
+  const {
+    data,
+    setData,
+    upvoteStates,
+    setUpvoteStates,
+    handleUpdate,
+    category,
+    setCategory,
+  } = useContext(MyContext);
+
+  let { userId } = useParams();
+  const [feedbackData, setFeedbackData] = useState("planned");
+
   const handleGoBack = () => {
     window.history.back();
   };
 
+  console.log(userId);
   return (
     <FeedbackContainer>
       <Header>
@@ -18,41 +33,39 @@ export default function EditFeedbackPage() {
       </Header>
       <FeedbackForm>
         <img src={Icon} className="Icon" />
-        <Title>Add a dark theme option</Title>
+        <Title>Add a dark theme option</Title> {/*NEED CHANGE*/}
         <Label>Feedback Title</Label>
         <Labeltext>Add a short, descriptive headline</Labeltext>
         <Input type="text"></Input>
-
         <Label>Category</Label>
         <Labeltext>Choose a category for your feedback</Labeltext>
-        <Select name="Feature" className="select">
-          <Option disabled selected>
-            Feature{" "}
-          </Option>
+        <Select
+          name="Feature"
+          className="select"
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <Option value={category}>Feature</Option>
           <Option value="UI">UI</Option>
           <Option value="UX">UX</Option>
           <Option value="UX">Enhancement</Option>
           <Option value="UX">Bug</Option>
         </Select>
-
         <Label>Update Status</Label>
         <Labeltext>Change feature state</Labeltext>
-        <Select name="Planned" className="select">
-          <Option disabled selected>
-            Planned{" "}
-          </Option>
-          <Option value="Suggestion">suggestion</Option>
+        <Select
+          className="select"
+          value={feedbackData}
+          onChange={(e) => setFeedbackData(e.target.value)}
+        >
           <Option value="Planned">Planned</Option>
           <Option value="In-Progress">In-Progress</Option>
           <Option value="Live">Live</Option>
         </Select>
-
         <Label>Feedback Detail</Label>
         <Labeltext>
           Include any specific comments on what should be improved, added, etc.
         </Labeltext>
         <Comment type="text" />
-
         <Buttons>
           <Button className="purple">Add Feedback</Button>
           <Button className="blue">Cancel</Button>
@@ -69,7 +82,7 @@ const StyledLink = styled(Link)`
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  text-decoration-line: underline;
+  text-decoration: none;
   padding-left: 10px;
 `;
 
