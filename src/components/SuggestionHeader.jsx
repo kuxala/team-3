@@ -8,14 +8,15 @@ import { MyContext } from "../App";
 export default function SuggestionHeader() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { dropdownMenuValue, setDropdownMenuValue } = useContext(MyContext);
+  const { dropdownMenuValue, setDropdownMenuValue, data } =
+    useContext(MyContext);
   return (
     <>
       <SuggestionHeaderDiv>
         <div>
           <StyledDesktopText>
             <img src="/assets/suggestions/icon-suggestions.svg" />
-            <p>6 suggestions</p> {/* ეს შესააცვლელია */}
+            <p>{data.productRequests.length} suggestions</p>
           </StyledDesktopText>
           <SortCard isOpen={isOpen} setIsOpen={setIsOpen} />
 
@@ -108,7 +109,7 @@ const SuggestionHeaderDiv = styled.div`
   padding: 18px 24px;
   background: #373f68;
   @media only screen and (min-width: 768px) {
-    width: 50%;
+    max-width: 825px;
     border-radius: 10px;
     margin: 0 auto;
     margin-top: 100px;

@@ -102,7 +102,7 @@ const StyledDiv = styled.div`
   border-radius: 10px;
   text-decoration: none;
   @media only screen and (min-width: 768px) {
-    width: 50%;
+    max-width: 825px;
     margin: 0 auto;
     margin-top: 24px;
     height: 0;

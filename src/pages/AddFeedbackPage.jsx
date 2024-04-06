@@ -264,6 +264,7 @@ const Comment = styled.textarea`
 
 const Select = styled.select`
   background-color: #f7f8fd;
+
   width: 279px;
   height: 48px;
   border-radius: 5px;
@@ -274,7 +275,16 @@ const Select = styled.select`
   }
 `;
 
-const Option = styled.option``;
+const Option = styled.option`
+  box-shadow: 0px 10px 40px -7px rgba(55, 63, 104, 0.35);
+  padding: 1rem;
+  color: #647196;
+  font-family: Jost;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
 
 const Buttons = styled.div`
   display: flex;
