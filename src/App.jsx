@@ -17,11 +17,12 @@ function App() {
   const [category, setCategory] = useState("feature");
   const [feedbackDetail, setFeedbackDetail] = useState("");
   const [dropdownMenuValue, setDropdownMenuValue] = useState("Most Upvotes");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
   const [sortCriteria, setSortCriteria] = useState({
     sortBy: "upvotes",
     sortOrder: "desc",
   });
-
   const updateSortCriteria = (criteria) => {
     setSortCriteria(criteria);
   };
@@ -76,6 +77,8 @@ function App() {
           sortCriteria,
           dropdownMenuValue,
           setDropdownMenuValue,
+          selectedCategory,
+          setSelectedCategory,
         }}
       >
         <Router>

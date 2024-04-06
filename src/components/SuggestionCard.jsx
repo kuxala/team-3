@@ -11,6 +11,8 @@ export default function SuggestionCard() {
     updateSortCriteria,
     sortCriteria,
     dropdownMenuValue,
+    selectedCategory,
+    setSelectedCategory,
   } = useContext(MyContext);
 
   const sortedData = useMemo(() => {
@@ -38,9 +40,19 @@ export default function SuggestionCard() {
     return items;
   }, [data.productRequests, dropdownMenuValue]);
 
+  const filteredData = useMemo(() => {
+    if (selectedCategory === "All") {
+      return sortedData;
+    } else {
+      return sortedData.filter(
+        (item) => item.category.toLowerCase() === selectedCategory.toLowerCase()
+      );
+    }
+  }, [sortedData, selectedCategory]);
+
   return (
     <>
-      {sortedData.map((item) => {
+      {filteredData.map((item) => {
         return (
           <StyledDiv key={item.id}>
             <UpvotesDesktop

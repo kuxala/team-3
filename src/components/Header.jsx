@@ -4,14 +4,19 @@ import closeIcon from "../../public/assets/shared/mobile/icon-hamburger.svg";
 import { Link } from "react-router-dom";
 import { MyContext } from "../App";
 export default function HeaderComponent() {
-  const { data, setData } = useContext(MyContext);
+  const { data, setData, selectedCategory, setSelectedCategory } =
+    useContext(MyContext);
   const labels = ["All", "UX", "UI", "Enhancement", "Bug", "Feature"];
   const [activeIndex, setActiveIndex] = useState(0);
-
-  const handleItemClick = (index) => {
+  console.log(selectedCategory);
+  const handleIdClick = (index) => {
     if (activeIndex !== index) {
       setActiveIndex(index); // Set active only if it's not already active
     }
+  };
+
+  const handleItemClick = (category) => {
+    setSelectedCategory(category); // Update selected category
   };
 
   return (
@@ -34,7 +39,10 @@ export default function HeaderComponent() {
             <div
               key={index}
               className={activeIndex === index ? "active" : ""}
-              onClick={() => handleItemClick(index)}
+              onClick={() => {
+                handleIdClick(index);
+                handleItemClick(label);
+              }}
             >
               {label}
             </div>
