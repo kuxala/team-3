@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import closeIcon from "../../public/assets/shared/mobile/icon-hamburger.svg"
+import closeIcon from "../../public/assets/shared/mobile/icon-hamburger.svg";
 export default function HeaderComponent() {
   return (
     <HeaderDiv>
@@ -20,14 +20,15 @@ const Header = styled.div`
 const HeaderDiv = styled.div`
   padding: 24px;
   background: radial-gradient(
-      128.88% 128.88% at 103.9% -10.39%,
-      #e84d70 0%,
-      #a337f6 53.09%,
-      #28a7ed 100%
-    );
-   
+    128.88% 128.88% at 103.9% -10.39%,
+    #e84d70 0%,
+    #a337f6 53.09%,
+    #28a7ed 100%
+  );
+
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const HeaderText = styled.p`
