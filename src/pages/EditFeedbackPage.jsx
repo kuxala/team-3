@@ -9,9 +9,9 @@ export default function EditFeedbackPage() {
   const { data, setData } = useContext(MyContext);
   const { userId } = useParams();
   const [feedbackData, setFeedbackData] = useState(null);
+  // console.log(data.productRequests);
 
   useEffect(() => {
-    // Find feedback data by user ID
     const feedbackItem = data.productRequests.find(
       (item) => item.id === parseInt(userId)
     );
@@ -28,7 +28,6 @@ export default function EditFeedbackPage() {
   };
 
   const handleFeedbackUpdate = () => {
-    // Update feedback data in the context
     const updatedData = data.productRequests.map((item) => {
       if (item.id === feedbackData.id) {
         return feedbackData;
@@ -96,9 +95,9 @@ export default function EditFeedbackPage() {
           value={feedbackData.status}
           onChange={handleInputChange}
         >
-          <Option value="Planned">Planned</Option>
-          <Option value="In-Progress">In-Progress</Option>
-          <Option value="Live">Live</Option>
+          <Option value="planned">Planned</Option>
+          <Option value="in-progress">In-Progress</Option>
+          <Option value="live">Live</Option>
         </Select>
         <Label>Feedback Detail</Label>
         <Labeltext>
