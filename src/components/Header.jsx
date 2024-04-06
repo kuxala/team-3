@@ -13,6 +13,7 @@ export default function HeaderComponent() {
         </Header>
         <img src={closeIcon} />
       </HeaderDiv>
+
       <DesktopHeaderDiv>
         <TopSection>
           <h3>Frontend Mentor</h3>
@@ -26,7 +27,7 @@ export default function HeaderComponent() {
         <BottomSection>
           <div className="top-row">
             <h3>Roadmap</h3>
-            <Link>View</Link>
+            <Link to="/roadmap">View</Link>
           </div>
           <div>
             <div className="bottom-row">

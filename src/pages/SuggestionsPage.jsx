@@ -24,6 +24,4 @@ const ContainerDiv = styled.div`
     justify-content: center;
     margin-top: 100px;
   }
-  & > div {
-  }
 `;
