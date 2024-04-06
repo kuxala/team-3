@@ -21,7 +21,6 @@ function App() {
     sortBy: "upvotes",
     sortOrder: "desc",
   });
-
   // Update the sorting criteria
   const updateSortCriteria = (criteria) => {
     setSortCriteria(criteria);

@@ -6,87 +6,107 @@ import { Link, useParams } from "react-router-dom";
 import { MyContext } from "../App";
 
 export default function EditFeedbackPage() {
-  const {
-    data,
-    setData,
-    upvoteStates,
-    setUpvoteStates,
-    handleUpdate,
-    category,
-    setCategory,
-  } = useContext(MyContext);
+  const { data, setData, setCategory } = useContext(MyContext);
+  const { userId } = useParams();
+  const [feedbackData, setFeedbackData] = useState(null);
 
-  let { userId } = useParams();
-  const [feedbackData, setFeedbackData] = useState("planned");
+  // Fetch feedback data when component mounts
+  useEffect(() => {
+    // Find feedback data by user ID
+    const feedbackItem = data.productRequests.find(
+      (item) => item.id === parseInt(userId)
+    );
+    setFeedbackData(feedbackItem);
+  }, [data, userId]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFeedbackData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
+  };
+
+  const handleFeedbackUpdate = () => {
+    // Update feedback data in the context
+    const updatedData = data.productRequests.map((item) => {
+      if (item.id === feedbackData.id) {
+        return feedbackData;
+      }
+      return item;
+    });
+    setData({ ...data, productRequests: updatedData });
+  };
 
   const handleGoBack = () => {
+    // Go back to the previous page
     window.history.back();
   };
 
-  console.log("userId in feedback", userId);
+  if (!feedbackData) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <>
-      {data.productRequests.map((item) => {
-        if (userId == item.id) {
-          return (
-            <FeedbackContainer key={item.id}>
-              <Header>
-                <img src={arrow} />
-                <StyledLink to="#" onClick={handleGoBack}>
-                  Go Back
-                </StyledLink>
-              </Header>
-              <FeedbackForm>
-                <img src={Icon} className="Icon" />
-                <Title>Editing '{item.title}'</Title> {/*NEED CHANGE*/}
-                <Label>Feedback Title</Label>
-                <Labeltext>Add a short, descriptive headline</Labeltext>
-                <Input type="text" value={item.title}></Input>
-                <Label>Category</Label>
-                <Labeltext>Choose a category for your feedback</Labeltext>
-                <Select
-                  name="Feature"
-                  className="select"
-                  value={item.category}
-                  onChange={(e) => setCategory(e.target.value)}
-                >
-                  <Option>Feature</Option>
-                  <Option value="UI">UI</Option>
-                  <Option value="UX">UX</Option>
-                  <Option value="UX">Enhancement</Option>
-                  <Option value="UX">Bug</Option>
-                </Select>
-                <Label>Update Status</Label>
-                <Labeltext>Change feature state</Labeltext>
-                <Select
-                  className="select"
-                  value={feedbackData}
-                  onChange={(e) => setFeedbackData(e.target.value)}
-                >
-                  <Option value="Planned">Planned</Option>
-                  <Option value="In-Progress">In-Progress</Option>
-                  <Option value="Live">Live</Option>
-                </Select>
-                <Label>Feedback Detail</Label>
-                <Labeltext>
-                  Include any specific comments on what should be improved,
-                  added, etc.
-                </Labeltext>
-                <Comment type="text" value={item.description} />
-                <Buttons>
-                  <Button className="purple">Add Feedback</Button>
-                  <Button className="blue">Cancel</Button>
-                  <Button className="delete">Delete</Button>
-                </Buttons>
-              </FeedbackForm>
-            </FeedbackContainer>
-          );
-        }
-      })}
-    </>
+    <FeedbackContainer>
+      <Header>
+        <img src={arrow} alt="Back" />
+        <StyledLink to="#" onClick={handleGoBack}>
+          Go Back
+        </StyledLink>
+      </Header>
+      <FeedbackForm>
+        <img src={Icon} alt="Edit icon" className="Icon" />
+        <Title>Editing '{feedbackData.title}'</Title>
+        <Label>Feedback Title</Label>
+        <Input
+          type="text"
+          name="title"
+          value={feedbackData.title}
+          onChange={handleInputChange}
+        />
+        <Label>Category</Label>
+        <Select
+          name="category"
+          value={feedbackData.category}
+          onChange={handleCategoryChange}
+        >
+          <Option value="Feature">Feature</Option>
+          <Option value="UI">UI</Option>
+          <Option value="UX">UX</Option>
+          <Option value="Enhancement">Enhancement</Option>
+          <Option value="Bug">Bug</Option>
+        </Select>
+        <Label>Update Status</Label>
+        <Select>
+          <Option value="Planned">Planned</Option>
+          <Option value="In-Progress">In-Progress</Option>
+          <Option value="Live">Live</Option>
+        </Select>
+        <Label>Feedback Detail</Label>
+        <Comment
+          name="description"
+          value={feedbackData.description}
+          onChange={handleInputChange}
+        />
+        <Buttons>
+          <Button className="purple" onClick={handleFeedbackUpdate}>
+            Update Feedback
+          </Button>
+          <Button className="blue" onClick={handleGoBack}>
+            Cancel
+          </Button>
+          <Button className="delete">Delete</Button>
+        </Buttons>
+      </FeedbackForm>
+    </FeedbackContainer>
   );
 }
+
 const StyledLink = styled(Link)`
   color: #647196;
   font-family: Jost;
