@@ -50,7 +50,13 @@ export default function EditFeedbackPage() {
   if (!feedbackData) {
     return <div>Loading...</div>;
   }
-
+  const handleFeedbackDelete = () => {
+    const updatedData = data.productRequests.filter(
+      (item) => item.id !== feedbackData.id
+    );
+    setData({ ...data, productRequests: updatedData });
+    // Redirect to previous page after deletion
+  };
   return (
     <FeedbackContainer>
       <Header>
@@ -100,7 +106,9 @@ export default function EditFeedbackPage() {
           <Button className="blue" onClick={handleGoBack}>
             Cancel
           </Button>
-          <Button className="delete">Delete</Button>
+          <Button className="delete" onClick={handleFeedbackDelete} to="/">
+            Delete
+          </Button>
         </Buttons>
       </FeedbackForm>
     </FeedbackContainer>
@@ -321,7 +329,11 @@ const Buttons = styled.div`
     }
   }
 `;
-const Button = styled.button`
+const Button = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
   width: 279px;
   height: 40px;
   border-style: none;
