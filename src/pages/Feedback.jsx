@@ -86,7 +86,7 @@ export default function Id() {
           }
         })}
       </div>
-      {/* <CommentSection /> */}
+      <CommentSection />
     </>
   );
 }

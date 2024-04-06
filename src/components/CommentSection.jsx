@@ -12,32 +12,44 @@ export default function CommentSection() {
   //     return each
   //   }
   // }))
+
   return (
     <>
-      <StyledContainer>
-        <h3>0 Comments</h3>
-        <div>
-          <img src="/assets/user-images/image-anne.jpg" />
-          <div>
-            <div>
-              <p>Name</p>
-              <span>UserName</span>
-            </div>
-            <a>Reply</a>
-          </div>
-        </div>
-        <Description
-          style={{
-            borderBottom: "1px solid rgba(128, 128, 128, 0.5)",
-            paddingBottom: "24px",
-          }}
-        >
-          Also, please allow styles to be applied based on system preferences. I
-          would love to be able to browse Frontend Mentor in the evening after
-          my device’s dark mode turns on without the bright background it
-          currently has.
-        </Description>
-      </StyledContainer>
+      {data.productRequests.map((item) => {
+        if (userId == item.id) {
+          return (
+            <ul>
+              {item?.comments?.map((comment) => {
+                console.log("Comments: ", comment);
+                return (
+                  <StyledContainer>
+                    <h3>0 Comment</h3>
+                    <div>
+                      <img src={`.${comment.user.image}`} />
+                      <div>
+                        <div>
+                          <p>{comment.user.name}</p>
+                          <span>{comment.user.username}</span>
+                        </div>
+                        <a>Reply</a>
+                      </div>
+                    </div>
+                    <Description
+                    // style={{
+                    //   borderBottom: "1px solid rgba(128, 128, 128, 0.5)",
+                    //   paddingBottom: "24px",
+                    // }}
+                    >
+                      {comment.content}
+                    </Description>
+                  </StyledContainer>
+                );
+              })}
+            </ul>
+          );
+        }
+        return null;
+      })}
     </>
   );
 }
@@ -57,7 +69,7 @@ const StyledContainer = styled.div`
   padding: 34px;
   border-radius: 10px;
   @media only screen and (min-width: 768px) {
-    width: 50%;
+    max-width: 835px;
     margin: 0 auto;
     margin-top: 30px;
   }
