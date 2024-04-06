@@ -51,7 +51,16 @@ export default function Id() {
                   </StyledTexts>
                   <StyledCategory>{item.category}</StyledCategory>
                   <StyledBottom>
-                    <Upvotes>
+                    <Upvotes
+                      style={{
+                        backgroundColor: upvoteStates[item.id]
+                          ? "#bec9fc"
+                          : "#f2f4fe",
+                      }}
+                      onClick={() => {
+                        handleUpdate(item.id);
+                      }}
+                    >
                       <img src="/assets/shared/icon-arrow-up.svg" />
                       <p>{item.upvotes}</p>
                     </Upvotes>
@@ -183,6 +192,16 @@ const Upvotes = styled.div`
   }
 
   & > Link {
+    color: #3a4374;
+    text-align: center;
+    font-family: Jost;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.181px;
+  }
+  & > p {
     color: #3a4374;
     text-align: center;
     font-family: Jost;

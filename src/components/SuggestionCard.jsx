@@ -33,7 +33,6 @@ export default function SuggestionCard() {
         );
         break;
       default:
-        // Default sorting
         break;
     }
     return items;

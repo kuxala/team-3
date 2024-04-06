@@ -2,12 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { MyContext } from "../App";
 import { Link } from "react-router-dom";
-export default function RoardmapPage() {
+
+export default function RoadmapPage() {
   const [isActive, setIsActive] = useState([false, true, false]);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-
-  const { data, setData, upvoteStates, setUpvoteStates, handleUpdate } =
-    useContext(MyContext);
+  const { data, upvoteStates, handleUpdate } = useContext(MyContext);
 
   useEffect(() => {
     const handleResize = () => {
@@ -19,18 +18,61 @@ export default function RoardmapPage() {
     };
   }, []);
 
+  const renderItems = (status, borderColor) =>
+    data.productRequests.map((item) => {
+      if (item.status === status) {
+        return (
+          <StyledDiv
+            key={item.id}
+            style={{ borderTop: `5px solid ${borderColor}` }}
+          >
+            <p>
+              {status === "planned"
+                ? "Planned"
+                : status === "in-progress"
+                ? "In Progress"
+                : "Live"}
+            </p>
+            <h1>{item.title}</h1>
+            <span>{item.description}</span>
+            <Feature>{item.category}</Feature>
+            <StyledBottom>
+              <Upvotes
+                style={{
+                  backgroundColor: upvoteStates[item.id]
+                    ? "#bec9fc"
+                    : "#f2f4fe",
+                }}
+                onClick={() => {
+                  handleUpdate(item.id);
+                }}
+              >
+                <img src="/assets/shared/icon-arrow-up.svg" alt="Upvote" />
+                <p>{item.upvotes}</p>
+              </Upvotes>
+              <Comments>
+                <img src="/assets/shared/icon-comments.svg" alt="Comments" />
+                {item?.comments?.length}
+              </Comments>
+            </StyledBottom>
+          </StyledDiv>
+        );
+      }
+      return null;
+    });
+
   return (
     <>
       <StyledContainer>
         <RodmapHeader>
           <div>
             <div>
-              <img src="assets/shared/icon-arrow-left.svg" />
+              <img src="assets/shared/icon-arrow-left.svg" alt="Arrow" />
               <LinkTo to="/">Go Back</LinkTo>
             </div>
             <h3>Roadmap</h3>
           </div>
-          <StyledLink to="/add-feedback">+ add Feedback</StyledLink>
+          <StyledLink to="/add-feedback">+ Add Feedback</StyledLink>
         </RodmapHeader>
 
         {screenWidth < 768 ? (
@@ -64,230 +106,31 @@ export default function RoardmapPage() {
                 Live (1)
               </div>
             </SmallHeader>
-            {isActive[0]
-              ? data.productRequests.map((item) => {
-                  if (item.status == "planned") {
-                    return (
-                      <StyledDiv
-                        key={item.id}
-                        style={{ borderTop: "5px solid #F49F85" }}
-                      >
-                        <p>Planned</p>
-                        <h1>{item.title}</h1>
-                        <span>{item.description}</span>
-                        <Feature>{item.category}</Feature>
-                        <StyledBottom>
-                          <Upvotes
-                            style={{
-                              backgroundColor: upvoteStates[item.id]
-                                ? "#bec9fc"
-                                : "#f2f4fe",
-                            }}
-                            onClick={() => {
-                              handleUpdate(item.id);
-                            }}
-                          >
-                            <img src="/assets/shared/icon-arrow-up.svg" />
-                            <p>{item.upvotes}</p>
-                          </Upvotes>
-                          <Comments>
-                            <img src="/assets/shared/icon-comments.svg" />
-                            {item.comments.length}
-                          </Comments>
-                        </StyledBottom>
-                      </StyledDiv>
-                    );
-                  }
-                })
-              : null}
-            {isActive[1]
-              ? data.productRequests.map((item) => {
-                  if (item.status == "in-progress") {
-                    return (
-                      <StyledDiv
-                        key={item.id}
-                        style={{ borderTop: "5px solid #AD1FEA" }}
-                      >
-                        <p>In Progress</p>
-                        <h1>{item.title}</h1>
-                        <span>{item.description}</span>
-                        <Feature>{item.category}</Feature>
-                        <StyledBottom>
-                          <Upvotes
-                            style={{
-                              backgroundColor: upvoteStates[item.id]
-                                ? "#bec9fc"
-                                : "#f2f4fe",
-                            }}
-                            onClick={() => {
-                              handleUpdate(item.id);
-                            }}
-                          >
-                            <img src="/assets/shared/icon-arrow-up.svg" />
-                            <p>{item.upvotes}</p>
-                          </Upvotes>
-                          <Comments>
-                            <img src="/assets/shared/icon-comments.svg" />
-                            {item?.comments?.length}
-                          </Comments>
-                        </StyledBottom>
-                      </StyledDiv>
-                    );
-                  }
-                })
-              : null}
-            {isActive[2]
-              ? data.productRequests.map((item) => {
-                  if (item.status == "live") {
-                    return (
-                      <StyledDiv
-                        key={item.id}
-                        style={{ borderTop: "5px solid #62BCFA" }}
-                      >
-                        <p>Live</p>
-                        <h1>{item.title}</h1>
-                        <span>{item.description}</span>
-                        <Feature>{item.category}</Feature>
-                        <StyledBottom>
-                          <Upvotes
-                            style={{
-                              backgroundColor: upvoteStates[item.id]
-                                ? "#bec9fc"
-                                : "#f2f4fe",
-                            }}
-                            onClick={() => {
-                              handleUpdate(item.id);
-                            }}
-                          >
-                            <img src="/assets/shared/icon-arrow-up.svg" />
-                            <p>{item.upvotes}</p>
-                          </Upvotes>
-                          <Comments>
-                            <img src="/assets/shared/icon-comments.svg" />
-                            {item.comments.length}
-                          </Comments>
-                        </StyledBottom>
-                      </StyledDiv>
-                    );
-                  }
-                })
-              : null}
+            {isActive.map((active, index) =>
+              active
+                ? renderItems(
+                    ["planned", "in-progress", "live"][index],
+                    ["#F49F85", "#AD1FEA", "#62BCFA"][index]
+                  )
+                : null
+            )}
           </>
         ) : (
           <DesktopSmallHeader>
             <div>
               <p>Planned (1)</p>
               <span>Ideas prioritized for research</span>
-              {data.productRequests.map((item) => {
-                if (item.status == "planned") {
-                  return (
-                    <StyledDiv
-                      key={item.id}
-                      style={{ borderTop: "5px solid #F49F85" }}
-                    >
-                      <p>Planned</p>
-                      <h1>{item.title}</h1>
-                      <span>{item.description}</span>
-                      <Feature>{item.category}</Feature>
-                      <StyledBottom>
-                        <Upvotes
-                          style={{
-                            backgroundColor: upvoteStates[item.id]
-                              ? "#bec9fc"
-                              : "#f2f4fe",
-                          }}
-                          onClick={() => {
-                            handleUpdate(item.id);
-                          }}
-                        >
-                          <img src="/assets/shared/icon-arrow-up.svg" />
-                          <p>{item.upvotes}</p>
-                        </Upvotes>
-                        <Comments>
-                          <img src="/assets/shared/icon-comments.svg" />
-                          {item.comments.length}
-                        </Comments>
-                      </StyledBottom>
-                    </StyledDiv>
-                  );
-                }
-              })}
+              {renderItems("planned", "#F49F85")}
             </div>
             <div>
               <p>In Progress (1)</p>
               <span>Currently being developed</span>
-              {data.productRequests.map((item) => {
-                if (item.status == "in-progress") {
-                  return (
-                    <StyledDiv
-                      key={item.id}
-                      style={{ borderTop: "5px solid #AD1FEA" }}
-                    >
-                      <p>In Progress</p>
-                      <h1>{item.title}</h1>
-                      <span>{item.description}</span>
-                      <Feature>{item.category}</Feature>
-                      <StyledBottom>
-                        <Upvotes
-                          style={{
-                            backgroundColor: upvoteStates[item.id]
-                              ? "#bec9fc"
-                              : "#f2f4fe",
-                          }}
-                          onClick={() => {
-                            handleUpdate(item.id);
-                          }}
-                        >
-                          <img src="/assets/shared/icon-arrow-up.svg" />
-                          <p>{item.upvotes}</p>
-                        </Upvotes>
-                        <Comments>
-                          <img src="/assets/shared/icon-comments.svg" />
-                          {item?.comments?.length}
-                        </Comments>
-                      </StyledBottom>
-                    </StyledDiv>
-                  );
-                }
-              })}
+              {renderItems("in-progress", "#AD1FEA")}
             </div>
             <div>
               <p>Live (1)</p>
               <span>Released features</span>
-              {data.productRequests.map((item) => {
-                if (item.status == "live") {
-                  return (
-                    <StyledDiv
-                      key={item.id}
-                      style={{ borderTop: "5px solid #62BCFA" }}
-                    >
-                      <p>Live</p>
-                      <h1>{item.title}</h1>
-                      <span>{item.description}</span>
-                      <Feature>{item.category}</Feature>
-                      <StyledBottom>
-                        <Upvotes
-                          style={{
-                            backgroundColor: upvoteStates[item.id]
-                              ? "#bec9fc"
-                              : "#f2f4fe",
-                          }}
-                          onClick={() => {
-                            handleUpdate(item.id);
-                          }}
-                        >
-                          <img src="/assets/shared/icon-arrow-up.svg" />
-                          <p>{item.upvotes}</p>
-                        </Upvotes>
-                        <Comments>
-                          <img src="/assets/shared/icon-comments.svg" />
-                          {item?.comments?.length}
-                        </Comments>
-                      </StyledBottom>
-                    </StyledDiv>
-                  );
-                }
-              })}
+              {renderItems("live", "#62BCFA")}
             </div>
           </DesktopSmallHeader>
         )}
