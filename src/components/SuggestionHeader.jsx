@@ -112,7 +112,6 @@ const SuggestionHeaderDiv = styled.div`
     max-width: 825px;
     border-radius: 10px;
     margin: 0 auto;
-    margin-top: 100px;
   }
 
   & > div {
