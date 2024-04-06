@@ -33,8 +33,10 @@ export default function RoadmapPage() {
                 ? "In Progress"
                 : "Live"}
             </p>
-            <h1>{item.title}</h1>
-            <span>{item.description}</span>
+            <LinkToComponent to={`/suggestions/${item.id}`}>
+              <h1 className="H1">{item.title}</h1>
+              <span className="Span">{item.description}</span>
+            </LinkToComponent>
             <Feature>{item.category}</Feature>
             <StyledBottom>
               <Upvotes
@@ -148,6 +150,27 @@ const StyledDiv = styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+  .H1 {
+    color: #3a4374;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.25px;
+    padding-bottom: 4px;
+    text-decoration: none;
+    &:hover {
+      color: #4661e6;
+    }
+  }
+  .Span {
+    color: #647196;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+  }
   @media only screen and (max-width: 768px) {
     width: 90%;
     margin: 0 auto;
@@ -162,27 +185,11 @@ const StyledDiv = styled.div`
     line-height: normal;
     padding-bottom: 8px;
   }
-  & > h1 {
-    color: #3a4374;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: -0.25px;
-    padding-bottom: 4px;
-    &:hover {
-      color: #4661e6;
-    }
-  }
-  & > span {
-    color: #647196;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-  }
 `;
-
+const LinkToComponent = styled(Link)`
+  cursor: pointer;
+  text-decoration: none;
+`;
 const Feature = styled.div`
   margin-top: 16px;
   width: 35%;
