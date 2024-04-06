@@ -233,6 +233,14 @@ const Comments = styled.div`
   align-items: center;
   justify-content: center;
   gap: 8px;
+  color: #3a4374;
+  text-align: center;
+  font-family: Jost;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.222px;
 `;
 
 const StyledHeader = styled.div`
@@ -317,6 +325,14 @@ const CommentsDesktop = styled.div`
   display: flex;
   gap: 4px;
   align-items: center;
+  color: #3a4374;
+  text-align: center;
+  font-family: Jost;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.222px;
   @media only screen and (max-width: 768px) {
     display: none;
   }
