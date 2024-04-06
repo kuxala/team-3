@@ -6,7 +6,7 @@ import CommentSection from "../components/CommentSection";
 
 export default function Id() {
   let { userId } = useParams();
-  console.log("UserId : ", userId);
+  // console.log("UserId : ", userId);
   const { data, setData, upvoteStates, setUpvoteStates, handleUpdate } =
     useContext(MyContext);
 

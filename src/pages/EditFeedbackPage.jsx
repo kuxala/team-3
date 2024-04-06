@@ -6,11 +6,10 @@ import { Link, useParams } from "react-router-dom";
 import { MyContext } from "../App";
 
 export default function EditFeedbackPage() {
-  const { data, setData, setCategory } = useContext(MyContext);
+  const { data, setData } = useContext(MyContext);
   const { userId } = useParams();
   const [feedbackData, setFeedbackData] = useState(null);
 
-  // Fetch feedback data when component mounts
   useEffect(() => {
     // Find feedback data by user ID
     const feedbackItem = data.productRequests.find(
@@ -21,14 +20,11 @@ export default function EditFeedbackPage() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(`Input Name: ${name}, Value: ${value}`);
     setFeedbackData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
-  };
-
-  const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
   };
 
   const handleFeedbackUpdate = () => {
@@ -43,20 +39,20 @@ export default function EditFeedbackPage() {
   };
 
   const handleGoBack = () => {
-    // Go back to the previous page
     window.history.back();
   };
 
-  if (!feedbackData) {
-    return <div>Loading...</div>;
-  }
   const handleFeedbackDelete = () => {
     const updatedData = data.productRequests.filter(
       (item) => item.id !== feedbackData.id
     );
     setData({ ...data, productRequests: updatedData });
-    // Redirect to previous page after deletion
   };
+
+  if (!feedbackData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <FeedbackContainer>
       <Header>
@@ -79,10 +75,11 @@ export default function EditFeedbackPage() {
         />
         <Label>Category</Label>
         <Labeltext>Choose a category for your feedback</Labeltext>
+
         <Select
           name="category"
           value={feedbackData.category}
-          onChange={handleCategoryChange}
+          onChange={handleInputChange}
         >
           <Option value="Feature">Feature</Option>
           <Option value="UI">UI</Option>
@@ -90,9 +87,15 @@ export default function EditFeedbackPage() {
           <Option value="Enhancement">Enhancement</Option>
           <Option value="Bug">Bug</Option>
         </Select>
+
         <Label>Update Status</Label>
         <Labeltext>Change feature state</Labeltext>
-        <Select>
+
+        <Select
+          name="status"
+          value={feedbackData.status}
+          onChange={handleInputChange}
+        >
           <Option value="Planned">Planned</Option>
           <Option value="In-Progress">In-Progress</Option>
           <Option value="Live">Live</Option>
