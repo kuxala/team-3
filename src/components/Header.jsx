@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import closeIcon from "../../public/assets/shared/mobile/icon-hamburger.svg";
 import { Link } from "react-router-dom";
-
+import { MyContext } from "../App";
 export default function HeaderComponent() {
+  const { data, setData } = useContext(MyContext);
+  const labels = ["All", "UX", "UI", "Enhancement", "Bug", "Feature"];
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleItemClick = (index) => {
+    if (activeIndex === index) {
+      setActiveIndex(-1); // Toggle off if already active
+    } else {
+      setActiveIndex(index); // Activate clicked item
+    }
+  };
   return (
     <>
       <HeaderDiv>
@@ -20,9 +31,15 @@ export default function HeaderComponent() {
           <p>Feedback Board</p>
         </TopSection>
         <MiddleSection>
-          <div>All</div>
-          <div>Ui</div>
-          <div>Ux</div>
+          {labels.map((label, index) => (
+            <div
+              key={index}
+              className={activeIndex === index ? "active" : ""}
+              onClick={() => handleItemClick(index)}
+            >
+              {label}
+            </div>
+          ))}
         </MiddleSection>
         <BottomSection>
           <div className="top-row">
@@ -98,13 +115,19 @@ const MiddleSection = styled.div`
   display: flex;
   gap: 8px;
   padding: 24px;
+  flex-wrap: wrap;
+  .active {
+    background-color: #4661e6; /* Change to the desired color for active items */
+    color: #ffffff; /* Change to the desired text color for active items */
+  }
   & > div {
-    width: 48px;
+    min-width: 48px;
     height: 30px;
     flex-shrink: 0;
+    padding: 0 16px;
     border-radius: 10px;
-    background: #4661e6;
-    color: #fff;
+    background: #f2f4ff;
+    color: #4661e6;
     font-family: Jost;
     font-size: 13px;
     font-style: normal;
@@ -113,6 +136,9 @@ const MiddleSection = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    &:hover {
+      background: #cfd7ff;
+    }
   }
 `;
 

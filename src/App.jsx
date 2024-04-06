@@ -8,7 +8,6 @@ import RoadmapPage from "./pages/RoardmapPage";
 import { createContext, useState, useEffect } from "react";
 import jsonData from "../data.json";
 
-
 export const MyContext = createContext(null);
 
 function App() {
@@ -23,7 +22,6 @@ function App() {
     sortOrder: "desc",
   });
 
-  // Update the sorting criteria
   const updateSortCriteria = (criteria) => {
     setSortCriteria(criteria);
   };
@@ -93,6 +91,7 @@ function App() {
             />
             <Route path="/edit-feedback" element={<EditFeedbackPage />} />
             <Route path="/roadmap" element={<RoadmapPage />} />
+            <Route path="*" element={<h1>EROR 404</h1>} />
           </Routes>
         </Router>
       </MyContext.Provider>

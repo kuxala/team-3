@@ -10,6 +10,7 @@ export default function SuggestionHeader() {
 
   const { dropdownMenuValue, setDropdownMenuValue, data } =
     useContext(MyContext);
+
   return (
     <>
       <SuggestionHeaderDiv>
