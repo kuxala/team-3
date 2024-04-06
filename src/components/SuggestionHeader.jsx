@@ -110,7 +110,7 @@ const SuggestionHeaderDiv = styled.div`
   padding: 18px 24px;
   background: #373f68;
   @media only screen and (min-width: 768px) {
-    max-width: 825px;
+    width: 825px;
     border-radius: 10px;
     margin: 0 auto;
   }

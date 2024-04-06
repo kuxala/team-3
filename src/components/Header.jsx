@@ -72,6 +72,12 @@ const DesktopHeaderDiv = styled.div`
     flex-direction: column;
     gap: 16px;
   }
+  @media screen and (min-width: 768px) and (max-width: 1068px) {
+    width: 825px;
+    padding-bottom: 50px;
+    margin: 0 auto;
+    flex-direction: row;
+  }
 `;
 
 const TopSection = styled.div`
@@ -80,6 +86,9 @@ const TopSection = styled.div`
   border-radius: 10px;
   padding: 1.5rem;
   padding-top: 4rem;
+  @media screen and (min-width: 768px) and (max-width: 1068px) {
+    width: 33%;
+  }
   background: radial-gradient(
     166.82% 166.82% at 103.9% -10.39%,
     #e84d70 0%,
@@ -115,6 +124,9 @@ const MiddleSection = styled.div`
   gap: 8px;
   padding: 24px;
   flex-wrap: wrap;
+  @media screen and (min-width: 768px) and (max-width: 1068px) {
+    width: 33%;
+  }
   .active {
     background-color: #4661e6; /* Change to the desired color for active items */
     color: #ffffff; /* Change to the desired text color for active items */
@@ -148,6 +160,9 @@ const BottomSection = styled.div`
   border-radius: 10px;
   background: #fff;
   padding: 24px;
+  @media screen and (min-width: 768px) and (max-width: 1068px) {
+    width: 33%;
+  }
   .top-row {
     display: flex;
     justify-content: space-between;
