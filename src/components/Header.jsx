@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
-import closeIcon from "../../public/assets/shared/mobile/icon-hamburger.svg";
 import { Link } from "react-router-dom";
 import { MyContext } from "../App";
 export default function HeaderComponent() {
   const { data, setData, selectedCategory, setSelectedCategory, counts } =
     useContext(MyContext);
+  const [menu, setMenu] = useState(false);
   const labels = ["All", "UX", "UI", "Enhancement", "Bug", "Feature"];
   const [activeIndex, setActiveIndex] = useState(0);
   const handleIdClick = (index) => {
@@ -25,7 +25,56 @@ export default function HeaderComponent() {
           <HeaderTitle>Frontend Mentor</HeaderTitle>
           <HeaderText>Feedback Board</HeaderText>
         </Header>
-        <img src={closeIcon} />
+        {menu ? (
+          <img
+            src="/assets/shared/mobile/icon-close.svg"
+            onClick={() => setMenu(!menu)}
+          />
+        ) : (
+          <img
+            src="/assets/shared/mobile/icon-hamburger.svg"
+            onClick={() => setMenu(!menu)}
+          />
+        )}
+        {menu ? (
+          <MenuDiv>
+            <MiddleSection>
+              {labels.map((label, index) => (
+                <div
+                  key={index}
+                  className={activeIndex === index ? "active" : ""}
+                  onClick={() => {
+                    handleIdClick(index);
+                    handleItemClick(label);
+                    setMenu(false);
+                  }}
+                >
+                  {label}
+                </div>
+              ))}
+            </MiddleSection>
+            <BottomSection>
+              <div className="top-row">
+                <h3>Roadmap</h3>
+                <Link to="/roadmap">View</Link>
+              </div>
+              <div>
+                <div className="bottom-row">
+                  <p>Planned</p>
+                  <span>{counts["planned"]}</span>
+                </div>
+                <div className="bottom-row">
+                  <p>In Progress</p>
+                  <span>{counts["in-progress"]}</span>
+                </div>
+                <div className="bottom-row">
+                  <p>Live</p>
+                  <span>{counts["live"]}</span>
+                </div>
+              </div>
+            </BottomSection>
+          </MenuDiv>
+        ) : null}
       </HeaderDiv>
 
       <DesktopHeaderDiv>
@@ -71,6 +120,24 @@ export default function HeaderComponent() {
     </>
   );
 }
+
+const MenuDiv = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  /* left: 90%; */
+  top: 10.4%;
+  right: 0;
+  padding: 0;
+  padding: 32px;
+  margin: 0;
+  width: 70%;
+  height: 100vh;
+  background-color: #f7f8fd;
+`;
+
 const DesktopHeaderDiv = styled.div`
   display: none;
   @media only screen and (min-width: 768px) {
