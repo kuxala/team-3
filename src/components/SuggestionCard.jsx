@@ -54,13 +54,18 @@ export default function SuggestionCard() {
           <StyledDiv key={item.id}>
             <UpvotesDesktop
               style={{
-                backgroundColor: upvoteStates[item.id] ? "#3A4374" : "#f2f4fe",
+                backgroundColor: upvoteStates[item.id] ? "#4661E6" : "#f2f4fe",
               }}
               onClick={() => {
                 handleUpdate(item.id);
               }}
             >
-              <img src="/assets/shared/icon-arrow-up.svg" />
+              {upvoteStates[item.id] ? (
+                <img src="/assets/shared/icon-arrow-up-white.svg" />
+              ) : (
+                <img src="/assets/shared/icon-arrow-up.svg" />
+              )}
+              {/* <img src="/assets/shared/icon-arrow-up.svg" /> */}
               <p
                 style={{
                   color: upvoteStates[item.id] ? "#fff" : "black",
@@ -80,14 +85,18 @@ export default function SuggestionCard() {
                 <Upvotes
                   style={{
                     backgroundColor: upvoteStates[item.id]
-                      ? "#3A4374"
+                      ? "#4661E6"
                       : "#f2f4fe",
                   }}
                   onClick={() => {
                     handleUpdate(item.id);
                   }}
                 >
-                  <img src="/assets/shared/icon-arrow-up.svg" />
+                  {upvoteStates[item.id] ? (
+                    <img src="/assets/shared/icon-arrow-up-white.svg" />
+                  ) : (
+                    <img src="/assets/shared/icon-arrow-up.svg" />
+                  )}
                   <p
                     style={{
                       color: upvoteStates[item.id] ? "#fff" : "black",

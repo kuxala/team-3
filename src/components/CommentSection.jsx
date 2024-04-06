@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { MyContext } from "../App";
 import { useParams, Link } from "react-router-dom";
+import AddComment from "./AddComment";
 
 export default function CommentSection() {
   const { data, setData } = useContext(MyContext);
@@ -18,11 +19,10 @@ export default function CommentSection() {
       {data.productRequests.map((item) => {
         if (userId == item.id) {
           return (
-            <ul>
+            <ul key={item.id}>
               {item?.comments?.map((comment) => {
-                console.log("Comments: ", comment);
                 return (
-                  <StyledContainer>
+                  <StyledContainer key={comment.id}>
                     <h3>0 Comment</h3>
                     <div>
                       <img src={`.${comment.user.image}`} />
@@ -50,6 +50,8 @@ export default function CommentSection() {
         }
         return null;
       })}
+
+      <AddComment />
     </>
   );
 }
