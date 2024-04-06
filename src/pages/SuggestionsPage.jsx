@@ -19,9 +19,11 @@ export default function SuggestionsPage() {
 }
 
 const ContainerDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 100px;
+  @media only screen and (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+  }
   & > div {
   }
 `;
