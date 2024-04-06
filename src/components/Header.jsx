@@ -80,7 +80,7 @@ const DesktopHeaderDiv = styled.div`
     gap: 16px;
   }
   @media screen and (min-width: 768px) and (max-width: 1068px) {
-    width: 825px;
+    width: 725px;
     padding-bottom: 50px;
     margin: 0 auto;
     flex-direction: row;

@@ -114,6 +114,13 @@ const SuggestionHeaderDiv = styled.div`
     border-radius: 10px;
     margin: 0 auto;
   }
+  @media screen and (min-width: 768px) and (max-width: 1068px) {
+    width: 725px;
+    padding-bottom: 50px;
+    margin: 0 auto;
+    flex-direction: row;
+    margin-bottom: 30px;
+  }
 
   & > div {
     display: flex;

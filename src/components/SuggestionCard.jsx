@@ -132,7 +132,15 @@ const StyledDiv = styled.div`
     align-items: center;
     justify-content: space-between;
   }
+  @media screen and (min-width: 768px) and (max-width: 1068px) {
+    width: 725px;
+    padding-bottom: 50px;
+    margin: 0 auto;
+    flex-direction: row;
+    margin-bottom: 20px;
+  }
 `;
+
 const CenterDiv = styled.div`
   @media only screen and (min-width: 768px) {
     width: 80%;
