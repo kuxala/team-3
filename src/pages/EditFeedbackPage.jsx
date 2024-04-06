@@ -100,7 +100,11 @@ export default function EditFeedbackPage() {
           onChange={handleInputChange}
         />
         <Buttons>
-          <Button className="purple" onClick={handleFeedbackUpdate}>
+          <Button
+            className="purple"
+            onClick={handleFeedbackUpdate}
+            to={`/suggestions/${userId}`}
+          >
             Update Feedback
           </Button>
           <Button className="blue" onClick={handleGoBack}>
