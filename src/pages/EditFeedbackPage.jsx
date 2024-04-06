@@ -4,6 +4,7 @@ import arrow from "../../public/assets/shared/icon-arrow-left.svg";
 import Icon from "../../public/assets/shared/icon-edit-feedback.svg";
 import { Link, useParams } from "react-router-dom";
 import { MyContext } from "../App";
+
 export default function EditFeedbackPage() {
   const {
     data,
@@ -22,57 +23,68 @@ export default function EditFeedbackPage() {
     window.history.back();
   };
 
-  console.log(userId);
+  console.log("userId in feedback", userId);
+
   return (
-    <FeedbackContainer>
-      <Header>
-        <img src={arrow} />
-        <StyledLink to="#" onClick={handleGoBack}>
-          Go Back
-        </StyledLink>
-      </Header>
-      <FeedbackForm>
-        <img src={Icon} className="Icon" />
-        <Title>Add a dark theme option</Title> {/*NEED CHANGE*/}
-        <Label>Feedback Title</Label>
-        <Labeltext>Add a short, descriptive headline</Labeltext>
-        <Input type="text"></Input>
-        <Label>Category</Label>
-        <Labeltext>Choose a category for your feedback</Labeltext>
-        <Select
-          name="Feature"
-          className="select"
-          onChange={(e) => setCategory(e.target.value)}
-        >
-          <Option value={category}>Feature</Option>
-          <Option value="UI">UI</Option>
-          <Option value="UX">UX</Option>
-          <Option value="UX">Enhancement</Option>
-          <Option value="UX">Bug</Option>
-        </Select>
-        <Label>Update Status</Label>
-        <Labeltext>Change feature state</Labeltext>
-        <Select
-          className="select"
-          value={feedbackData}
-          onChange={(e) => setFeedbackData(e.target.value)}
-        >
-          <Option value="Planned">Planned</Option>
-          <Option value="In-Progress">In-Progress</Option>
-          <Option value="Live">Live</Option>
-        </Select>
-        <Label>Feedback Detail</Label>
-        <Labeltext>
-          Include any specific comments on what should be improved, added, etc.
-        </Labeltext>
-        <Comment type="text" />
-        <Buttons>
-          <Button className="purple">Add Feedback</Button>
-          <Button className="blue">Cancel</Button>
-          <Button className="delete">Delete</Button>
-        </Buttons>
-      </FeedbackForm>
-    </FeedbackContainer>
+    <>
+      {data.productRequests.map((item) => {
+        if (userId == item.id) {
+          return (
+            <FeedbackContainer key={item.id}>
+              <Header>
+                <img src={arrow} />
+                <StyledLink to="#" onClick={handleGoBack}>
+                  Go Back
+                </StyledLink>
+              </Header>
+              <FeedbackForm>
+                <img src={Icon} className="Icon" />
+                <Title>Editing '{item.title}'</Title> {/*NEED CHANGE*/}
+                <Label>Feedback Title</Label>
+                <Labeltext>Add a short, descriptive headline</Labeltext>
+                <Input type="text" value={item.title}></Input>
+                <Label>Category</Label>
+                <Labeltext>Choose a category for your feedback</Labeltext>
+                <Select
+                  name="Feature"
+                  className="select"
+                  value={item.category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  <Option>Feature</Option>
+                  <Option value="UI">UI</Option>
+                  <Option value="UX">UX</Option>
+                  <Option value="UX">Enhancement</Option>
+                  <Option value="UX">Bug</Option>
+                </Select>
+                <Label>Update Status</Label>
+                <Labeltext>Change feature state</Labeltext>
+                <Select
+                  className="select"
+                  value={feedbackData}
+                  onChange={(e) => setFeedbackData(e.target.value)}
+                >
+                  <Option value="Planned">Planned</Option>
+                  <Option value="In-Progress">In-Progress</Option>
+                  <Option value="Live">Live</Option>
+                </Select>
+                <Label>Feedback Detail</Label>
+                <Labeltext>
+                  Include any specific comments on what should be improved,
+                  added, etc.
+                </Labeltext>
+                <Comment type="text" value={item.description} />
+                <Buttons>
+                  <Button className="purple">Add Feedback</Button>
+                  <Button className="blue">Cancel</Button>
+                  <Button className="delete">Delete</Button>
+                </Buttons>
+              </FeedbackForm>
+            </FeedbackContainer>
+          );
+        }
+      })}
+    </>
   );
 }
 const StyledLink = styled(Link)`
@@ -194,6 +206,13 @@ const Labeltext = styled.h2`
 `;
 
 const Input = styled.input`
+  padding: 1rem;
+  color: #3a4374;
+  font-family: Jost;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   background-color: #f7f8fd;
   width: 279px;
   height: 48px;
@@ -206,6 +225,13 @@ const Input = styled.input`
 `;
 
 const Comment = styled.textarea`
+  padding: 1rem;
+  color: #3a4374;
+  font-family: Jost;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   background-color: #f7f8fd;
   width: 279px;
   height: 120px;
@@ -219,6 +245,7 @@ const Comment = styled.textarea`
 `;
 
 const Select = styled.select`
+  padding: 0.5rem;
   background-color: #f7f8fd;
   width: 279px;
   height: 48px;

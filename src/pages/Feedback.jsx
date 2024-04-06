@@ -6,7 +6,7 @@ import CommentSection from "../components/CommentSection";
 
 export default function Id() {
   let { userId } = useParams();
-  // console.log("UserId : ", userId)
+  console.log("UserId : ", userId);
   const { data, setData, upvoteStates, setUpvoteStates, handleUpdate } =
     useContext(MyContext);
 
@@ -18,7 +18,7 @@ export default function Id() {
             <img src="/assets/shared/icon-arrow-left.svg" />
             <StyledGoBack to="/">Go Back</StyledGoBack>
           </div>
-          <StyledLink to="/edit-feedback">Edit Feedback</StyledLink>
+          <StyledLink to={`/edit-feedback/${userId}`}>Edit Feedback</StyledLink>
         </StyledHeader>
         {data.productRequests.map((item) => {
           if (userId == item.id) {
