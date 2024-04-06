@@ -11,21 +11,44 @@ import jsonData from "../data.json";
 export const MyContext = createContext(null);
 
 function App() {
-  const [data, setData] = useState(jsonData);
-  const [upvoteStates, setUpvoteStates] = useState({});
+  // const [data, setData] = useState(jsonData);
+  // const [upvoteStates, setUpvoteStates] = useState({});
   const [feedbackTitle, setFeedbackTitle] = useState("");
   const [category, setCategory] = useState("feature");
   const [feedbackDetail, setFeedbackDetail] = useState("");
   const [dropdownMenuValue, setDropdownMenuValue] = useState("Most Upvotes");
   const [selectedCategory, setSelectedCategory] = useState("All");
-
   const [sortCriteria, setSortCriteria] = useState({
     sortBy: "upvotes",
     sortOrder: "desc",
   });
+
+  const [data, setData] = useState(() => {
+    // Load data from localStorage or use default data
+    const savedData = localStorage.getItem("feedbackData");
+    return savedData ? JSON.parse(savedData) : jsonData;
+  });
+
+  const [upvoteStates, setUpvoteStates] = useState(() => {
+    // Load upvoteStates from localStorage or set initial state
+    const savedUpvoteStates = localStorage.getItem("upvoteStates");
+    return savedUpvoteStates ? JSON.parse(savedUpvoteStates) : {};
+  });
+
+  useEffect(() => {
+    // Save data to localStorage whenever it changes
+    localStorage.setItem("feedbackData", JSON.stringify(data));
+  }, [data]);
+
+  useEffect(() => {
+    // Save upvoteStates to localStorage whenever it changes
+    localStorage.setItem("upvoteStates", JSON.stringify(upvoteStates));
+  }, [upvoteStates]);
+
   const updateSortCriteria = (criteria) => {
     setSortCriteria(criteria);
   };
+
   const counts = {
     planned: data.productRequests.filter((item) => item.status === "planned")
       .length,
@@ -34,19 +57,6 @@ function App() {
     ).length,
     live: data.productRequests.filter((item) => item.status === "live").length,
   };
-  // useEffect(() => {
-  //   const serializedData = JSON.stringify(data.productRequests);
-  //   window.localStorage.setItem("data", serializedData);
-  // }, [data.productRequests]);
-
-  // useEffect(() => {
-  //   const storedData = window.localStorage.getItem("data");
-  //   if (storedData) {
-  //     const parsedData = JSON.parse(storedData);
-
-  //     setData((prevData) => ({ ...prevData, productRequests: parsedData }));
-  //   }
-  // }, []);
 
   const handleUpdate = (itemId) => {
     const updatedUpvoteStates = { ...upvoteStates };
@@ -66,6 +76,7 @@ function App() {
     });
     setData({ ...data, productRequests: updatedProductRequests });
   };
+
   return (
     <>
       <MyContext.Provider
