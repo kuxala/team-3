@@ -69,6 +69,8 @@ export default function EditFeedbackPage() {
         <img src={Icon} alt="Edit icon" className="Icon" />
         <Title>Editing '{feedbackData.title}'</Title>
         <Label>Feedback Title</Label>
+        <Labeltext>Add a short, descriptive headline</Labeltext>
+        <p></p>
         <Input
           type="text"
           name="title"
@@ -76,6 +78,7 @@ export default function EditFeedbackPage() {
           onChange={handleInputChange}
         />
         <Label>Category</Label>
+        <Labeltext>Choose a category for your feedback</Labeltext>
         <Select
           name="category"
           value={feedbackData.category}
@@ -88,12 +91,16 @@ export default function EditFeedbackPage() {
           <Option value="Bug">Bug</Option>
         </Select>
         <Label>Update Status</Label>
+        <Labeltext>Change feature state</Labeltext>
         <Select>
           <Option value="Planned">Planned</Option>
           <Option value="In-Progress">In-Progress</Option>
           <Option value="Live">Live</Option>
         </Select>
         <Label>Feedback Detail</Label>
+        <Labeltext>
+          Include any specific comments on what should be improved, added, etc.
+        </Labeltext>
         <Comment
           name="description"
           value={feedbackData.description}
