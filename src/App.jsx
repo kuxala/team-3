@@ -16,20 +16,29 @@ function App() {
   const [feedbackTitle, setFeedbackTitle] = useState("");
   const [category, setCategory] = useState("feature");
   const [feedbackDetail, setFeedbackDetail] = useState("");
+  const [dropdownMenuValue, setDropdownMenuValue] = useState("Most Upvotes");
+  const [sortCriteria, setSortCriteria] = useState({
+    sortBy: "upvotes",
+    sortOrder: "desc",
+  });
 
-  useEffect(() => {
-    const serializedData = JSON.stringify(data.productRequests);
-    window.localStorage.setItem("data", serializedData);
-  }, [data.productRequests]);
+  // Update the sorting criteria
+  const updateSortCriteria = (criteria) => {
+    setSortCriteria(criteria);
+  };
+  // useEffect(() => {
+  //   const serializedData = JSON.stringify(data.productRequests);
+  //   window.localStorage.setItem("data", serializedData);
+  // }, [data.productRequests]);
 
-  useEffect(() => {
-    const storedData = window.localStorage.getItem("data");
-    if (storedData) {
-      const parsedData = JSON.parse(storedData);
+  // useEffect(() => {
+  //   const storedData = window.localStorage.getItem("data");
+  //   if (storedData) {
+  //     const parsedData = JSON.parse(storedData);
 
-      setData((prevData) => ({ ...prevData, productRequests: parsedData }));
-    }
-  }, []);
+  //     setData((prevData) => ({ ...prevData, productRequests: parsedData }));
+  //   }
+  // }, []);
 
   const handleUpdate = (itemId) => {
     const updatedUpvoteStates = { ...upvoteStates };
@@ -64,6 +73,10 @@ function App() {
           setCategory,
           feedbackDetail,
           setFeedbackDetail,
+          updateSortCriteria,
+          sortCriteria,
+          dropdownMenuValue,
+          setDropdownMenuValue,
         }}
       >
         <Router>

@@ -1,15 +1,47 @@
 import styled from "styled-components";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useMemo } from "react";
 import { MyContext } from "../App";
 import { Link } from "react-router-dom";
 
 export default function SuggestionCard() {
-  const { data, setData, upvoteStates, setUpvoteStates, handleUpdate } =
-    useContext(MyContext);
+  const {
+    data,
+    upvoteStates,
+    handleUpdate,
+    updateSortCriteria,
+    sortCriteria,
+    dropdownMenuValue,
+  } = useContext(MyContext);
+
+  const sortedData = useMemo(() => {
+    const items = [...data.productRequests];
+    switch (dropdownMenuValue) {
+      case "Most-Upvotes":
+        items.sort((a, b) => b.upvotes - a.upvotes);
+        break;
+      case "Least-Upvotes":
+        items.sort((a, b) => a.upvotes - b.upvotes);
+        break;
+      case "Most-Comments":
+        items.sort(
+          (a, b) => (b.comments?.length || 0) - (a.comments?.length || 0)
+        );
+        break;
+      case "Least-Comments":
+        items.sort(
+          (a, b) => (a.comments?.length || 0) - (b.comments?.length || 0)
+        );
+        break;
+      default:
+        // Default sorting
+        break;
+    }
+    return items;
+  }, [data.productRequests, dropdownMenuValue]);
 
   return (
     <>
-      {data.productRequests.map((item) => {
+      {sortedData.map((item) => {
         return (
           <StyledDiv key={item.id}>
             <UpvotesDesktop

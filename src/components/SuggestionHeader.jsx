@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import SortCard from "./SortCard";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { MyContext } from "../App";
+
 export default function SuggestionHeader() {
   const [isOpen, setIsOpen] = useState(false);
-  const [dropdownMenuValue, setDropdownMenuValue] = useState("Most Upvotes");
-  // console.log(dropdownMenuValue)
 
+  const { dropdownMenuValue, setDropdownMenuValue } = useContext(MyContext);
   return (
     <>
       <SuggestionHeaderDiv>
@@ -16,21 +17,13 @@ export default function SuggestionHeader() {
             <img src="/assets/suggestions/icon-suggestions.svg" />
             <p>6 suggestions</p> {/* ეს შესააცვლელია */}
           </StyledDesktopText>
-          <SortCard
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            dropdownMenuValue={dropdownMenuValue}
-            setDropdownMenuValue={setDropdownMenuValue}
-          />
+          <SortCard isOpen={isOpen} setIsOpen={setIsOpen} />
 
-          <StyledSort>
+          <StyledSort onClick={() => setIsOpen(!isOpen)}>
             <p>Sort By: </p>
             <span>{dropdownMenuValue.replace("-", " ")}</span>{" "}
             {/*sorting  here*/}
-            <img
-              src="/assets/shared/icon-arrow-down.svg"
-              onClick={() => setIsOpen(!isOpen)}
-            />
+            <img src="/assets/shared/icon-arrow-down.svg" />
           </StyledSort>
         </div>
         <StyledLink to="/add-feedback">+ Add Feedback</StyledLink>
@@ -85,6 +78,7 @@ const StyledSort = styled.div`
   display: flex;
   gap: 5px;
   align-items: center;
+  cursor: pointer;
   &:hover {
     opacity: 0.8;
   }
