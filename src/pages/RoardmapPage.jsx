@@ -42,7 +42,7 @@ export default function RoadmapPage() {
               <Upvotes
                 style={{
                   backgroundColor: upvoteStates[item.id]
-                    ? "#bec9fc"
+                    ? "#3A4374"
                     : "#f2f4fe",
                 }}
                 onClick={() => {
@@ -50,7 +50,14 @@ export default function RoadmapPage() {
                 }}
               >
                 <img src="/assets/shared/icon-arrow-up.svg" alt="Upvote" />
-                <p>{item.upvotes}</p>
+                <p
+                  style={{
+                    color: upvoteStates[item.id] ? "#fff" : "black",
+                  }}
+                >
+                  {" "}
+                  {item.upvotes}
+                </p>
               </Upvotes>
               <Comments>
                 <img src="/assets/shared/icon-comments.svg" alt="Comments" />

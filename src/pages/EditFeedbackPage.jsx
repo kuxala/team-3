@@ -6,15 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import { MyContext } from "../App";
 
 export default function EditFeedbackPage() {
-  const {
-    data,
-    setData,
-    upvoteStates,
-    setUpvoteStates,
-    handleUpdate,
-    category,
-    setCategory,
-  } = useContext(MyContext);
+  const { category, setCategory } = useContext(MyContext);
 
   let { userId } = useParams();
   const [feedbackData, setFeedbackData] = useState("planned");
@@ -23,7 +15,6 @@ export default function EditFeedbackPage() {
     window.history.back();
   };
 
-  console.log(userId);
   return (
     <FeedbackContainer>
       <Header>

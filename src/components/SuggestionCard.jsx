@@ -8,11 +8,8 @@ export default function SuggestionCard() {
     data,
     upvoteStates,
     handleUpdate,
-    updateSortCriteria,
-    sortCriteria,
     dropdownMenuValue,
     selectedCategory,
-    setSelectedCategory,
   } = useContext(MyContext);
 
   const sortedData = useMemo(() => {
@@ -57,14 +54,20 @@ export default function SuggestionCard() {
           <StyledDiv key={item.id}>
             <UpvotesDesktop
               style={{
-                backgroundColor: upvoteStates[item.id] ? "#bec9fc" : "#f2f4fe",
+                backgroundColor: upvoteStates[item.id] ? "#3A4374" : "#f2f4fe",
               }}
               onClick={() => {
                 handleUpdate(item.id);
               }}
             >
               <img src="/assets/shared/icon-arrow-up.svg" />
-              <p>{item.upvotes}</p>
+              <p
+                style={{
+                  color: upvoteStates[item.id] ? "#fff" : "black",
+                }}
+              >
+                {item.upvotes}
+              </p>
             </UpvotesDesktop>
 
             <CenterDiv>
@@ -77,7 +80,7 @@ export default function SuggestionCard() {
                 <Upvotes
                   style={{
                     backgroundColor: upvoteStates[item.id]
-                      ? "#a4b2fc"
+                      ? "#3A4374"
                       : "#f2f4fe",
                   }}
                   onClick={() => {
@@ -85,7 +88,13 @@ export default function SuggestionCard() {
                   }}
                 >
                   <img src="/assets/shared/icon-arrow-up.svg" />
-                  <p>{item.upvotes}</p>
+                  <p
+                    style={{
+                      color: upvoteStates[item.id] ? "#fff" : "black",
+                    }}
+                  >
+                    {item.upvotes}
+                  </p>
                 </Upvotes>
                 <Comments>
                   <img src="/assets/shared/icon-comments.svg" />

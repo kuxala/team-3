@@ -8,14 +8,16 @@ export default function Id() {
   let { userId } = useParams();
   const { data, setData, upvoteStates, setUpvoteStates, handleUpdate } =
     useContext(MyContext);
-
+  const handleGoBack = () => {
+    window.history.back();
+  };
   return (
     <>
       <div>
         <StyledHeader>
           <div>
             <img src="/assets/shared/icon-arrow-left.svg" />
-            <StyledGoBack to="/">Go Back</StyledGoBack>
+            <StyledGoBack onClick={handleGoBack}>Go Back</StyledGoBack>
           </div>
           <StyledLink to={`/edit-feedback/${userId}`}>Edit Feedback</StyledLink>
         </StyledHeader>
@@ -26,7 +28,7 @@ export default function Id() {
                 <UpvotesDesktop
                   style={{
                     backgroundColor: upvoteStates[item.id]
-                      ? "#bec9fc"
+                      ? "#3A4374"
                       : "#f2f4fe",
                   }}
                   onClick={() => {
@@ -35,9 +37,9 @@ export default function Id() {
                 >
                   <img src="/assets/shared/icon-arrow-up.svg" />
                   <p
-                  // style={{
-                  //   color: upvoteStates[item.id] ? "#fff" : "#3a4374",
-                  // }}
+                    style={{
+                      color: upvoteStates[item.id] ? "#fff" : "black",
+                    }}
                   >
                     {item.upvotes}
                   </p>
@@ -53,7 +55,7 @@ export default function Id() {
                     <Upvotes
                       style={{
                         backgroundColor: upvoteStates[item.id]
-                          ? "#bec9fc"
+                          ? "#3A4374"
                           : "#f2f4fe",
                       }}
                       onClick={() => {
@@ -61,7 +63,13 @@ export default function Id() {
                       }}
                     >
                       <img src="/assets/shared/icon-arrow-up.svg" />
-                      <p>{item.upvotes}</p>
+                      <p
+                        style={{
+                          color: upvoteStates[item.id] ? "#fff" : "black",
+                        }}
+                      >
+                        {item.upvotes}
+                      </p>
                     </Upvotes>
                     <Comments>
                       <img src="/assets/shared/icon-comments.svg" />

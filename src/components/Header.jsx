@@ -8,7 +8,6 @@ export default function HeaderComponent() {
     useContext(MyContext);
   const labels = ["All", "UX", "UI", "Enhancement", "Bug", "Feature"];
   const [activeIndex, setActiveIndex] = useState(0);
-  console.log(selectedCategory);
   const handleIdClick = (index) => {
     if (activeIndex !== index) {
       setActiveIndex(index); // Set active only if it's not already active
