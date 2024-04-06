@@ -8,6 +8,7 @@ import RoadmapPage from "./pages/RoardmapPage";
 import { createContext, useState, useEffect } from "react";
 import jsonData from "../data.json";
 
+
 export const MyContext = createContext(null);
 
 function App() {
