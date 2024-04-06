@@ -102,7 +102,7 @@ const StyledDiv = styled.div`
   padding: 24px;
   border-radius: 10px;
   @media only screen and (min-width: 768px) {
-    width: 50%;
+    max-width: 825px;
     margin: 0 auto;
     margin-top: 24px;
     height: 0;
@@ -225,7 +225,7 @@ const StyledHeader = styled.div`
   justify-content: space-between;
   padding: 24px;
   @media only screen and (min-width: 768px) {
-    width: 50%;
+    max-width: 825px;
     margin: 0 auto;
     margin-top: 50px;
   }
