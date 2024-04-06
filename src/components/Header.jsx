@@ -9,12 +9,11 @@ export default function HeaderComponent() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const handleItemClick = (index) => {
-    if (activeIndex === index) {
-      setActiveIndex(-1); // Toggle off if already active
-    } else {
-      setActiveIndex(index); // Activate clicked item
+    if (activeIndex !== index) {
+      setActiveIndex(index); // Set active only if it's not already active
     }
   };
+
   return (
     <>
       <HeaderDiv>
