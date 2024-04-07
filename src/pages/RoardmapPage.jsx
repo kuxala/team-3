@@ -97,7 +97,7 @@ export default function RoadmapPage() {
                 }}
                 onClick={() => setIsActive([true, false, false])}
               >
-                Planned (1)
+                Planned
               </div>
               <div
                 style={{
@@ -106,7 +106,7 @@ export default function RoadmapPage() {
                 }}
                 onClick={() => setIsActive([false, true, false])}
               >
-                In-Progress (1)
+                In-Progress
               </div>
               <div
                 style={{
@@ -115,7 +115,7 @@ export default function RoadmapPage() {
                 }}
                 onClick={() => setIsActive([false, false, true])}
               >
-                Live (1)
+                Live
               </div>
             </SmallHeader>
             {isActive.map((active, index) =>
@@ -130,17 +130,23 @@ export default function RoadmapPage() {
         ) : (
           <DesktopSmallHeader>
             <div>
+
               <p>Planned ({counts["planned"]})</p>
+
               <span>Ideas prioritized for research</span>
               {renderItems("planned", "#F49F85")}
             </div>
             <div>
+
               <p>In Progress ({counts["in-progress"]})</p>
+
               <span>Currently being developed</span>
               {renderItems("in-progress", "#AD1FEA")}
             </div>
             <div>
+
               <p>Live ({counts["live"]})</p>
+
               <span>Released features</span>
               {renderItems("live", "#62BCFA")}
             </div>
