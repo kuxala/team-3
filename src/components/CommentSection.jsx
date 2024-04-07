@@ -8,7 +8,7 @@ import Reply from "./Reply";
 export default function CommentSection() {
   const { data, setData } = useContext(MyContext);
   let { userId } = useParams();
-  console.log(data.productRequests);
+  // console.log(data.productRequests);
   const [replyToCommentId, setReplyToCommentId] = useState(null);
 
   const setComments = (comments) => {
@@ -28,7 +28,6 @@ export default function CommentSection() {
               <h3>{item?.comments?.length} Comment</h3>
               <ul key={item.id}>
                 {item?.comments?.map((comment) => {
-                  console.log(comment);
                   return (
                     <StyledContainer key={comment.id}>
                       <div>
@@ -49,21 +48,19 @@ export default function CommentSection() {
                         <Reply
                           setComments={setComments}
                           commentId={comment.content}
+                          setReplyToCommentId={setReplyToCommentId}
                         />
                       )}
                       {comment.replies &&
-                        comment.replies.map((reply) => (
-                          <StyledReply key={reply.id}>
-                            <div>
-                              <img
-                                src={`.${reply.user.image}`}
-                                alt="User Avatar"
-                              />
-                              <div>
+                        comment.replies.map((reply, index) => (
+                          <StyledReply key={index}>
+                            <main>
+                              <img src={`.${reply.user.image}`} />
+                              <div className="reply-texts">
                                 <p>{reply.user.name}</p>
                                 <span>@{reply.user.username}</span>
                               </div>
-                            </div>
+                            </main>
                             <Description>{reply.content}</Description>
                           </StyledReply>
                         ))}
@@ -88,7 +85,35 @@ export default function CommentSection() {
     </>
   );
 }
-const StyledReply = styled.div``;
+const StyledReply = styled.section`
+  width: 93%;
+  margin-left: 54px;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the start (left) */
+
+  .reply-texts {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align text to the start (top) */
+    text-align: left;
+    align-items: flex-start; /* Align text to the start (left) */
+    margin-left: 12px; /* Adjust margin for spacing between image and text */
+  }
+
+  img {
+    border-radius: 50%;
+    width: 40px; /* Set width for the image */
+    height: 40px; /* Set height for the image */
+  }
+
+  & > main {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+`;
 const WholeDiv = styled.div`
   /* min-height: 400px; */
   background-color: #fff;
@@ -115,7 +140,7 @@ const WholeDiv = styled.div`
     padding: 24px;
   }
 `;
-const Description = styled.div`
+const Description = styled.p`
   padding-left: 56px;
   padding-top: 18px;
   color: #647196;

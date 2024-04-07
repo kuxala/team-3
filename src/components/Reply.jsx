@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useParams, Link } from "react-router-dom";
 import { MyContext } from "../App";
 
-export default function Reply({ setComments, commentId }) {
+export default function Reply({ setComments, commentId, setReplyToCommentId }) {
   let { userId } = useParams();
   const { data, setData } = useContext(MyContext);
   const [replyContent, setReplyContent] = useState("");
@@ -58,7 +58,14 @@ export default function Reply({ setComments, commentId }) {
           onChange={(e) => setReplyContent(e.target.value)}
           placeholder="Write a reply..."
         />
-        <button onClick={addReply}>Post Reply</button>
+        <button
+          onClick={() => {
+            addReply();
+            setReplyToCommentId(false);
+          }}
+        >
+          Post Reply
+        </button>
       </SyledContainer>
     </>
   );
