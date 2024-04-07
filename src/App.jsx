@@ -54,37 +54,6 @@ function App() {
   const updateSortCriteria = (criteria) => {
     setSortCriteria(criteria);
   };
-  const addComment = (userId, newComment) => {
-    setData((prevData) => ({
-      ...prevData,
-      productRequests: prevData.productRequests.map((item) =>
-        item.id === userId
-          ? {
-              ...item,
-              comments: item.comments
-                ? [...item.comments, newComment]
-                : [newComment],
-            }
-          : item
-      ),
-    }));
-  };
-
-  const addComment = (userId, newComment) => {
-    setData((prevData) => ({
-      ...prevData,
-      productRequests: prevData.productRequests.map((item) =>
-        item.id === userId
-          ? {
-              ...item,
-              comments: item.comments
-                ? [...item.comments, newComment]
-                : [newComment],
-            }
-          : item
-      ),
-    }));
-  };
 
   const addComment = (userId, newComment) => {
     setData((prevData) => ({
