@@ -267,6 +267,7 @@ const MiddleSection = styled.div`
   gap: 8px;
   padding: 24px;
   flex-wrap: wrap;
+
   @media screen and (min-width: 768px) and (max-width: 1068px) {
     width: 33%;
   }
@@ -290,6 +291,7 @@ const MiddleSection = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     &:hover {
       background: #cfd7ff;
     }

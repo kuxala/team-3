@@ -1,13 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { MyContext } from "../App";
 import { useParams, Link } from "react-router-dom";
 import AddComment from "./AddComment";
+import Reply from "./Reply";
 
 export default function CommentSection() {
   const { data, setData } = useContext(MyContext);
   let { userId } = useParams();
+  // console.log(data.productRequests);
+  const [replyToCommentId, setReplyToCommentId] = useState(null);
 
+  const setComments = (comments) => {
+    setData((prevData) => ({
+      ...prevData,
+      productRequests: prevData.productRequests.map((item) =>
+        item.id === userId ? { ...item, comments: comments } : item
+      ),
+    }));
+  };
   return (
     <>
       {data.productRequests.map((item) => {
@@ -24,19 +35,42 @@ export default function CommentSection() {
                         <div>
                           <div>
                             <p>{comment.user.name}</p>
-                            <span>{comment.user.username}</span>
+                            <span>@{comment.user.username}</span>
                           </div>
-                          <a>Reply</a>
+                          <a onClick={() => setReplyToCommentId(comment.id)}>
+                            Reply
+                          </a>
                         </div>
                       </div>
-                      <Description
+
+                      <Description>{comment.content}</Description>
+                      {replyToCommentId === comment.id && (
+                        <Reply
+                          setComments={setComments}
+                          commentId={comment.content}
+                          setReplyToCommentId={setReplyToCommentId}
+                        />
+                      )}
+                      {comment.replies &&
+                        comment.replies.map((reply, index) => (
+                          <StyledReply key={index}>
+                            <main>
+                              <img src={`.${reply.user.image}`} />
+                              <div className="reply-texts">
+                                <p>{reply.user.name}</p>
+                                <span>@{reply.user.username}</span>
+                              </div>
+                            </main>
+                            <Description>{reply.content}</Description>
+                          </StyledReply>
+                        ))}
+
+                      <div
                         style={{
-                          borderBottom: "1px solid rgba(128, 128, 128, 0.5)",
+                          borderBottom: "1px solid rgba(128, 128, 128, 0.3)",
                           paddingBottom: "24px",
                         }}
-                      >
-                        {comment.content}
-                      </Description>
+                      ></div>
                     </StyledContainer>
                   );
                 })}
@@ -47,11 +81,55 @@ export default function CommentSection() {
         return null;
       })}
 
-      <AddComment />
+      <AddComment postId={userId} />
     </>
   );
 }
+const StyledReply = styled.section`
+  width: 93%;
+  margin-left: 54px;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the start (left) */
 
+  .reply-texts {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-left: 12px; /* Adjust margin for spacing between image and text */
+  }
+
+  img {
+    border-radius: 50%;
+    width: 40px; /* Set width for the image */
+    height: 40px; /* Set height for the image */
+  }
+
+  & > main {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    & > div > p {
+      color: #3a4374;
+      font-family: Jost;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -0.194px;
+    }
+    & > div > span {
+      color: #647196;
+      font-family: Jost;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+`;
 const WholeDiv = styled.div`
   /* min-height: 400px; */
   background-color: #fff;
@@ -78,7 +156,7 @@ const WholeDiv = styled.div`
     padding: 24px;
   }
 `;
-const Description = styled.div`
+const Description = styled.p`
   padding-left: 56px;
   padding-top: 18px;
   color: #647196;
@@ -87,6 +165,7 @@ const Description = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  white-space: wrap;
 `;
 const StyledContainer = styled.div`
   margin: 0 24px;

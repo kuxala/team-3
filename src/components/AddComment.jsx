@@ -1,7 +1,64 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
+import { MyContext } from "../App";
+import { useParams } from "react-router-dom";
 
-export default function AddComment() {
+export default function AddComment({ postId }) {
+  const { data, setData } = useContext(MyContext);
+  const { userId } = useParams();
+  // console.log(data.productRequests);
+  const [commentContent, setCommentContent] = useState("");
+
+  const generateCommentId = () => {
+    // Find the highest existing comment ID for the specific post
+    const post = data.productRequests.find(
+      (post) => post.id === parseInt(postId)
+    );
+    const existingIds = post ? post.comments.map((comment) => comment.id) : [];
+
+    // If there are no existing comments, start from 0; otherwise, increment the highest ID by 1
+    const newId = existingIds.length === 0 ? 0 : Math.max(...existingIds) + 1;
+
+    return newId.toString(); // Convert to string
+  };
+
+  const addComment = () => {
+    if (commentContent.trim() !== "") {
+      const newComment = {
+        id: generateCommentId(),
+        content: commentContent.trim(),
+        user: {
+          image: "./assets/user-images/image-zena.jpg",
+          name: "Zena Kelley",
+          username: "velvetround",
+        },
+      };
+
+      // Update the data with the new comment
+      const updatedData = {
+        ...data,
+        productRequests: data.productRequests.map((post) => {
+          if (post.id === parseInt(postId)) {
+            // Use postId to find the matching post
+            return {
+              ...post,
+              comments: post.comments
+                ? [...post.comments, newComment]
+                : [newComment],
+            };
+          }
+          return post;
+        }),
+      };
+
+      // Set the updated data
+      setData(updatedData);
+
+      // Clear the comment content
+      setCommentContent("");
+    }
+  };
+
   return (
     <>
       <StyledContainer>
@@ -9,10 +66,12 @@ export default function AddComment() {
         <textarea
           placeholder="Type your comment here"
           maxLength={250}
+          value={commentContent}
+          onChange={(e) => setCommentContent(e.target.value)}
         ></textarea>
         <div>
           <p>Max Characters 250</p>
-          <button>Post Comment</button>
+          <button onClick={addComment}>Post Comment</button>
         </div>
       </StyledContainer>
     </>

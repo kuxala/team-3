@@ -48,6 +48,21 @@ function App() {
   const updateSortCriteria = (criteria) => {
     setSortCriteria(criteria);
   };
+  const addComment = (userId, newComment) => {
+    setData((prevData) => ({
+      ...prevData,
+      productRequests: prevData.productRequests.map((item) =>
+        item.id === userId
+          ? {
+              ...item,
+              comments: item.comments
+                ? [...item.comments, newComment]
+                : [newComment],
+            }
+          : item
+      ),
+    }));
+  };
 
   const counts = {
     planned: data.productRequests.filter((item) => item.status === "planned")
@@ -99,6 +114,7 @@ function App() {
           selectedCategory,
           setSelectedCategory,
           counts,
+          addComment,
         }}
       >
         <Router>

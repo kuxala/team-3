@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React, { useContext, useState, useMemo } from "react";
 import { MyContext } from "../App";
 import { Link } from "react-router-dom";
+import HomePage from "../pages/HomePage";
 
 export default function SuggestionCard() {
   const {
@@ -49,40 +50,16 @@ export default function SuggestionCard() {
 
   return (
     <>
-      {filteredData.map((item) => {
-        return (
-          <StyledDiv key={item.id}>
-            <UpvotesDesktop
-              style={{
-                backgroundColor: upvoteStates[item.id] ? "#4661E6" : "#f2f4fe",
-              }}
-              onClick={() => {
-                handleUpdate(item.id);
-              }}
-            >
-              {upvoteStates[item.id] ? (
-                <img src="/assets/shared/icon-arrow-up-white.svg" />
-              ) : (
-                <img src="/assets/shared/icon-arrow-up.svg" />
-              )}
-              {/* <img src="/assets/shared/icon-arrow-up.svg" /> */}
-              <p
-                style={{
-                  color: upvoteStates[item.id] ? "#fff" : "black",
-                }}
-              >
-                {item.upvotes}
-              </p>
-            </UpvotesDesktop>
-
-            <CenterDiv>
-              <StyledTexts to={`/suggestions/${item.id}`}>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </StyledTexts>
-              <StyledCategory>{item.category}</StyledCategory>
-              <StyledBottom>
-                <Upvotes
+      {filteredData.length === 0 ? (
+        <HomePage />
+      ) : (
+        filteredData.map((item) => {
+          if (!item) {
+            return <h1>Not Found</h1>;
+          } else {
+            return (
+              <StyledDiv key={item.id}>
+                <UpvotesDesktop
                   style={{
                     backgroundColor: upvoteStates[item.id]
                       ? "#4661E6"
@@ -97,6 +74,7 @@ export default function SuggestionCard() {
                   ) : (
                     <img src="/assets/shared/icon-arrow-up.svg" />
                   )}
+                  {/* <img src="/assets/shared/icon-arrow-up.svg" /> */}
                   <p
                     style={{
                       color: upvoteStates[item.id] ? "#fff" : "black",
@@ -104,20 +82,53 @@ export default function SuggestionCard() {
                   >
                     {item.upvotes}
                   </p>
-                </Upvotes>
-                <Comments>
+                </UpvotesDesktop>
+
+                <CenterDiv>
+                  <StyledTexts to={`/suggestions/${item.id}`}>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </StyledTexts>
+                  <StyledCategory>{item.category}</StyledCategory>
+                  <StyledBottom>
+                    <Upvotes
+                      style={{
+                        backgroundColor: upvoteStates[item.id]
+                          ? "#4661E6"
+                          : "#f2f4fe",
+                      }}
+                      onClick={() => {
+                        handleUpdate(item.id);
+                      }}
+                    >
+                      {upvoteStates[item.id] ? (
+                        <img src="/assets/shared/icon-arrow-up-white.svg" />
+                      ) : (
+                        <img src="/assets/shared/icon-arrow-up.svg" />
+                      )}
+                      <p
+                        style={{
+                          color: upvoteStates[item.id] ? "#fff" : "black",
+                        }}
+                      >
+                        {item.upvotes}
+                      </p>
+                    </Upvotes>
+                    <Comments>
+                      <img src="/assets/shared/icon-comments.svg" />
+                      {item?.comments?.length}
+                    </Comments>
+                  </StyledBottom>
+                </CenterDiv>
+                <CommentsDesktop>
                   <img src="/assets/shared/icon-comments.svg" />
                   {item?.comments?.length}
-                </Comments>
-              </StyledBottom>
-            </CenterDiv>
-            <CommentsDesktop>
-              <img src="/assets/shared/icon-comments.svg" />
-              {item?.comments?.length}
-            </CommentsDesktop>
-          </StyledDiv>
-        );
-      })}
+                </CommentsDesktop>
+              </StyledDiv>
+            );
+          }
+        })
+      )}
     </>
   );
 }

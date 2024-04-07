@@ -84,7 +84,7 @@
     {
       "id": 3,
       "title": "Q&A within the challenge hubs",
-      "category": "feature",
+      "category": "feature", 
       "upvotes": 65,
       "status": "suggestion",
       "description": "Challenge-specific Q&A would make for easy reference.",
@@ -241,6 +241,7 @@
         }
       ]
     },
+    
     {
       "id": 10,
       "title": "Bookmark challenges",
