@@ -6,7 +6,7 @@ import HeaderComponent from "../components/Header";
 export default function HomePage() {
   return (
     <>
-      <div style={{ marginTop: "100px" }}></div>
+      <div></div>
 
       <StyledDiv>
         <img src="/assets/suggestions/illustration-empty.svg" />
