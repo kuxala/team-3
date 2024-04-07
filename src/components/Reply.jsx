@@ -1,25 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
+import { useParams, Link } from "react-router-dom";
+import { MyContext } from "../App";
 
-export default function Reply() {
+export default function Reply({ setComments, commentId }) {
+  let { userId } = useParams();
+  const { data, setData } = useContext(MyContext);
   const [replyContent, setReplyContent] = useState("");
 
-  const handleAddReply = () => {
-    // if (replyContent.trim() !== "") {
-    // Call addReply function with the content of the reply
-    //   addReply(commentId, replyContent);
-    // Clear the reply content after posting
-    //   setReplyContent("");
-    // }
+  const addReply = () => {
+    if (replyContent.trim() !== "") {
+      const newReply = {
+        user: {
+          name: "Zena Kelley",
+          username: "velvetround",
+          image: "./assets/user-images/image-zena.jpg",
+        },
+        content: replyContent.trim(),
+      };
+
+      // Update the data with the new reply
+      const updatedData = {
+        ...data,
+        productRequests: data.productRequests.map((post) => {
+          const updatedComments = post?.comments?.map((comment) => {
+            if (comment.content === commentId) {
+              return {
+                ...comment,
+                replies: comment.replies
+                  ? [...comment.replies, newReply]
+                  : [newReply],
+              };
+            }
+            return comment;
+          });
+
+          return {
+            ...post,
+            comments: updatedComments,
+          };
+        }),
+      };
+
+      // Set the updated data
+      setData(updatedData);
+
+      // Clear the reply content
+      setReplyContent("");
+    }
   };
+
   return (
     <>
       <SyledContainer>
         <input
           value={replyContent}
           onChange={(e) => setReplyContent(e.target.value)}
+          placeholder="Write a reply..."
         />
-        <button onClick={handleAddReply}>Post Reply</button>
+        <button onClick={addReply}>Post Reply</button>
       </SyledContainer>
     </>
   );

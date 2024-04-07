@@ -4,12 +4,21 @@ import { MyContext } from "../App";
 import { useParams, Link } from "react-router-dom";
 import AddComment from "./AddComment";
 import Reply from "./Reply";
+
 export default function CommentSection() {
   const { data, setData } = useContext(MyContext);
   let { userId } = useParams();
-  const post = data.productRequests.find((item) => item.id == userId);
-  const [reply, setReply] = useState(false);
+  console.log(data.productRequests);
+  const [replyToCommentId, setReplyToCommentId] = useState(null);
 
+  const setComments = (comments) => {
+    setData((prevData) => ({
+      ...prevData,
+      productRequests: prevData.productRequests.map((item) =>
+        item.id === userId ? { ...item, comments: comments } : item
+      ),
+    }));
+  };
   return (
     <>
       {data.productRequests.map((item) => {
@@ -19,6 +28,7 @@ export default function CommentSection() {
               <h3>{item?.comments?.length} Comment</h3>
               <ul key={item.id}>
                 {item?.comments?.map((comment) => {
+                  console.log(comment);
                   return (
                     <StyledContainer key={comment.id}>
                       <div>
@@ -28,12 +38,35 @@ export default function CommentSection() {
                             <p>{comment.user.name}</p>
                             <span>@{comment.user.username}</span>
                           </div>
-                          <a onClick={() => setReply(!reply)}>Reply</a>
+                          <a onClick={() => setReplyToCommentId(comment.id)}>
+                            Reply
+                          </a>
                         </div>
                       </div>
 
                       <Description>{comment.content}</Description>
-                      {reply ? <Reply /> : null}
+                      {replyToCommentId === comment.id && (
+                        <Reply
+                          setComments={setComments}
+                          commentId={comment.content}
+                        />
+                      )}
+                      {comment.replies &&
+                        comment.replies.map((reply) => (
+                          <StyledReply key={reply.id}>
+                            <div>
+                              <img
+                                src={`.${reply.user.image}`}
+                                alt="User Avatar"
+                              />
+                              <div>
+                                <p>{reply.user.name}</p>
+                                <span>@{reply.user.username}</span>
+                              </div>
+                            </div>
+                            <Description>{reply.content}</Description>
+                          </StyledReply>
+                        ))}
 
                       <div
                         style={{
@@ -55,7 +88,7 @@ export default function CommentSection() {
     </>
   );
 }
-
+const StyledReply = styled.div``;
 const WholeDiv = styled.div`
   /* min-height: 400px; */
   background-color: #fff;
