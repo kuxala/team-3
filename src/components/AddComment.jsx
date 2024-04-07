@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 export default function AddComment({ postId }) {
   const { data, setData } = useContext(MyContext);
   const { userId } = useParams();
-  console.log(data.productRequests);
+  // console.log(data.productRequests);
   const [commentContent, setCommentContent] = useState("");
 
   const generateCommentId = () => {
