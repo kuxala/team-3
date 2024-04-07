@@ -267,6 +267,14 @@ const UpvotesDesktop = styled.div`
   }
 `;
 const CommentsDesktop = styled.div`
+  color: #3a4374;
+  text-align: center;
+  font-family: Jost;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.222px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -276,6 +284,14 @@ const CommentsDesktop = styled.div`
 `;
 
 const Comments = styled.div`
+  color: #3a4374;
+  text-align: center;
+  font-family: Jost;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.222px;
   display: flex;
   align-items: center;
   justify-content: center;
