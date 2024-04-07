@@ -54,7 +54,6 @@ export default function SuggestionCard() {
         <HomePage />
       ) : (
         filteredData.map((item) => {
-          console.log(item);
           if (!item) {
             return <h1>Not Found</h1>;
           } else {
