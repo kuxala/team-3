@@ -20,7 +20,7 @@ export default function CommentSection() {
         if (userId == item.id) {
           return (
             <WholeDiv>
-              <h3>0 Comment</h3>
+              <h3>{item?.comments?.length} Comment</h3>
               <ul key={item.id}>
                 {item?.comments?.map((comment) => {
                   return (
@@ -36,10 +36,10 @@ export default function CommentSection() {
                         </div>
                       </div>
                       <Description
-                      // style={{
-                      //   borderBottom: "1px solid rgba(128, 128, 128, 0.5)",
-                      //   paddingBottom: "24px",
-                      // }}
+                        style={{
+                          borderBottom: "1px solid rgba(128, 128, 128, 0.5)",
+                          paddingBottom: "24px",
+                        }}
                       >
                         {comment.content}
                       </Description>
@@ -59,7 +59,7 @@ export default function CommentSection() {
 }
 
 const WholeDiv = styled.div`
-  min-height: 400px;
+  /* min-height: 400px; */
   background-color: #fff;
   border-radius: 10px;
   width: 90%;
@@ -70,7 +70,7 @@ const WholeDiv = styled.div`
     margin: 0 auto;
     margin-top: 100px;
     width: 825px;
-    min-height: 500px;
+    /* min-height: 500px; */
     background-color: #fff;
   }
   & > h3 {
