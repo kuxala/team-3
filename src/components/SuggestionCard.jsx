@@ -8,9 +8,8 @@ export default function SuggestionCard() {
     data,
     upvoteStates,
     handleUpdate,
-    updateSortCriteria,
-    sortCriteria,
     dropdownMenuValue,
+    selectedCategory,
   } = useContext(MyContext);
 
   const sortedData = useMemo(() => {
@@ -38,21 +37,37 @@ export default function SuggestionCard() {
     return items;
   }, [data.productRequests, dropdownMenuValue]);
 
+  const filteredData = useMemo(() => {
+    if (selectedCategory === "All") {
+      return sortedData;
+    } else {
+      return sortedData.filter(
+        (item) => item.category.toLowerCase() === selectedCategory.toLowerCase()
+      );
+    }
+  }, [sortedData, selectedCategory]);
+
   return (
     <>
-      {sortedData.map((item) => {
+      {filteredData.map((item) => {
         return (
           <StyledDiv key={item.id}>
             <UpvotesDesktop
               style={{
-                backgroundColor: upvoteStates[item.id] ? "#bec9fc" : "#f2f4fe",
+                backgroundColor: upvoteStates[item.id] ? "#3A4374" : "#f2f4fe",
               }}
               onClick={() => {
                 handleUpdate(item.id);
               }}
             >
               <img src="/assets/shared/icon-arrow-up.svg" />
-              <p>{item.upvotes}</p>
+              <p
+                style={{
+                  color: upvoteStates[item.id] ? "#fff" : "black",
+                }}
+              >
+                {item.upvotes}
+              </p>
             </UpvotesDesktop>
 
             <CenterDiv>
@@ -65,7 +80,7 @@ export default function SuggestionCard() {
                 <Upvotes
                   style={{
                     backgroundColor: upvoteStates[item.id]
-                      ? "#a4b2fc"
+                      ? "#3A4374"
                       : "#f2f4fe",
                   }}
                   onClick={() => {
@@ -73,7 +88,13 @@ export default function SuggestionCard() {
                   }}
                 >
                   <img src="/assets/shared/icon-arrow-up.svg" />
-                  <p>{item.upvotes}</p>
+                  <p
+                    style={{
+                      color: upvoteStates[item.id] ? "#fff" : "black",
+                    }}
+                  >
+                    {item.upvotes}
+                  </p>
                 </Upvotes>
                 <Comments>
                   <img src="/assets/shared/icon-comments.svg" />
@@ -111,7 +132,15 @@ const StyledDiv = styled.div`
     align-items: center;
     justify-content: space-between;
   }
+  @media screen and (min-width: 768px) and (max-width: 1068px) {
+    width: 725px;
+    padding-bottom: 50px;
+    margin: 0 auto;
+    flex-direction: row;
+    margin-bottom: 20px;
+  }
 `;
+
 const CenterDiv = styled.div`
   @media only screen and (min-width: 768px) {
     width: 80%;

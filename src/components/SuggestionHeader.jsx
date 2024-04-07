@@ -10,6 +10,7 @@ export default function SuggestionHeader() {
 
   const { dropdownMenuValue, setDropdownMenuValue, data } =
     useContext(MyContext);
+
   return (
     <>
       <SuggestionHeaderDiv>
@@ -109,10 +110,16 @@ const SuggestionHeaderDiv = styled.div`
   padding: 18px 24px;
   background: #373f68;
   @media only screen and (min-width: 768px) {
-    max-width: 825px;
+    width: 825px;
     border-radius: 10px;
     margin: 0 auto;
-    margin-top: 100px;
+  }
+  @media screen and (min-width: 768px) and (max-width: 1068px) {
+    width: 725px;
+    padding-bottom: 50px;
+    margin: 0 auto;
+    flex-direction: row;
+    margin-bottom: 30px;
   }
 
   & > div {

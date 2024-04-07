@@ -8,7 +8,6 @@ import RoadmapPage from "./pages/RoardmapPage";
 import { createContext, useState, useEffect } from "react";
 import jsonData from "../data.json";
 
-
 export const MyContext = createContext(null);
 
 function App() {
@@ -18,10 +17,24 @@ function App() {
   const [category, setCategory] = useState("feature");
   const [feedbackDetail, setFeedbackDetail] = useState("");
   const [dropdownMenuValue, setDropdownMenuValue] = useState("Most Upvotes");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
   const [sortCriteria, setSortCriteria] = useState({
     sortBy: "upvotes",
     sortOrder: "desc",
   });
+
+  const updateSortCriteria = (criteria) => {
+    setSortCriteria(criteria);
+  };
+  const counts = {
+    planned: data.productRequests.filter((item) => item.status === "planned")
+      .length,
+    "in-progress": data.productRequests.filter(
+      (item) => item.status === "in-progress"
+    ).length,
+    live: data.productRequests.filter((item) => item.status === "live").length,
+  };
 
   // useEffect(() => {
   //   localStorage.setItem("Data", JSON.stringify(data.productRequests));
@@ -72,6 +85,9 @@ function App() {
           sortCriteria,
           dropdownMenuValue,
           setDropdownMenuValue,
+          selectedCategory,
+          setSelectedCategory,
+          counts,
         }}
       >
         <Router>
@@ -87,6 +103,7 @@ function App() {
             />
             <Route path="/edit-feedback" element={<EditFeedbackPage />} />
             <Route path="/roadmap" element={<RoadmapPage />} />
+            <Route path="*" element={<h1>EROR 404</h1>} />
           </Routes>
         </Router>
       </MyContext.Provider>

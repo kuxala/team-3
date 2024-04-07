@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export default function RoadmapPage() {
   const [isActive, setIsActive] = useState([false, true, false]);
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  const { data, upvoteStates, handleUpdate } = useContext(MyContext);
+  const { data, upvoteStates, handleUpdate, counts } = useContext(MyContext);
 
   useEffect(() => {
     const handleResize = () => {
@@ -42,7 +42,7 @@ export default function RoadmapPage() {
               <Upvotes
                 style={{
                   backgroundColor: upvoteStates[item.id]
-                    ? "#bec9fc"
+                    ? "#3A4374"
                     : "#f2f4fe",
                 }}
                 onClick={() => {
@@ -50,7 +50,13 @@ export default function RoadmapPage() {
                 }}
               >
                 <img src="/assets/shared/icon-arrow-up.svg" alt="Upvote" />
-                <p>{item.upvotes}</p>
+                <p
+                  style={{
+                    color: upvoteStates[item.id] ? "#fff" : "black",
+                  }}
+                >
+                  {item.upvotes}
+                </p>
               </Upvotes>
               <Comments>
                 <img src="/assets/shared/icon-comments.svg" alt="Comments" />
@@ -120,17 +126,23 @@ export default function RoadmapPage() {
         ) : (
           <DesktopSmallHeader>
             <div>
-              <p>Planned </p>
+
+              <p>Planned ({counts["planned"]})</p>
+
               <span>Ideas prioritized for research</span>
               {renderItems("planned", "#F49F85")}
             </div>
             <div>
-              <p>In Progress </p>
+
+              <p>In Progress ({counts["in-progress"]})</p>
+
               <span>Currently being developed</span>
               {renderItems("in-progress", "#AD1FEA")}
             </div>
             <div>
-              <p>Live </p>
+
+              <p>Live ({counts["live"]})</p>
+
               <span>Released features</span>
               {renderItems("live", "#62BCFA")}
             </div>

@@ -6,9 +6,12 @@ import { Link, useParams } from "react-router-dom";
 import { MyContext } from "../App";
 
 export default function EditFeedbackPage() {
+  const { category, setCategory } = useContext(MyContext);
+
+  let { userId } = useParams();
+  const [feedbackData, setFeedbackData] = useState("planned");
+
   const { data, setData } = useContext(MyContext);
-  const { userId } = useParams();
-  const [feedbackData, setFeedbackData] = useState(null);
   // console.log(data.productRequests);
 
   useEffect(() => {
@@ -37,9 +40,11 @@ export default function EditFeedbackPage() {
     setData({ ...data, productRequests: updatedData });
   };
 
+
   const handleGoBack = () => {
     window.history.back();
   };
+
 
   const handleFeedbackDelete = () => {
     const updatedData = data.productRequests.filter(
@@ -51,6 +56,7 @@ export default function EditFeedbackPage() {
   if (!feedbackData) {
     return <div>Loading...</div>;
   }
+
 
   return (
     <FeedbackContainer>
@@ -341,8 +347,8 @@ const Buttons = styled.div`
       margin-right: auto;
     }
     & .delete:hover {
-      background-color: #E98888;
-      cursor:pointer;
+      background-color: #e98888;
+      cursor: pointer;
     }
   }
 `;
