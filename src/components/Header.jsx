@@ -60,15 +60,51 @@ export default function HeaderComponent() {
               </div>
               <div>
                 <div className="bottom-row">
-                  <p>Planned</p>
+                  <p>
+                    {" "}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="8"
+                      height="8"
+                      viewBox="0 0 8 8"
+                      fill="none"
+                    >
+                      <circle cx="4" cy="4" r="4" fill="#F49F85" />
+                    </svg>
+                    Planned
+                  </p>
                   <span>{counts["planned"]}</span>
                 </div>
                 <div className="bottom-row">
-                  <p>In Progress</p>
+                  <p>
+                    {" "}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="8"
+                      height="8"
+                      viewBox="0 0 8 8"
+                      fill="none"
+                    >
+                      <circle cx="4" cy="4" r="4" fill="#AD1FEA" />
+                    </svg>
+                    In Progress
+                  </p>
                   <span>{counts["in-progress"]}</span>
                 </div>
                 <div className="bottom-row">
-                  <p>Live</p>
+                  <p>
+                    {" "}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="8"
+                      height="8"
+                      viewBox="0 0 8 8"
+                      fill="none"
+                    >
+                      <circle cx="4" cy="4" r="4" fill="#62BCFA" />
+                    </svg>
+                    Live
+                  </p>
                   <span>{counts["live"]}</span>
                 </div>
               </div>
@@ -103,15 +139,48 @@ export default function HeaderComponent() {
           </div>
           <div>
             <div className="bottom-row">
-              <p>Planned</p>
+              <p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="8"
+                  height="8"
+                  viewBox="0 0 8 8"
+                  fill="none"
+                >
+                  <circle cx="4" cy="4" r="4" fill="#F49F85" />
+                </svg>
+                Planned
+              </p>
               <span>{counts["planned"]}</span>
             </div>
             <div className="bottom-row">
-              <p>In Progress</p>
+              <p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="8"
+                  height="8"
+                  viewBox="0 0 8 8"
+                  fill="none"
+                >
+                  <circle cx="4" cy="4" r="4" fill="#AD1FEA" />
+                </svg>
+                In Progress
+              </p>
               <span>{counts["in-progress"]}</span>
             </div>
             <div className="bottom-row">
-              <p>Live</p>
+              <p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="8"
+                  height="8"
+                  viewBox="0 0 8 8"
+                  fill="none"
+                >
+                  <circle cx="4" cy="4" r="4" fill="#62BCFA" />
+                </svg>
+                Live
+              </p>
               <span>{counts["live"]}</span>
             </div>
           </div>
@@ -126,9 +195,9 @@ const MenuDiv = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-
+  align-items: center;
   /* left: 90%; */
-  top: 10.4%;
+  top: 9%;
   right: 0;
   padding: 0;
   padding: 32px;
@@ -237,6 +306,9 @@ const BottomSection = styled.div`
   @media screen and (min-width: 768px) and (max-width: 1068px) {
     width: 33%;
   }
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
   .top-row {
     display: flex;
     justify-content: space-between;
@@ -273,6 +345,9 @@ const BottomSection = styled.div`
       font-style: normal;
       font-weight: 400;
       line-height: normal;
+      display: flex;
+      gap: 8px;
+      align-items: center;
     }
     & > span {
       color: #647196;

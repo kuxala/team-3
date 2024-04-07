@@ -304,7 +304,7 @@ const UpvotesDesktop = styled.div`
   padding: 0 14px;
 
   &:hover {
-    background-color: #cfd7ff;
+    background-color: #cfd7ff !important;
   }
 
   & > p {

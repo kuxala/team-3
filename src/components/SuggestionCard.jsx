@@ -256,9 +256,9 @@ const UpvotesDesktop = styled.div`
   align-items: center;
   gap: 10px;
   padding: 0 14px;
-
+  cursor: pointer;
   &:hover {
-    background-color: #cfd7ff;
+    background-color: #cfd7ff !important;
   }
 
   & > p {
