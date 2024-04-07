@@ -300,13 +300,19 @@ const Comments = styled.div`
 
 const StyledContainer = styled.div`
   @media only screen and (min-width: 768px) {
-    width: 60%;
+    width: 70%;
     margin: 0 auto;
     border-radius: 10px;
     margin-top: 50px;
   }
+
+  @media screen and (min-width: 768px) and (max-width: 1068px) {
+    width: 90%;
+  }
+      
   @media screen and (min-width: 768px) and (max-width: 1268px) {
     width: 80%;
+
   }
 `;
 

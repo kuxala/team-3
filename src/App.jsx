@@ -1,18 +1,24 @@
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  lazy,
+  Suspense,
+} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import SuggestionsPage from "./pages/SuggestionsPage";
-import Feedback from "./pages/Feedback";
-import AddFeedbackPage from "./pages/AddFeedbackPage";
-import EditFeedbackPage from "./pages/EditFeedbackPage";
-import RoadmapPage from "./pages/RoardmapPage";
-import { createContext, useState, useEffect } from "react";
 import jsonData from "../data.json";
+
+// Lazy-loaded components
+const HomePage = lazy(() => import("./pages/HomePage"));
+const SuggestionsPage = lazy(() => import("./pages/SuggestionsPage"));
+const Feedback = lazy(() => import("./pages/Feedback"));
+const AddFeedbackPage = lazy(() => import("./pages/AddFeedbackPage"));
+const EditFeedbackPage = lazy(() => import("./pages/EditFeedbackPage"));
+const RoadmapPage = lazy(() => import("./pages/RoardmapPage"));
 
 export const MyContext = createContext(null);
 
 function App() {
-  // const [data, setData] = useState(jsonData);
-  // const [upvoteStates, setUpvoteStates] = useState({});
   const [feedbackTitle, setFeedbackTitle] = useState("");
   const [category, setCategory] = useState("feature");
   const [feedbackDetail, setFeedbackDetail] = useState("");
@@ -48,6 +54,22 @@ function App() {
   const updateSortCriteria = (criteria) => {
     setSortCriteria(criteria);
   };
+  const addComment = (userId, newComment) => {
+    setData((prevData) => ({
+      ...prevData,
+      productRequests: prevData.productRequests.map((item) =>
+        item.id === userId
+          ? {
+              ...item,
+              comments: item.comments
+                ? [...item.comments, newComment]
+                : [newComment],
+            }
+          : item
+      ),
+    }));
+  };
+
   const addComment = (userId, newComment) => {
     setData((prevData) => ({
       ...prevData,
@@ -118,20 +140,22 @@ function App() {
         }}
       >
         <Router>
-          <Routes>
-            <Route path="/empty" element={<HomePage />} />
-            <Route path="/" element={<SuggestionsPage />} />
-            <Route path="/suggestions" element={<SuggestionsPage />} />
-            <Route path="/suggestions/:userId" element={<Feedback />} />
-            <Route path="/add-feedback" element={<AddFeedbackPage />} />
-            <Route
-              path="/edit-feedback/:userId"
-              element={<EditFeedbackPage />}
-            />
-            <Route path="/edit-feedback" element={<EditFeedbackPage />} />
-            <Route path="/roadmap" element={<RoadmapPage />} />
-            <Route path="*" element={<h1>EROR 404</h1>} />
-          </Routes>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path="/empty" element={<HomePage />} />
+              <Route path="/" element={<SuggestionsPage />} />
+              <Route path="/suggestions" element={<SuggestionsPage />} />
+              <Route path="/suggestions/:userId" element={<Feedback />} />
+              <Route path="/add-feedback" element={<AddFeedbackPage />} />
+              <Route
+                path="/edit-feedback/:userId"
+                element={<EditFeedbackPage />}
+              />
+              <Route path="/edit-feedback" element={<EditFeedbackPage />} />
+              <Route path="/roadmap" element={<RoadmapPage />} />
+              <Route path="*" element={<h1>ERROR 404</h1>} />
+            </Routes>
+          </Suspense>
         </Router>
       </MyContext.Provider>
     </>

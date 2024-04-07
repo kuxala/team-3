@@ -93,10 +93,13 @@ const StyledReply = styled.section`
   flex-direction: column;
   align-items: flex-start; /* Align items to the start (left) */
 
+
   .reply-texts {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start; /* Align text to the start (top) */
     text-align: left;
+    align-items: flex-start; /* Align text to the start (left) */
     margin-left: 12px; /* Adjust margin for spacing between image and text */
   }
 
@@ -105,6 +108,7 @@ const StyledReply = styled.section`
     width: 40px; /* Set width for the image */
     height: 40px; /* Set height for the image */
   }
+
 
   & > main {
     display: flex;
