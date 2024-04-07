@@ -305,8 +305,14 @@ const StyledContainer = styled.div`
     border-radius: 10px;
     margin-top: 50px;
   }
+
   @media screen and (min-width: 768px) and (max-width: 1068px) {
     width: 90%;
+  }
+      
+  @media screen and (min-width: 768px) and (max-width: 1268px) {
+    width: 80%;
+
   }
 `;
 

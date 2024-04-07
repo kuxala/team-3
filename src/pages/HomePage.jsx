@@ -6,8 +6,10 @@ import HeaderComponent from "../components/Header";
 export default function HomePage() {
   return (
     <>
+
       <div style={{ marginTop: "100px" }}></div>
       <SuggestionHeader />
+
       <StyledDiv>
         <img src="/assets/suggestions/illustration-empty.svg" />
         <h1>There is no feedBack yet.</h1>

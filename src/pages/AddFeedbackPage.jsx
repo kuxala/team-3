@@ -208,6 +208,7 @@ const Title = styled.h1`
     line-height: 34.68px;
     font-weight: 700;
     padding-top: 10px;
+    width: 456px;
   }
 `;
 

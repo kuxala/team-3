@@ -93,6 +93,7 @@ const StyledReply = styled.section`
   flex-direction: column;
   align-items: flex-start; /* Align items to the start (left) */
 
+
   .reply-texts {
     display: flex;
     flex-direction: column;
@@ -108,10 +109,12 @@ const StyledReply = styled.section`
     height: 40px; /* Set height for the image */
   }
 
+
   & > main {
     display: flex;
     gap: 8px;
     align-items: center;
+
     & > div > p {
       color: #3a4374;
       font-family: Jost;
@@ -166,6 +169,7 @@ const Description = styled.p`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  white-space: wrap;
 `;
 const StyledContainer = styled.div`
   margin: 0 24px;
