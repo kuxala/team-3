@@ -11,62 +11,129 @@ export default function EditFeedbackPage() {
   let { userId } = useParams();
   const [feedbackData, setFeedbackData] = useState("planned");
 
+  const { data, setData } = useContext(MyContext);
+  // console.log(data.productRequests);
+
+  useEffect(() => {
+    const feedbackItem = data.productRequests.find(
+      (item) => item.id === parseInt(userId)
+    );
+    setFeedbackData(feedbackItem);
+  }, [data, userId]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    console.log(`Input Name: ${name}, Value: ${value}`);
+    setFeedbackData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleFeedbackUpdate = () => {
+    const updatedData = data.productRequests.map((item) => {
+      if (item.id === feedbackData.id) {
+        return feedbackData;
+      }
+      return item;
+    });
+    setData({ ...data, productRequests: updatedData });
+  };
+
+
   const handleGoBack = () => {
     window.history.back();
   };
 
+
+  const handleFeedbackDelete = () => {
+    const updatedData = data.productRequests.filter(
+      (item) => item.id !== feedbackData.id
+    );
+    setData({ ...data, productRequests: updatedData });
+  };
+
+  if (!feedbackData) {
+    return <div>Loading...</div>;
+  }
+
+
   return (
     <FeedbackContainer>
       <Header>
-        <img src={arrow} />
+        <img src={arrow} alt="Back" />
         <StyledLink to="#" onClick={handleGoBack}>
           Go Back
         </StyledLink>
       </Header>
       <FeedbackForm>
-        <img src={Icon} className="Icon" />
-        <Title>Add a dark theme option</Title> {/*NEED CHANGE*/}
+        <img src={Icon} alt="Edit icon" className="Icon" />
+        <Title>Editing '{feedbackData.title}'</Title>
         <Label>Feedback Title</Label>
         <Labeltext>Add a short, descriptive headline</Labeltext>
-        <Input type="text"></Input>
+        <p></p>
+        <Input
+          type="text"
+          name="title"
+          value={feedbackData.title}
+          onChange={handleInputChange}
+        />
         <Label>Category</Label>
         <Labeltext>Choose a category for your feedback</Labeltext>
+
         <Select
-          name="Feature"
-          className="select"
-          onChange={(e) => setCategory(e.target.value)}
+          name="category"
+          value={feedbackData.category}
+          onChange={handleInputChange}
         >
-          <Option value={category}>Feature</Option>
+          <Option value="Feature">Feature</Option>
           <Option value="UI">UI</Option>
           <Option value="UX">UX</Option>
-          <Option value="UX">Enhancement</Option>
-          <Option value="UX">Bug</Option>
+          <Option value="Enhancement">Enhancement</Option>
+          <Option value="Bug">Bug</Option>
         </Select>
+
         <Label>Update Status</Label>
         <Labeltext>Change feature state</Labeltext>
+
         <Select
-          className="select"
-          value={feedbackData}
-          onChange={(e) => setFeedbackData(e.target.value)}
+          name="status"
+          value={feedbackData.status}
+          onChange={handleInputChange}
         >
-          <Option value="Planned">Planned</Option>
-          <Option value="In-Progress">In-Progress</Option>
-          <Option value="Live">Live</Option>
+          <Option value="planned">Planned</Option>
+          <Option value="in-progress">In-Progress</Option>
+          <Option value="live">Live</Option>
         </Select>
         <Label>Feedback Detail</Label>
         <Labeltext>
           Include any specific comments on what should be improved, added, etc.
         </Labeltext>
-        <Comment type="text" />
+        <Comment
+          name="description"
+          value={feedbackData.description}
+          onChange={handleInputChange}
+        />
         <Buttons>
-          <Button className="purple">Add Feedback</Button>
-          <Button className="blue">Cancel</Button>
-          <Button className="delete">Delete</Button>
+          <Button
+            className="purple"
+            onClick={handleFeedbackUpdate}
+            to={`/suggestions/${userId}`}
+          >
+            Update Feedback
+          </Button>
+          <Button className="blue" onClick={handleGoBack}>
+            Cancel
+          </Button>
+          <Button className="delete" onClick={handleFeedbackDelete} to="/">
+            Delete
+          </Button>
         </Buttons>
       </FeedbackForm>
     </FeedbackContainer>
   );
 }
+
 const StyledLink = styled(Link)`
   color: #647196;
   font-family: Jost;
@@ -186,6 +253,13 @@ const Labeltext = styled.h2`
 `;
 
 const Input = styled.input`
+  padding: 1rem;
+  color: #3a4374;
+  font-family: Jost;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   background-color: #f7f8fd;
   width: 279px;
   height: 48px;
@@ -198,6 +272,13 @@ const Input = styled.input`
 `;
 
 const Comment = styled.textarea`
+  padding: 1rem;
+  color: #3a4374;
+  font-family: Jost;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   background-color: #f7f8fd;
   width: 279px;
   height: 120px;
@@ -211,6 +292,7 @@ const Comment = styled.textarea`
 `;
 
 const Select = styled.select`
+  padding: 0.5rem;
   background-color: #f7f8fd;
   width: 279px;
   height: 48px;
@@ -270,7 +352,11 @@ const Buttons = styled.div`
     }
   }
 `;
-const Button = styled.button`
+const Button = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
   width: 279px;
   height: 40px;
   border-style: none;
