@@ -17,7 +17,7 @@ export default function SuggestionHeader() {
         <div>
           <StyledDesktopText>
             <img src="/assets/suggestions/icon-suggestions.svg" />
-            <p>{data.productRequests.length} suggestions</p>
+            <p>{data?.productRequests?.length} suggestions</p>
           </StyledDesktopText>
           <SortCard isOpen={isOpen} setIsOpen={setIsOpen} />
 
