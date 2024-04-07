@@ -97,7 +97,7 @@ export default function RoadmapPage() {
                 }}
                 onClick={() => setIsActive([true, false, false])}
               >
-                Planned (1)
+                Planned ({counts["planned"]})
               </div>
               <div
                 style={{
@@ -106,7 +106,7 @@ export default function RoadmapPage() {
                 }}
                 onClick={() => setIsActive([false, true, false])}
               >
-                In-Progress (1)
+                In-Progress ({counts["in-progress"]})
               </div>
               <div
                 style={{
@@ -115,7 +115,7 @@ export default function RoadmapPage() {
                 }}
                 onClick={() => setIsActive([false, false, true])}
               >
-                Live (1)
+                Live ({counts["live"]})
               </div>
             </SmallHeader>
             {isActive.map((active, index) =>
@@ -160,6 +160,7 @@ const StyledDiv = styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+
   .H1 {
     color: #3a4374;
     font-size: 18px;
@@ -186,6 +187,7 @@ const StyledDiv = styled.div`
     margin: 0 auto;
     margin-top: 20px;
   }
+
   & > p {
     color: #647196;
     font-family: Jost;
@@ -292,10 +294,13 @@ const Comments = styled.div`
 
 const StyledContainer = styled.div`
   @media only screen and (min-width: 768px) {
-    width: 60%;
+    width: 70%;
     margin: 0 auto;
     border-radius: 10px;
     margin-top: 50px;
+  }
+  @media screen and (min-width: 768px) and (max-width: 1068px) {
+    width: 90%;
   }
 `;
 
