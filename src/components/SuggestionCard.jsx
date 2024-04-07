@@ -54,13 +54,18 @@ export default function SuggestionCard() {
           <StyledDiv key={item.id}>
             <UpvotesDesktop
               style={{
-                backgroundColor: upvoteStates[item.id] ? "#3A4374" : "#f2f4fe",
+                backgroundColor: upvoteStates[item.id] ? "#4661E6" : "#f2f4fe",
               }}
               onClick={() => {
                 handleUpdate(item.id);
               }}
             >
-              <img src="/assets/shared/icon-arrow-up.svg" />
+              {upvoteStates[item.id] ? (
+                <img src="/assets/shared/icon-arrow-up-white.svg" />
+              ) : (
+                <img src="/assets/shared/icon-arrow-up.svg" />
+              )}
+              {/* <img src="/assets/shared/icon-arrow-up.svg" /> */}
               <p
                 style={{
                   color: upvoteStates[item.id] ? "#fff" : "black",
@@ -80,14 +85,18 @@ export default function SuggestionCard() {
                 <Upvotes
                   style={{
                     backgroundColor: upvoteStates[item.id]
-                      ? "#3A4374"
+                      ? "#4661E6"
                       : "#f2f4fe",
                   }}
                   onClick={() => {
                     handleUpdate(item.id);
                   }}
                 >
-                  <img src="/assets/shared/icon-arrow-up.svg" />
+                  {upvoteStates[item.id] ? (
+                    <img src="/assets/shared/icon-arrow-up-white.svg" />
+                  ) : (
+                    <img src="/assets/shared/icon-arrow-up.svg" />
+                  )}
                   <p
                     style={{
                       color: upvoteStates[item.id] ? "#fff" : "black",
@@ -247,9 +256,9 @@ const UpvotesDesktop = styled.div`
   align-items: center;
   gap: 10px;
   padding: 0 14px;
-
+  cursor: pointer;
   &:hover {
-    background-color: #cfd7ff;
+    background-color: #cfd7ff !important;
   }
 
   & > p {
@@ -278,6 +287,14 @@ const CommentsDesktop = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  color: #3a4374;
+  text-align: center;
+  font-family: Jost;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.181px;
   @media only screen and (max-width: 768px) {
     display: none;
   }
@@ -296,4 +313,12 @@ const Comments = styled.div`
   align-items: center;
   justify-content: center;
   gap: 8px;
+  color: #3a4374;
+  text-align: center;
+  font-family: Jost;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.181px;
 `;

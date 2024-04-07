@@ -2,45 +2,82 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { MyContext } from "../App";
 import { useParams, Link } from "react-router-dom";
+import AddComment from "./AddComment";
 
 export default function CommentSection() {
   const { data, setData } = useContext(MyContext);
   let { userId } = useParams();
 
-  // console.log(data.productRequests.map((each) => {
-  //   if( each.id == userId) {
-  //     return each
-  //   }
-  // }))
   return (
     <>
-      <StyledContainer>
-        <h3>0 Comments</h3>
-        <div>
-          <img src="/assets/user-images/image-anne.jpg" />
-          <div>
-            <div>
-              <p>Name</p>
-              <span>UserName</span>
-            </div>
-            <a>Reply</a>
-          </div>
-        </div>
-        <Description
-          style={{
-            borderBottom: "1px solid rgba(128, 128, 128, 0.5)",
-            paddingBottom: "24px",
-          }}
-        >
-          Also, please allow styles to be applied based on system preferences. I
-          would love to be able to browse Frontend Mentor in the evening after
-          my device’s dark mode turns on without the bright background it
-          currently has.
-        </Description>
-      </StyledContainer>
+      {data.productRequests.map((item) => {
+        if (userId == item.id) {
+          return (
+            <WholeDiv key={item.id}>
+              <h3>{item?.comments?.length} Comment</h3>
+              <ul key={item.id}>
+                {item?.comments?.map((comment) => {
+                  return (
+                    <StyledContainer key={comment.id}>
+                      <div>
+                        <img src={`.${comment.user.image}`} />
+                        <div>
+                          <div>
+                            <p>{comment.user.name}</p>
+                            <span>{comment.user.username}</span>
+                          </div>
+                          <a>Reply</a>
+                        </div>
+                      </div>
+                      <Description
+                        style={{
+                          borderBottom: "1px solid rgba(128, 128, 128, 0.5)",
+                          paddingBottom: "24px",
+                        }}
+                      >
+                        {comment.content}
+                      </Description>
+                    </StyledContainer>
+                  );
+                })}
+              </ul>
+            </WholeDiv>
+          );
+        }
+        return null;
+      })}
+
+      <AddComment />
     </>
   );
 }
+
+const WholeDiv = styled.div`
+  /* min-height: 400px; */
+  background-color: #fff;
+  border-radius: 10px;
+  width: 90%;
+  margin: 0 auto;
+  @media only screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-top: 100px;
+    width: 825px;
+    /* min-height: 500px; */
+    background-color: #fff;
+  }
+  & > h3 {
+    color: #3a4374;
+    font-family: Jost;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.25px;
+    padding: 24px;
+  }
+`;
 const Description = styled.div`
   padding-left: 56px;
   padding-top: 18px;
@@ -57,7 +94,7 @@ const StyledContainer = styled.div`
   padding: 34px;
   border-radius: 10px;
   @media only screen and (min-width: 768px) {
-    width: 50%;
+    max-width: 835px;
     margin: 0 auto;
     margin-top: 30px;
   }

@@ -197,13 +197,11 @@ const Title = styled.h1`
   line-height: 26.01px;
   letter-spacing: -0.25px;
   color: #3a4374;
-
   @media screen and (min-width: 768px) {
     font-size: 24px;
     line-height: 34.68px;
     font-weight: 700;
     padding-top: 10px;
-    width: 456px;
   }
 `;
 
@@ -214,7 +212,7 @@ const Label = styled.h3`
   letter-spacing: -0.1805555522441864px;
   color: #3a4374;
   padding-top: 10px;
-  width: 456px;
+  /* width: 456px; */
 
   @media screen and (min-width: 768px) {
     font-size: 14px;

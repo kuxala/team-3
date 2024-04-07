@@ -30,14 +30,18 @@ export default function Id() {
                 <UpvotesDesktop
                   style={{
                     backgroundColor: upvoteStates[item.id]
-                      ? "#3A4374"
+                      ? "#4661E6"
                       : "#f2f4fe",
                   }}
                   onClick={() => {
                     handleUpdate(item.id);
                   }}
                 >
-                  <img src="/assets/shared/icon-arrow-up.svg" />
+                  {upvoteStates[item.id] ? (
+                    <img src="/assets/shared/icon-arrow-up-white.svg" />
+                  ) : (
+                    <img src="/assets/shared/icon-arrow-up.svg" />
+                  )}
                   <p
                     style={{
                       color: upvoteStates[item.id] ? "#fff" : "black",
@@ -57,14 +61,18 @@ export default function Id() {
                     <Upvotes
                       style={{
                         backgroundColor: upvoteStates[item.id]
-                          ? "#3A4374"
+                          ? "#4661E6"
                           : "#f2f4fe",
                       }}
                       onClick={() => {
                         handleUpdate(item.id);
                       }}
                     >
-                      <img src="/assets/shared/icon-arrow-up.svg" />
+                      {upvoteStates[item.id] ? (
+                        <img src="/assets/shared/icon-arrow-up-white.svg" />
+                      ) : (
+                        <img src="/assets/shared/icon-arrow-up.svg" />
+                      )}
                       <p
                         style={{
                           color: upvoteStates[item.id] ? "#fff" : "black",
@@ -88,7 +96,7 @@ export default function Id() {
           }
         })}
       </div>
-      {/* <CommentSection /> */}
+      <CommentSection />
     </>
   );
 }
@@ -227,6 +235,14 @@ const Comments = styled.div`
   align-items: center;
   justify-content: center;
   gap: 8px;
+  color: #3a4374;
+  text-align: center;
+  font-family: Jost;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.222px;
 `;
 
 const StyledHeader = styled.div`
@@ -290,7 +306,7 @@ const UpvotesDesktop = styled.div`
   padding: 0 14px;
 
   &:hover {
-    background-color: #cfd7ff;
+    background-color: #cfd7ff !important;
   }
 
   & > p {
@@ -311,6 +327,14 @@ const CommentsDesktop = styled.div`
   display: flex;
   gap: 4px;
   align-items: center;
+  color: #3a4374;
+  text-align: center;
+  font-family: Jost;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.222px;
   @media only screen and (max-width: 768px) {
     display: none;
   }
