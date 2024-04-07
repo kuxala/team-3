@@ -23,23 +23,17 @@ function App() {
     sortOrder: "desc",
   });
 
-  // Update the sorting criteria
+  // useEffect(() => {
+  //   localStorage.setItem("Data", JSON.stringify(data.productRequests));
+  // }, [data]);
+
+  // useEffect(() => {
+  //   localStorage.getItem("Data", JSON.parse(data.productRequests));
+  // }, []);
+
   const updateSortCriteria = (criteria) => {
     setSortCriteria(criteria);
   };
-  // useEffect(() => {
-  //   const serializedData = JSON.stringify(data.productRequests);
-  //   window.localStorage.setItem("data", serializedData);
-  // }, [data.productRequests]);
-
-  // useEffect(() => {
-  //   const storedData = window.localStorage.getItem("data");
-  //   if (storedData) {
-  //     const parsedData = JSON.parse(storedData);
-
-  //     setData((prevData) => ({ ...prevData, productRequests: parsedData }));
-  //   }
-  // }, []);
 
   const handleUpdate = (itemId) => {
     const updatedUpvoteStates = { ...upvoteStates };
