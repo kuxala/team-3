@@ -2,9 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import SuggestionHeader from "../components/SuggestionHeader";
 import { Link } from "react-router-dom";
+import HeaderComponent from "../components/Header";
 export default function HomePage() {
   return (
     <>
+      <div style={{ marginTop: "100px" }}></div>
       <SuggestionHeader />
       <StyledDiv>
         <img src="/assets/suggestions/illustration-empty.svg" />
@@ -30,7 +32,7 @@ const StyledDiv = styled.div`
   justify-content: center;
   border-radius: 10px;
   @media only screen and (min-width: 768px) {
-    width: 50%;
+    width: 825px;
     margin: 0 auto;
     margin-top: 30px;
   }

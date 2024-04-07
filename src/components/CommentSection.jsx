@@ -7,6 +7,7 @@ import AddComment from "./AddComment";
 export default function CommentSection() {
   const { data, setData } = useContext(MyContext);
   let { userId } = useParams();
+  const post = data.productRequests.find((item) => item.id == userId);
 
   return (
     <>
@@ -47,7 +48,7 @@ export default function CommentSection() {
         return null;
       })}
 
-      <AddComment />
+      <AddComment postId={userId} />
     </>
   );
 }

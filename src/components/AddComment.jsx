@@ -1,7 +1,58 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
+import { MyContext } from "../App";
+import { useParams } from "react-router-dom";
 
-export default function AddComment() {
+export default function AddComment({ postId }) {
+  const { data, setData } = useContext(MyContext);
+  const { userId } = useParams();
+  console.log(data.productRequests);
+  const [commentContent, setCommentContent] = useState("");
+
+  const generateCommentId = () => {
+    const timestamp = new Date().getTime(); // Get current timestamp
+    const random = Math.floor(Math.random() * 1000); // Generate random number between 0 and 999
+    return `${timestamp}-${random}`; // Combine timestamp and random number to create a unique ID
+  };
+
+  const addComment = () => {
+    if (commentContent.trim() !== "") {
+      const newComment = {
+        id: generateCommentId(),
+        user: {
+          // Assuming you have user information available
+          name: "User",
+          username: "user123",
+          image: "/path/to/user/image",
+        },
+        content: commentContent.trim(),
+      };
+
+      // Update the data with the new comment
+      const updatedData = {
+        ...data,
+        productRequests: data.productRequests.map((post) => {
+          if (post.id === userId) {
+            // Use userId to find the matching post
+            return {
+              ...post,
+              comments: post.comments
+                ? [...post.comments, newComment]
+                : [newComment],
+            };
+          }
+          return post;
+        }),
+      };
+
+      // Set the updated data
+      setData(updatedData);
+
+      // Clear the comment content
+      setCommentContent("");
+    }
+  };
+
   return (
     <>
       <StyledContainer>
@@ -9,10 +60,12 @@ export default function AddComment() {
         <textarea
           placeholder="Type your comment here"
           maxLength={250}
+          value={commentContent}
+          onChange={(e) => setCommentContent(e.target.value)}
         ></textarea>
         <div>
           <p>Max Characters 250</p>
-          <button>Post Comment</button>
+          <button onClick={addComment}>Post Comment</button>
         </div>
       </StyledContainer>
     </>
