@@ -8,18 +8,12 @@ export default function CommentSection() {
   const { data, setData } = useContext(MyContext);
   let { userId } = useParams();
 
-  // console.log(data.productRequests.map((each) => {
-  //   if( each.id == userId) {
-  //     return each
-  //   }
-  // }))
-
   return (
     <>
       {data.productRequests.map((item) => {
         if (userId == item.id) {
           return (
-            <WholeDiv>
+            <WholeDiv key={item.id}>
               <h3>{item?.comments?.length} Comment</h3>
               <ul key={item.id}>
                 {item?.comments?.map((comment) => {
