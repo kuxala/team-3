@@ -7,7 +7,6 @@ export default function HomePage() {
   return (
     <>
       <div style={{ marginTop: "100px" }}></div>
-      <SuggestionHeader />
 
       <StyledDiv>
         <img src="/assets/suggestions/illustration-empty.svg" />
