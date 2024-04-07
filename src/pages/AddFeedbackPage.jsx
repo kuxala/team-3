@@ -17,23 +17,19 @@ export default function AddFeedbackPage() {
     setFeedbackDetail,
   } = useContext(MyContext);
 
-  // console.log("title: ", feedbackTitle);
-  // console.log("categoty: ", category);
-  // console.log("detail: ", feedbackDetail);
+  const [error, setError] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   const handleGoBack = () => {
     window.history.back();
   };
 
   const handleSubmit = (e) => {
-    // e.preventDefault();
     const titleValue = feedbackTitle.trim();
     const detailValue = feedbackDetail.trim();
 
-    // Check if inputs are empty
-    if (!titleValue || !detailValue) {
-      alert("Please fill in all the fields");
-      return; // Exit the function if inputs are empty
+    if (!titleValue && !detailValue) {
+      alert("Please fill both fields");
     }
 
     const newFeedback = {
@@ -55,7 +51,10 @@ export default function AddFeedbackPage() {
     setFeedbackTitle("");
     // setCategory("");
     setFeedbackDetail("");
+    setError("");
+    setSubmitted(true);
   };
+
   return (
     <FeedbackContainer>
       <Header>
@@ -64,7 +63,7 @@ export default function AddFeedbackPage() {
           Go Back
         </StyledLink>
       </Header>
-      <FeedbackForm onSubmit={handleSubmit}>
+      <FeedbackForm onSubmit={(e) => e.preventDefault()}>
         <img src={iconPlus} className="iconPlus" />
         <Title>Create New Feedback</Title>
         <Label>Feedback Title</Label>
@@ -99,7 +98,7 @@ export default function AddFeedbackPage() {
           value={feedbackDetail}
           onChange={(e) => setFeedbackDetail(e.target.value)}
         />
-
+        {error && <ErrorMessage>{error}</ErrorMessage>}
         <Buttons>
           <ButtonLink
             className="purple"
@@ -117,6 +116,13 @@ export default function AddFeedbackPage() {
     </FeedbackContainer>
   );
 }
+
+const ErrorMessage = styled.p`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-bottom: 0;
+`;
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: #647196;
