@@ -96,9 +96,7 @@ const StyledReply = styled.section`
   .reply-texts {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Align text to the start (top) */
     text-align: left;
-    align-items: flex-start; /* Align text to the start (left) */
     margin-left: 12px; /* Adjust margin for spacing between image and text */
   }
 
@@ -112,6 +110,7 @@ const StyledReply = styled.section`
     display: flex;
     gap: 8px;
     align-items: center;
+
     & > div > p {
       color: #3a4374;
       font-family: Jost;
@@ -166,6 +165,7 @@ const Description = styled.p`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  white-space: wrap;
 `;
 const StyledContainer = styled.div`
   margin: 0 24px;
