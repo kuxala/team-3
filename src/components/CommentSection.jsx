@@ -1,13 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { MyContext } from "../App";
 import { useParams, Link } from "react-router-dom";
 import AddComment from "./AddComment";
-
+import Reply from "./Reply";
 export default function CommentSection() {
   const { data, setData } = useContext(MyContext);
   let { userId } = useParams();
   const post = data.productRequests.find((item) => item.id == userId);
+  const [reply, setReply] = useState(false);
 
   return (
     <>
@@ -25,19 +26,21 @@ export default function CommentSection() {
                         <div>
                           <div>
                             <p>{comment.user.name}</p>
-                            <span>{comment.user.username}</span>
+                            <span>@{comment.user.username}</span>
                           </div>
-                          <a>Reply</a>
+                          <a onClick={() => setReply(!reply)}>Reply</a>
                         </div>
                       </div>
-                      <Description
+
+                      <Description>{comment.content}</Description>
+                      {reply ? <Reply /> : null}
+
+                      <div
                         style={{
-                          borderBottom: "1px solid rgba(128, 128, 128, 0.5)",
+                          borderBottom: "1px solid rgba(128, 128, 128, 0.3)",
                           paddingBottom: "24px",
                         }}
-                      >
-                        {comment.content}
-                      </Description>
+                      ></div>
                     </StyledContainer>
                   );
                 })}
