@@ -23,7 +23,6 @@ function App() {
     sortOrder: "desc",
   });
 
-
   const [data, setData] = useState(() => {
     // Load data from localStorage or use default data
     const savedData = localStorage.getItem("feedbackData");
@@ -46,7 +45,6 @@ function App() {
     localStorage.setItem("upvoteStates", JSON.stringify(upvoteStates));
   }, [upvoteStates]);
 
-
   const updateSortCriteria = (criteria) => {
     setSortCriteria(criteria);
   };
@@ -58,20 +56,6 @@ function App() {
       (item) => item.status === "in-progress"
     ).length,
     live: data.productRequests.filter((item) => item.status === "live").length,
-  };
-
-
-  // useEffect(() => {
-  //   localStorage.setItem("Data", JSON.stringify(data.productRequests));
-  // }, [data]);
-
-  // useEffect(() => {
-  //   localStorage.getItem("Data", JSON.parse(data.productRequests));
-  // }, []);
-
-
-  const updateSortCriteria = (criteria) => {
-    setSortCriteria(criteria);
   };
 
   const handleUpdate = (itemId) => {
