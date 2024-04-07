@@ -6,7 +6,6 @@ import HeaderComponent from "../components/Header";
 export default function HomePage() {
   return (
     <>
-
       <div style={{ marginTop: "100px" }}></div>
       <SuggestionHeader />
 

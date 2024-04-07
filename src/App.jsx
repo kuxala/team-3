@@ -86,6 +86,22 @@ function App() {
     }));
   };
 
+  const addComment = (userId, newComment) => {
+    setData((prevData) => ({
+      ...prevData,
+      productRequests: prevData.productRequests.map((item) =>
+        item.id === userId
+          ? {
+              ...item,
+              comments: item.comments
+                ? [...item.comments, newComment]
+                : [newComment],
+            }
+          : item
+      ),
+    }));
+  };
+
   const counts = {
     planned: data.productRequests.filter((item) => item.status === "planned")
       .length,
