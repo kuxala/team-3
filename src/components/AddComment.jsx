@@ -10,30 +10,36 @@ export default function AddComment({ postId }) {
   const [commentContent, setCommentContent] = useState("");
 
   const generateCommentId = () => {
-    const timestamp = new Date().getTime(); // Get current timestamp
-    const random = Math.floor(Math.random() * 1000); // Generate random number between 0 and 999
-    return `${timestamp}-${random}`; // Combine timestamp and random number to create a unique ID
+    // Find the highest existing comment ID for the specific post
+    const post = data.productRequests.find(
+      (post) => post.id === parseInt(postId)
+    );
+    const existingIds = post ? post.comments.map((comment) => comment.id) : [];
+
+    // If there are no existing comments, start from 0; otherwise, increment the highest ID by 1
+    const newId = existingIds.length === 0 ? 0 : Math.max(...existingIds) + 1;
+
+    return newId.toString(); // Convert to string
   };
 
   const addComment = () => {
     if (commentContent.trim() !== "") {
       const newComment = {
         id: generateCommentId(),
-        user: {
-          // Assuming you have user information available
-          name: "User",
-          username: "user123",
-          image: "/path/to/user/image",
-        },
         content: commentContent.trim(),
+        user: {
+          image: "./assets/user-images/image-zena.jpg",
+          name: "Zena Kelley",
+          username: "velvetround",
+        },
       };
 
       // Update the data with the new comment
       const updatedData = {
         ...data,
         productRequests: data.productRequests.map((post) => {
-          if (post.id === userId) {
-            // Use userId to find the matching post
+          if (post.id === parseInt(postId)) {
+            // Use postId to find the matching post
             return {
               ...post,
               comments: post.comments
