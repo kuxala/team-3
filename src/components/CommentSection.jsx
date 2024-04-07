@@ -112,6 +112,23 @@ const StyledReply = styled.section`
     display: flex;
     gap: 8px;
     align-items: center;
+    & > div > p {
+      color: #3a4374;
+      font-family: Jost;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -0.194px;
+    }
+    & > div > span {
+      color: #647196;
+      font-family: Jost;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
   }
 `;
 const WholeDiv = styled.div`
